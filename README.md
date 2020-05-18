@@ -20,6 +20,27 @@ Considere que uma Instituição de Ensino Superior precisa de uma solução para
 
 O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar ao menos dois usuário, criar ao menos uma turma, e realizar ao menos uma matrícula em cada papel conforme os critérios de aceitação. Não é necessário implementar o cadastro de papéis, os mesmos estão representados nos requisitos obrigatórios. Você poderá complementar funcionalidades ou dados que façam sentido para os cenários se desejar.
 
+## Mockups de interface
+Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
+
+* Listagem de Alunos
+![Listagem de Alunos](/mockups/studants_list.png)
+
+* Criar/Editar Aluno
+![Listagem de Alunos](/mockups/studants_save.png)
+
+* Listagem de Turmas
+![Listagem de Alunos](/mockups/class_list.png)
+
+* Criar/Editar Turma
+![Listagem de Alunos](/mockups/class_save.png)
+
+* Listagem de Matrículas
+![Listagem de Alunos](/mockups/enrollments_list.png)
+
+* Criar/Editar Matrícula
+![Listagem de Alunos](/mockups/enrollments_save.png)
+
 ## Histórias de Usuário
 ### Cadastro de usuário
 - **Sendo** um usuário administrativo da Instituição
@@ -112,24 +133,3 @@ O desafio consiste em criar uma aplicação para atender este cenário específi
 - O que você melhoraria se tivesse mais tempo
 - Quais requisitos obrigatórios que não foram entregues
 4. Informe ao recrutador quando concluir o desafio junto com o link do repositório
-
-# Mockups de interface
-Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
-
-* Listagem de Alunos
-![Listagem de Alunos](/mockups/studants_list.png)
-
-* Criar/Editar Aluno
-![Listagem de Alunos](/mockups/studants_save.png)
-
-* Listagem de Turmas
-![Listagem de Alunos](/mockups/class_list.png)
-
-* Criar/Editar Turma
-![Listagem de Alunos](/mockups/class_save.png)
-
-* Listagem de Matrículas
-![Listagem de Alunos](/mockups/enrollments_list.png)
-
-* Criar/Editar Matrícula
-![Listagem de Alunos](/mockups/enrollments_save.png)
