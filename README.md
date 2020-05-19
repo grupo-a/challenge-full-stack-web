@@ -32,8 +32,8 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 ## Histórias de Usuário
 ### Cadastro de usuário
 - **Sendo** um usuário administrativo da Instituição
-- **Quero** cadastrar um usuário
-- **Para** que eu possa armazenas seus dados em minha base 
+- **Quero** cadastrar um aluno
+- **Para** que eu possa realizar a matrícula deste aluno
 #### Critérios de aceite:
 - **Dado** que estou na tela de cadastro
 - **E** preenchi os dados obrigatórios válidos
