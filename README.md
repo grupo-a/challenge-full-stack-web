@@ -18,7 +18,7 @@ Será solicitado o desenvolvimento de uma Aplicação que realize a Matricula do
 ## Contextualização
 Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para que o usuário possa ter acesso às suas aulas, ele precisa estar matriculado em uma turma vigente. 
 
-O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar ao menos dois usuário, criar ao menos uma turma, e realizar ao menos uma matrícula em cada papel conforme os critérios de aceitação. Não é necessário implementar o cadastro de papéis, os mesmos estão representados nos requisitos obrigatórios. Você poderá complementar funcionalidades ou dados que façam sentido para os cenários se desejar.
+O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar uma aplicação para o cadastro de suários conforme os critérios de aceitação.
 
 ## Mockups de interface
 Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
@@ -28,18 +28,6 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 
 * Criar/Editar Aluno
 ![Listagem de Alunos](/mockups/studants_save.png)
-
-* Listagem de Turmas
-![Listagem de Alunos](/mockups/class_list.png)
-
-* Criar/Editar Turma
-![Listagem de Alunos](/mockups/class_save.png)
-
-* Listagem de Matrículas
-![Listagem de Alunos](/mockups/enrollments_list.png)
-
-* Criar/Editar Matrícula
-![Listagem de Alunos](/mockups/enrollments_save.png)
 
 ## Histórias de Usuário
 ### Cadastro de usuário
@@ -52,40 +40,6 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 - **Quando** clico em salvar 
 - **Então** armazeno os dados na tabela usuários
 
-### Cadastro de turma
-- **Sendo** um usuário administrativo da Instituição
-- **Quero** cadastrar uma turma
-- **Para** que possa matricular usuários a essa turma
-#### Critérios de aceite: 
-- **Dado** que estou na tela de cadastro
-- **E** preenchi os dados obrigatórios válidos
-- **Quando** clico em salvar 
-- **Então** armazeno os dados na tabela turma
-
-### Cenário: matrícula de usuário
-- **Sendo** um usuário administrativo da Instituição
-- **Quero** matricular um usuário na turma 
-- **Para** que o usuário tenha acesso aos recursos da turma 
-#### Critérios de aceite:
-#####
-- **Dado** que estou na tela de matrícula 
-- **E** visualizo todas turmas listadas
-- **Quando** seleciono uma turma
-- **Então** abre a tela de seleção dos usuários
-#####
-- **Dado** que visualizo a lista de seleção dos usuários ativos
-- **Quando** seleciono um usuário
-- **Então** solicita a seleção de um papel na turma
-- **E** exibe a seleção de status, com o status "Ativo" em default 
-- **E** persiste os dados na tela
-- **E** permite selecionar outro usuário
-#####
-- **Dado** que selecionei os usuários e seus papéis
-- **Quando** clico em "Matricular"
-- **Então** valida se há vagas para os alunos
-- **E** matricula os usuários validados
-- **E** exibe status da ação
-
 ## Estrutura de dados
 ### Criação de Usuário:
 - Campos obrigatórios:
@@ -93,22 +47,6 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 - ID do Documento 
 - Registro Acadêmico 
 - Status: Ativo ou Inativo
-
-### Criação de Turma:
-- Campos obrigatórios:
-- Nome 
-- Código da Turma 
-- Limite de alunos 
-- Status: Ativo, Inativo 
-- Data inicial
-- Data final
-
-### Matrícula do Usuário na Turma:
-- Campos obrigatórios:
-- ID Matrícula do Aluno
-- Status matrícula: Ativa, Inativa, Suspensa 
-- Código da Turma
-- Papel do usuário: Professor ou Aluno
 
 # Desejável
 - Testes unitários
