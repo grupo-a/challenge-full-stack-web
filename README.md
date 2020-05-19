@@ -38,19 +38,18 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 - **Dado** que estou na tela de cadastro
 - **E** preenchi os dados obrigatórios válidos
 - **Quando** clico em salvar 
-- **Então** armazeno os dados na tabela usuários
+- **Então** armazeno os dados na tabela alunos
 
 ## Estrutura de dados
 ### Criação de Usuário:
 - Campos obrigatórios:
-- Nome
-- ID do Documento 
-- Registro Acadêmico 
-- Status: Ativo ou Inativo
+  - Nome
+  - Registro Acadêmico (RA)
+  - Documento (CPF)
+  - Status: Ativo ou Inativo
 
 # Desejável
 - Testes unitários
-- Integração contínua
 - Documentação da arquitetura de solução
 - Utilização de Recursos em Cloud, podendo ser AWS ou GCLOUD
 
