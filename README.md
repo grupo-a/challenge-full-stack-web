@@ -5,7 +5,7 @@ GrupoA Educação - Full Stack Web Developer
 
 O objetivo deste desafio é avaliar as competências técnicas dos candidatos a desenvolvedor Full Stack Web na Maior Plataforma de Educação do Brasil, **Grupo A Educação**. 
 
-Será solicitado o desenvolvimento de uma Aplicação que realize a Matricula do Aluno na Turma de Programação Web da instituição EdTech. Regras e requisitos técnicos estão detalhadas neste documento.
+Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula do Aluno na Turma de Programação Web da instituição EdTech. Regras e requisitos técnicos estão detalhadas neste documento.
 
 # Especificações Técnicas
 - **Front End:** [Vuetifyjs](https://vuetifyjs.com/en/)  como framework de UI
@@ -18,7 +18,7 @@ Será solicitado o desenvolvimento de uma Aplicação que realize a Matricula do
 ## Contextualização
 Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para que o usuário possa ter acesso às suas aulas, ele precisa estar matriculado em uma turma vigente. 
 
-O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar uma aplicação para o cadastro de suários conforme os critérios de aceitação.
+O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar uma aplicação para o cadastro de usuários conforme os critérios de aceitação.
 
 ## Mockups de interface
 Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
