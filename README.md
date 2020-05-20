@@ -16,9 +16,9 @@ Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula d
 
 # Requisitos
 ## Contextualização
-Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para que o usuário possa ter acesso às suas aulas, ele precisa estar matriculado em uma turma vigente. 
+Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para realizar a matrícula, é necessário que o cadastro de aluno tenha sido realizado.
 
-O desafio consiste em criar uma aplicação para atender este cenário específico. Você deverá criar uma aplicação para o cadastro de usuários conforme os critérios de aceitação.
+O desafio consiste em criar uma aplicação para o cadastro de usuários conforme os critérios de aceitação.
 
 ## Mockups de interface
 Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
