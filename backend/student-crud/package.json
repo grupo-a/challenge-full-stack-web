@@ -2,9 +2,10 @@
   "name": "student-crud",
   "version": "1.0.0",
   "description": "Aplicação para cadastro, atualização, edição e deleção de alunos.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": ""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,14 @@
   "bugs": {
     "url": "https://github.com/akruel/challenge-full-stack-web/issues"
   },
-  "homepage": "https://github.com/akruel/challenge-full-stack-web#readme"
+  "homepage": "https://github.com/akruel/challenge-full-stack-web#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "pg": "^8.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
 }
