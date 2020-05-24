@@ -1,0 +1,19 @@
+{
+  "name": "student-crud",
+  "version": "1.0.0",
+  "description": "Aplicação para cadastro, atualização, edição e deleção de alunos.",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akruel/challenge-full-stack-web.git"
+  },
+  "author": "Anderson Kruel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akruel/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/akruel/challenge-full-stack-web#readme"
+}
