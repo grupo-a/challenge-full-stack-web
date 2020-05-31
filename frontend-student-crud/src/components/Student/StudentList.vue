@@ -1,9 +1,6 @@
 <template>
   <v-container>
     <h1>{{ name }}</h1>
-    <br />
-    <v-btn to="/estudante/cadastro">Cadastrar</v-btn>
-    <br />
     <v-data-table
       v-model="selected"
       :headers="headers"
@@ -54,7 +51,7 @@ export default {
   },
 
   data: () => ({
-    name: 'Lista de Estudantes',
+    name: 'Lista de Alunos',
     singleSelect: false,
     selected: [],
     loading: null,

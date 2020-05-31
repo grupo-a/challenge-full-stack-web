@@ -90,7 +90,7 @@ export default {
   },
   mounted() {},
   data: () => ({
-    title: 'Cadastro de Estudantes',
+    title: 'Cadastro de Alunos',
     showSuccessAlert: false,
     showProgress: false,
     student: {
