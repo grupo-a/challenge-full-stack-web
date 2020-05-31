@@ -1,0 +1,56 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Student CRUD",
+    "description": "",
+    "version": "1.0"
+  },
+  "host": "",
+  "produces": ["application/json"],
+  "paths": {
+    "/students": {
+      "post": {
+        "summary": "Método para cadastrar um estudante.",
+        "tags": ["/students"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "json",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "email",
+            "in": "json",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cpf",
+            "in": "json",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object"
+            },
+            "examples": {
+              "application/json": "{ success: true, id: 1 }"
+            }
+          },
+          "500": {
+            "description": "Erro interno",
+            "examples": {
+              "application/json": "{ success: false, message: 'Falha ao cadastrar estudante.' }"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "name": "student-crud",
+  "version": "1.0.0",
+  "description": "Aplicação para cadastro, atualização, edição e deleção de alunos.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src",
+    "dev": "nodemon src --ignore __tests__",
+    "pretest": "NODE_ENV=test sequelize db:migrate",
+    "test": "NODE_ENV=test jest",
+    "posttest": "NODE_ENV=test sequelize db:migrate:undo:all",
+    "coverage": "NODE_ENV=test jest --watchAll --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akruel/challenge-full-stack-web.git"
+  },
+  "author": "Anderson Kruel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/akruel/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/akruel/challenge-full-stack-web#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "app-root-path": "^3.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cpf-cnpj-validator": "^1.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.22.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.2.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.10",
+    "sqlite3": "^4.2.0",
+    "swagger-ui-express": "^4.1.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.4",
+    "sequelize-cli": "^5.5.1",
+    "supertest": "^4.0.2"
+  }
+}
