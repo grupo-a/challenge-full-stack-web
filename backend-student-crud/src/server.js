@@ -1,7 +1,7 @@
 require('./config/env');
 
 const express = require('express');
-const cors  = require('cors');
+const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const winston = require('./config/winston');
