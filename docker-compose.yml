@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgress-challenge-full-stack-web
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - '15432:5432'
+    volumes:
+      - postgres-challenge-full-stack-web:/data
+    environment:
+      POSTGRES_DB: challenge
+      POSTGRES_USER: postgres-user
+      POSTGRES_PASSWORD: postgres-pass
+
+  api:
+    container_name: api-challenge-full-stack-web
+    build: ./api
+    ports:
+      - '8083:8083'
+    depends_on:
+      - postgres
+    volumes:
+      - ./api:/api
+      - /api/node_modules
+
+volumes:
+  postgres-challenge-full-stack-web:
