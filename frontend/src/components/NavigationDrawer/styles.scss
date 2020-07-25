@@ -3,11 +3,14 @@
 }
 
 .primary.v-list-item--active {
+  $rounded: 24px;
   color: #fff !important;
   margin-right: 12px;
+  border-top-right-radius: $rounded !important;
+  border-bottom-right-radius: $rounded !important;
 
-  &:before {
-    border-top-left-radius: 0 !important;
-    border-bottom-left-radius: 0 !important;
+  &::before {
+    border-top-right-radius: $rounded !important;
+    border-bottom-right-radius: $rounded !important;
   }
 }

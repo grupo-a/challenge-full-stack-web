@@ -22,7 +22,7 @@
 
     <v-divider v-if="$vuetify.breakpoint.smAndDown"></v-divider>
 
-    <v-list dense rounded>
+    <v-list dense>
       <div class="sub-group">
         <template v-for="item in items">
           <v-list-item

@@ -59,20 +59,20 @@
       </v-container>
     </v-card-text>
 
-    <v-card-actions>
+    <v-card-actions class="pa-4">
       <v-spacer></v-spacer>
 
       <v-btn
+        class="mr-1"
         color="blue darken-1"
         text
         @click="close">
-          Cancelar
+          CANCELAR
         </v-btn>
 
       <v-btn
         :loading="loading"
-        color="blue darken-1"
-        text
+        color="primary"
         @click="save">
           Salvar
         </v-btn>

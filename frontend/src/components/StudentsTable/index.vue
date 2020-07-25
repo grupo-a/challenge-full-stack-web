@@ -11,6 +11,7 @@
         <template v-slot:activator="{ on }">
           <v-btn
             v-on="on"
+            rounded
             color="primary"
             @click="generateEnrollmentId()"
           >
