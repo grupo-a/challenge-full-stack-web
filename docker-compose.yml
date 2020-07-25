@@ -25,5 +25,13 @@ services:
       - ./api:/api
       - /api/node_modules
 
+  frontend:
+    build: ./frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+
 volumes:
   postgres-challenge-full-stack-web:

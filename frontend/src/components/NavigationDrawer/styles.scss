@@ -1,0 +1,13 @@
+.sub-group {
+  padding: 10px 0;
+}
+
+.primary.v-list-item--active {
+  color: #fff !important;
+  margin-right: 12px;
+
+  &:before {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
