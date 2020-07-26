@@ -7,7 +7,7 @@ module.exports = {
       primaryKey: true,
     },
     enrollment_id: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
       unique: true
     },
