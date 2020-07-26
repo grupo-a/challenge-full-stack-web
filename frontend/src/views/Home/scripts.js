@@ -1,9 +1,3 @@
 export default {
-  name: 'Home',
-
-  components: {
-  },
-
-  data: () => ({
-  })
+  name: 'Home'
 }
