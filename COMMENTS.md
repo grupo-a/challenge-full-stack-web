@@ -1,7 +1,7 @@
 # ***How to manage the application?***
 
 ## You need to install
-##### only if you don't have them installed in your machine
+##### only if you don't have them installed in your machine yet
 
 #### Docker
 ```
@@ -9,7 +9,7 @@ curl https://get.docker.com/ | sh
 
 
 sudo usermod -aG docker $USER
-(logout then login again)
+(logout then login back again)
 ```
 
 #### docker-compose
@@ -63,10 +63,10 @@ sh stop.sh
 # O que você melhoraria se tivesse mais tempo
 
 - Criação de tela de Login
-- Perfis de usuários e permissionamento
+- Perfis de usuário e permissionamento
 - *Server-side pagination* da listagem de alunos
 - Implementação de PWA
-- Levantamento de requisição para o formato da numeração do registro acadêmico
+- Levantamento de requisito para o formato da numeração do Registro Acadêmico
 
 # Quais requisitos obrigatórios que não foram entregues
 
