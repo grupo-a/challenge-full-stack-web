@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import GlobalComponents from '@/store/modules/globalComponents.js'
-import Students from '@/store/modules/students.js'
+import GlobalComponents from '@/store/modules/globalComponents'
+import Students from '@/store/modules/students'
 
 Vue.use(Vuex)
 
