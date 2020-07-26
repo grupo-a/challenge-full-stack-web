@@ -46,43 +46,7 @@ const routes = [
       ]
     },
     component: () => import('@/views/Students')
-  },
-  {
-    path: '/terms-and-services',
-    name: 'Terms and Services',
-    redirect: '/',
-    meta: {
-      title: `Terms and Services - ${defaultTitle}`,
-      metaTags: [
-        {
-          name: 'description',
-          content: 'The Terms and Services page.'
-        },
-        {
-          property: 'og:description',
-          content: 'The Terms and Services page.'
-        }
-      ]
-    }
-  },
-  {
-    path: '/privacy-police',
-    name: 'Privacy Police',
-    redirect: '/',
-    meta: {
-      title: `Privacy Police - ${defaultTitle}`,
-      metaTags: [
-        {
-          name: 'description',
-          content: 'The Privacy Police page.'
-        },
-        {
-          property: 'og:description',
-          content: 'The Privacy Police page.'
-        }
-      ]
-    }
-  },
+  }
 ]
 
 const router = new VueRouter({
