@@ -31,7 +31,10 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="6" class="sections">
+          <v-col
+            :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
+            class="sections"
+          >
             <v-text-field
               v-model="editedItem.cpf"
               v-cpf:model="editedItem.cpf"
@@ -46,7 +49,10 @@
             ></v-text-field>
           </v-col>
 
-          <v-col cols="6" class="sections">
+          <v-col
+            :cols="$vuetify.breakpoint.smAndDown ? 12 : 6"
+            class="sections"
+          >
             <v-text-field
               v-model="editedItem.email"
               label="Email"
