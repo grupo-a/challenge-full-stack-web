@@ -28,14 +28,15 @@ export default {
       cpf: value => !value || isCPF(value) || 'CPF inválido!',
       email: value => !value || isValidEmail(value) || 'E-mail inválido!'
     },
+    newData: {},
     errorMessageName: '',
     errorMessageCpf: '',
     errorMessageEmail: ''
   }),
 
   computed: {
-    unmaskedCpf () {
-      return cloneDeep(this.editedItem.cpf).replace(/\./g, '').replace('-', '')
+    isEdition () {
+      return this.modalTitle === 'Editar'
     }
   },
 
@@ -46,35 +47,33 @@ export default {
     ]),
 
     save () {
-      if (this.editedItem.nome &&
+      if (this.editedItem.name &&
         isCPF(this.editedItem.cpf) &&
-        isValidEmail(this.editedItem.email) &&
-        this.editedItem.password.length >= 6) {
+        isValidEmail(this.editedItem.email)) {
 
         this.loading = true
 
-        this.editedItem.cpf = this.unmaskedCpf
+        this.newData =  {
+          enrollment_id: this.editedItem.enrollment_id,
+          name: this.editedItem.name,
+          email: this.editedItem.email,
+          cpf: this.unmaskCpf(this.editedItem.cpf)
+        }
 
-        if (this.editedIndex > -1) {
-          this.$actionEditStudent(this.editedItem)
+        if (this.isEdition) {
+          this.$actionEditStudent(this.newData)
             .then(() => {
               this.loading = false
-
               this.close()
-
-              this.getItems(500)
             })
             .catch(() => {
               this.loading = false
             })
         } else {
-          this.$actionSaveStudent(this.editedItem)
+          this.$actionSaveStudent(this.newData)
             .then(() => {
               this.loading = false
-
               this.close()
-
-              this.getItems(500)
             })
             .catch(() => {
               this.loading = false
@@ -82,7 +81,7 @@ export default {
         }
       }
 
-      if (!this.editedItem.nome) {
+      if (!this.editedItem.name) {
         this.errorMessageName = 'Digite um nome!'
       }
 
@@ -93,10 +92,9 @@ export default {
       if (!this.editedItem.email) {
         this.errorMessageEmail = 'Digite um email!'
       }
-
-      if (!this.editedItem.password) {
-        this.errorMessagePassword = 'Digite uma senha!'
-      }
+    },
+    unmaskCpf (cpf) {
+      return cloneDeep(cpf).replace(/\./g, '').replace('-', '')
     },
     close () {
       this.$emit('close')

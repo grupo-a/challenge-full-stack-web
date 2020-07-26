@@ -36,9 +36,11 @@
               v-model="editedItem.cpf"
               v-cpf:model="editedItem.cpf"
               label="CPF"
-              :rules="[rules.cpf]"
               outlined
               validate-on-blur
+              :rules="[rules.cpf]"
+              :readonly="isEdition"
+              :disabled="isEdition"
               :error-messages="errorMessageCpf"
               @click="errorMessageCpf = ''"
             ></v-text-field>
@@ -48,9 +50,9 @@
             <v-text-field
               v-model="editedItem.email"
               label="Email"
-              :rules="[rules.email]"
               outlined
               validate-on-blur
+              :rules="[rules.email]"
               :error-messages="errorMessageEmail"
               @click="errorMessageEmail = ''"
             ></v-text-field>

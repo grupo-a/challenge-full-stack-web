@@ -44,12 +44,16 @@
       :search="search"
       :loading="loading"
     >
+      <template v-slot:item.cpf="{ item }">
+        <span>{{ maskedCpf(item.cpf) }}</span>
+      </template>
+
       <template v-slot:item.actions="{ item }">
         <v-btn
           icon
           small
           class="mr-2"
-          @click="openItem(item.cpf)"
+          @click="editItem(item)"
         >
           <v-icon small>mdi-pencil</v-icon>
         </v-btn>

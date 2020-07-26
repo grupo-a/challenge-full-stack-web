@@ -32,6 +32,8 @@ services:
     volumes:
       - ./frontend:/frontend
       - /frontend/node_modules
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres-challenge-full-stack-web:

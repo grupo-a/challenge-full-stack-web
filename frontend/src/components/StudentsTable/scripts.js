@@ -13,8 +13,9 @@ export default {
     headers: [
       { text: 'Registro Acadêmico', value: 'enrollment_id', align: 'left' },
       { text: 'Nome', value: 'name' },
-      { text: 'Email', value: 'eamil' },
-      { text: 'CPF', value: 'cpf' }
+      { text: 'Email', value: 'email' },
+      { text: 'CPF', value: 'cpf' },
+      { text: 'Ações', value: 'actions', align: 'right', sortable: false }
     ],
     editedIndex: -1,
     editedItem: {
@@ -46,7 +47,7 @@ export default {
   methods: {
     ...mapActions([
       '$actionGetStudents',
-      '$deleteStudent'
+      '$actionDeleteStudent'
     ]),
 
     getItems () {
@@ -67,10 +68,10 @@ export default {
     deleteItem (item) {
       this.loading = true
 
-      const confirmation = confirm('Tem certeza de que deseja remover esse registro?')
+      const confirmation = confirm('Tem certeza de que deseja remover esse aluno?')
 
       if (confirmation) {
-        this.$deleteStudent(item.enrollment_id)
+        this.$actionDeleteStudent(item)
           .finally(() => this.loading = false)
       } else {
         this.loading = false
@@ -88,6 +89,10 @@ export default {
 
     generateEnrollmentId () {
       this.editedItem.enrollment_id = this.$uuidv4()
+    },
+
+    maskedCpf (cpf) {
+      return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "$1.$2.$3-$4")
     }
   }
 }
