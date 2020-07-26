@@ -26,6 +26,7 @@ services:
       - /api/node_modules
 
   frontend:
+    container_name: frontend-challenge-full-stack-web
     build: ./frontend
     ports:
       - 8080:8080
