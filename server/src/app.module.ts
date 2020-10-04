@@ -12,29 +12,17 @@ import { Student } from "./students/student.entity";
       inject: [ConfigService],
       useFactory: (
         configService: ConfigService<{
-          DATABASE_HOST: string;
-          DATABASE_PORT: string;
-          DATABASE_USER: string;
-          DATABASE_PASSWORD: string;
-          DATABASE_NAME: string;
+          DATABASE_URL: string;
         }>,
       ) => {
-        const host = configService.get("DATABASE_HOST");
-        const port = configService.get("DATABASE_PORT");
-        const username = configService.get("DATABASE_USER");
-        const password = configService.get("DATABASE_PASSWORD");
-        const database = configService.get("DATABASE_NAME");
+        const url = configService.get("DATABASE_URL");
 
         return {
           type: "postgres",
-          host,
-          port,
-          username,
-          password,
-          database,
           entities: [Student],
           keepConnectionAlive: true,
           synchronize: true,
+          url,
         };
       },
     }),

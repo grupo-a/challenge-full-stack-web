@@ -6,7 +6,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_HOST: postgres
+      DATABASE_URL: postgresql://root:root@postgres:5432/root
     networks:
       - app-connect
     ports:
