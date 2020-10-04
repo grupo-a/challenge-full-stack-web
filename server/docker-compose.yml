@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  web:
+    build: "."
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_HOST: postgres
+    networks:
+      - app-connect
+    ports:
+      - "3000:3000"
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    volumes:
+      - postgres:/data
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    networks:
+      - app-connect
+
+volumes:
+  postgres:
+
+networks:
+  app-connect:
+    driver: bridge
