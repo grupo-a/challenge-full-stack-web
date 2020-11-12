@@ -1,11 +1,22 @@
 import { NextFunction, Request, Response } from 'express';
-import { nextTick } from 'process';
 import { getCustomRepository } from 'typeorm';
 import StudentRepository from '../repositories/studentRepository';
 import createStudentValidator from '../validators/createStudentValidator';
 import updateStudentValidator from '../validators/updateStudentValidator';
 
 class StudentController {
+  async index(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { search } = request.query;
+      const repository = getCustomRepository(StudentRepository);
+      const students = await repository.list(search as string);
+
+      return response.json(students);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async create(request: Request, response: Response, next: NextFunction) {
     try {
       const data = {

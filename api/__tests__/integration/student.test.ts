@@ -172,3 +172,50 @@ describe('Update student tests', () => {
     );
   });
 });
+
+describe('List student tests', () => {
+  beforeEach(async () => {
+    for (let i = 0; i < 3; i++) {
+      await repository.save({
+        name: faker.name.firstName(),
+        email: faker.internet.email(),
+        cpf: `${faker.random.number()}`,
+        ra: `${faker.random.number()}`,
+      });
+    }
+  });
+
+  it('should be able to list registered students', async () => {
+    const result = await request(app).get('/students');
+
+    expect(result.status).toBe(200);
+    expect(result.body.length).toBe(3);
+  });
+
+  it('should be able to list students filtered by name', async () => {
+    for (let i = 0; i < 3; i++) {
+      await repository.save({
+        name: i < 2 ? `Igor ${i}` : faker.name.firstName(),
+        email: faker.internet.email(),
+        cpf: `${faker.random.number()}`,
+        ra: `${faker.random.number()}`,
+      });
+    }
+
+    const result = await request(app).get('/students').query({
+      search: 'igor',
+    });
+
+    expect(result.body.length).toBe(2);
+    expect(result.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: 'Igor 0',
+        }),
+        expect.objectContaining({
+          name: 'Igor 1',
+        }),
+      ])
+    );
+  });
+});
