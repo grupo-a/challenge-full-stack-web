@@ -1,9 +1,9 @@
+import { group } from 'console';
 import { Router } from 'express';
+import studentController from './controllers/studentController';
 
 const routes = Router();
 
-routes.get('/', (req, res) => {
-  res.send('hello world');
-});
+routes.route('/students').post(studentController.create);
 
 export default routes;
