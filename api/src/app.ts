@@ -1,6 +1,7 @@
 import express, { json, Express } from 'express';
 import cors from 'cors';
 import routes from './routes';
+import errorHandler from './middlewares/errorHandler';
 
 class App {
   express: Express;
@@ -8,6 +9,7 @@ class App {
     this.express = express();
     this.middlewares();
     this.routes();
+    this.errorHandler();
   }
 
   middlewares() {
@@ -17,6 +19,10 @@ class App {
 
   routes() {
     this.express.use(routes);
+  }
+
+  errorHandler() {
+    this.express.use(errorHandler);
   }
 }
 
