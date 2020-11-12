@@ -4,6 +4,7 @@ import studentController from './controllers/studentController';
 
 const routes = Router();
 
-routes.route('/students').post(studentController.create);
+routes.post('/students/', studentController.create);
+routes.put('/students/:id', studentController.update);
 
 export default routes;

@@ -3,6 +3,7 @@ import { nextTick } from 'process';
 import { getCustomRepository } from 'typeorm';
 import StudentRepository from '../repositories/studentRepository';
 import createStudentValidator from '../validators/createStudentValidator';
+import updateStudentValidator from '../validators/updateStudentValidator';
 
 class StudentController {
   async create(request: Request, response: Response, next: NextFunction) {
@@ -24,6 +25,27 @@ class StudentController {
       await respository.save(student);
 
       return response.status(201).json('ok');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async update(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params;
+      const data = {
+        name: request.body.name,
+        email: request.body.email,
+      };
+
+      await updateStudentValidator.validate(data, {
+        abortEarly: false,
+      });
+
+      const repository = getCustomRepository(StudentRepository);
+      await repository.update(id, data);
+
+      return response.json('ok');
     } catch (error) {
       next(error);
     }
