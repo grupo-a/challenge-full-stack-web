@@ -240,3 +240,27 @@ describe('Find student tests', () => {
     expect(result.status).toEqual(404);
   });
 });
+
+describe('Delete student tests', () => {
+  it('should be able to delete a student by id', async () => {
+    const student = await repository.save({
+      name: faker.name.firstName(),
+      email: faker.internet.email(),
+      cpf: `${faker.random.number()}`,
+      ra: `${faker.random.number()}`,
+    });
+
+    const result = await request(app).delete(`/students/${student.id}`);
+
+    const studentDeleted = await repository.findOne(student.id);
+
+    expect(result.status).toBe(200);
+    expect(studentDeleted).toBeUndefined();
+  });
+
+  it('should not be able to delete a non-existent student', async () => {
+    const result = await request(app).delete('/students/9999');
+
+    expect(result.status).toBe(404);
+  });
+});

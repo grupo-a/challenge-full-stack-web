@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository, getRepository } from 'typeorm';
 import StudentRepository from '../repositories/studentRepository';
 import createStudentValidator from '../validators/createStudentValidator';
 import updateStudentValidator from '../validators/updateStudentValidator';
@@ -72,6 +72,24 @@ class StudentController {
 
       const repository = getCustomRepository(StudentRepository);
       await repository.update(id, data);
+
+      return response.json('ok');
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async delete(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params;
+      const repository = getCustomRepository(StudentRepository);
+
+      const student = await repository.findOne(id);
+      if (!student) {
+        return response.status(404).json('Aluno não encontrado');
+      }
+
+      await repository.delete(id);
 
       return response.json('ok');
     } catch (error) {
