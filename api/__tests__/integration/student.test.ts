@@ -219,3 +219,24 @@ describe('List student tests', () => {
     );
   });
 });
+
+describe('Find student tests', () => {
+  it('should be able to find a student by id', async () => {
+    const student = await repository.save({
+      name: faker.name.firstName(),
+      email: faker.internet.email(),
+      cpf: `${faker.random.number()}`,
+      ra: `${faker.random.number()}`,
+    });
+
+    const result = await request(app).get(`/students/${student.id}`);
+
+    expect(result.body).toEqual(student);
+  });
+
+  it('should not be able to find a non-existent student', async () => {
+    const result = await request(app).get(`/students/9999`);
+
+    expect(result.status).toEqual(404);
+  });
+});

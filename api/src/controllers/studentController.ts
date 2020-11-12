@@ -41,6 +41,23 @@ class StudentController {
     }
   }
 
+  async show(request: Request, response: Response, next: NextFunction) {
+    try {
+      const { id } = request.params;
+      const repository = getCustomRepository(StudentRepository);
+
+      const student = await repository.findOne(id);
+
+      if (!student) {
+        return response.status(404).json('Aluno não encontrado');
+      }
+
+      return response.json(student);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(request: Request, response: Response, next: NextFunction) {
     try {
       const { id } = request.params;
