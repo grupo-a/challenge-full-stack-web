@@ -11,7 +11,7 @@
           <v-icon>mdi-theme-light-dark</v-icon>
         </v-btn>
       </template>
-      <span>Tema Escuro</span>
+      <span>Trocar tema</span>
     </v-tooltip>
   </v-app-bar>
 </template>
