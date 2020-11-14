@@ -20,6 +20,9 @@
             :hide-default-footer="true"
             class="elevation-1"
           >
+            <template v-slot:[`item.cpf`]="{ item }">
+              {{ item.cpf | VMask('###.###.###-##') }}
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
