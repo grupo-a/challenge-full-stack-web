@@ -110,7 +110,6 @@ export default Vue.extend({
   },
   async created() {
     const { id } = this.$route.params;
-    console.log(this.$route.params);
     const response = await StudentService.getById(id);
 
     if (response.status === 404) {
