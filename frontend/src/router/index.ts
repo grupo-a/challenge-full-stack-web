@@ -6,6 +6,12 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
+    path: '/',
+    name: 'home',
+    component: () => import('../views/Home.vue'),
+    meta: { title: 'Módulo Acadêmico' },
+  },
+  {
     path: '/alunos',
     name: 'student.index',
     component: () => import('../views/student/Index.vue'),
