@@ -218,6 +218,31 @@ describe('List student tests', () => {
       ])
     );
   });
+
+  it('should be able to list students filtered by "ra"', async () => {
+    const ra = '122333444';
+    for (let i = 0; i < 3; i++) {
+      await repository.save({
+        name: i < 2 ? `Igor ${i}` : faker.name.firstName(),
+        email: faker.internet.email(),
+        cpf: `${faker.random.number()}`,
+        ra: i < 2 ? `${faker.random.number()}` : ra,
+      });
+    }
+
+    const result = await request(app).get('/students').query({
+      search: ra,
+    });
+
+    expect(result.body.length).toBe(1);
+    expect(result.body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          ra,
+        }),
+      ])
+    );
+  });
 });
 
 describe('Find student tests', () => {

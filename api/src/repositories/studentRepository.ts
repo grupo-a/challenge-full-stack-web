@@ -3,16 +3,16 @@ import Student from '../models/student';
 
 @EntityRepository(Student)
 export default class StudentRepository extends Repository<Student> {
-  async list(name?: string) {
+  async list(search?: string) {
     const query = this.createQueryBuilder('student');
-    if (name) {
-      query.where('LOWER(student.name) like :name', {
-        name: `%${name.toLowerCase()}%`,
-      });
+    if (search) {
+      query
+        .where('LOWER(student.name) like :name', {
+          name: `%${search.toLowerCase()}%`,
+        })
+        .orWhere('student.ra like :ra', { ra: `%${search}%` });
     }
-
     const students = query.getMany();
-
     return students;
   }
 }
