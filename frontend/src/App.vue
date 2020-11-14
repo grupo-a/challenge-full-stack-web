@@ -3,7 +3,7 @@
     <sidebar-menu :drawer="drawer" />
     <app-bar :drawer="drawer" @drawer-menu="toggleMenu" />
     <v-main>
-      <router-view></router-view>
+      <router-view class="mx-5 mt-5"></router-view>
     </v-main>
   </v-app>
 </template>
