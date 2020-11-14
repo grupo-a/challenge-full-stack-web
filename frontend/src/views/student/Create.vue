@@ -70,7 +70,6 @@
               label="Informe o número do documento"
               :error-messages="getErrors('cpf')"
               v-model="cpf"
-              return-masked-value
               v-mask="'###.###.###-##'"
               :rules="rules.cpfRules"
               required
@@ -114,6 +113,7 @@ export default Vue.extend({
       this.serverSideValidationErrors = [];
       this.success = false;
       await (this.$refs.form as any).validate();
+
       if (this.valid) {
         const student: Student = {
           name: this.name,
