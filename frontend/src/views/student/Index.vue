@@ -6,9 +6,9 @@
           <search-text-input @trigger-search="search" />
         </v-col>
         <v-spacer />
-        <v-col lg="3" md="3" sm="12"
-          ><v-btn :to="{ name: 'student.create' }" large>Cadastrar Aluno</v-btn></v-col
-        >
+        <v-col lg="3" md="3" sm="12">
+          <v-btn color="secondary" :to="{ name: 'student.create' }" large>Cadastrar Aluno</v-btn>
+        </v-col>
       </v-row>
       <v-row>
         <v-col md="12">
@@ -36,16 +36,8 @@
                 </template>
                 <span>Editar</span>
               </v-tooltip>
-              <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-on="on" v-bind="attrs" color="red" icon>
-                    <v-icon>
-                      mdi-trash-can
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span>Excluir</span>
-              </v-tooltip>
+
+              <modal-delete-button :student-id="item.id" @delete-callback="deleteCallback" />
             </template>
           </v-data-table>
         </v-col>
@@ -57,6 +49,7 @@
 import Vue from 'vue';
 import StudentService, { Student } from '../../services/studentService';
 import SearchTextInput from '../../components/SearchTextInput.vue';
+import ModalDeleteButton from './ModalDelete.vue';
 
 interface ComponentData {
   loading: boolean;
@@ -95,6 +88,7 @@ export default Vue.extend({
   },
   components: {
     SearchTextInput,
+    ModalDeleteButton,
   },
   async created() {
     this.loading = true;
@@ -116,6 +110,11 @@ export default Vue.extend({
 
       if (response.status === 200) {
         this.setStudents(response.data);
+      }
+    },
+    deleteCallback({ isDeleted, id }: { isDeleted: boolean; id: number }) {
+      if (isDeleted) {
+        this.students = this.students.filter((student) => student.id !== id);
       }
     },
   },
