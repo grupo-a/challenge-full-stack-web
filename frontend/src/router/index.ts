@@ -17,6 +17,12 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/student/Create.vue'),
     meta: { title: 'Cadastro de aluno' },
   },
+  {
+    path: '/alunos/:id/editar',
+    name: 'student.edit',
+    component: () => import('../views/student/Edit.vue'),
+    meta: { title: 'Editar aluno' },
+  },
 ];
 
 const router = new VueRouter({

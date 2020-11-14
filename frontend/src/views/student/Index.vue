@@ -20,10 +20,15 @@
             :hide-default-footer="true"
             class="elevation-1"
           >
-            <template v-slot:[`item.actions`]>
+            <template v-slot:[`item.actions`]="{ item }">
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn v-on="on" v-bind="attrs" icon>
+                  <v-btn
+                    v-on="on"
+                    v-bind="attrs"
+                    icon
+                    :to="{ name: 'student.edit', params: { id: item.id } }"
+                  >
                     <v-icon>
                       mdi-lead-pencil
                     </v-icon>

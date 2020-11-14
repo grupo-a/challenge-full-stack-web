@@ -4,8 +4,8 @@ import api, { ApiValidationErrors } from './api';
 export interface Student {
   name: string;
   email: string;
-  cpf: string;
-  ra: string;
+  cpf?: string;
+  ra?: string;
 }
 
 class StudentService {
@@ -26,6 +26,26 @@ class StudentService {
   async create(student: Student): Promise<AxiosResponse<any>> {
     try {
       const response = await api.post('/students', student);
+
+      return response;
+    } catch (error) {
+      return error.response;
+    }
+  }
+
+  async getById(id: string): Promise<AxiosResponse<Student>> {
+    try {
+      const response = await api.get(`/students/${id}`);
+
+      return response;
+    } catch (error) {
+      return error.response;
+    }
+  }
+
+  async update(id: string, student: Student): Promise<AxiosResponse<any>> {
+    try {
+      const response = await api.put(`/students/${id}`, student);
 
       return response;
     } catch (error) {
