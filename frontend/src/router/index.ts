@@ -6,10 +6,16 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'Home',
+    path: '/alunos',
+    name: 'student.index',
     component: () => import('../views/student/Index.vue'),
     meta: { title: 'Consulta de alunos' },
+  },
+  {
+    path: '/alunos/cadastrar',
+    name: 'student.create',
+    component: () => import('../views/student/Create.vue'),
+    meta: { title: 'Cadastro de aluno' },
   },
 ];
 

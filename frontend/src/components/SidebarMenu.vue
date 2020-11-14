@@ -11,7 +11,7 @@
       </v-list-item-content>
     </v-list-item>
     <v-divider></v-divider>
-    <v-list-item v-for="item in items" :key="item.title" link to="/">
+    <v-list-item v-for="item in items" :key="item.title" link :to="{ name: 'student.index' }">
       <v-list-item-icon>
         <v-icon>{{ item.icon }}</v-icon>
       </v-list-item-icon>

@@ -6,7 +6,9 @@
           <search-text-input @trigger-search="search" />
         </v-col>
         <v-spacer />
-        <v-col lg="3" md="3" sm="12"><v-btn large>Cadastrar Aluno</v-btn></v-col>
+        <v-col lg="3" md="3" sm="12"
+          ><v-btn :to="{ name: 'student.create' }" large>Cadastrar Aluno</v-btn></v-col
+        >
       </v-row>
       <v-row>
         <v-col md="12">

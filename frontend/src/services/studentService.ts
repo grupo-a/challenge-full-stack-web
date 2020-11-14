@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios';
-import api from './api';
+import api, { ApiValidationErrors } from './api';
 
 export interface Student {
   name: string;
@@ -16,6 +16,16 @@ class StudentService {
           search,
         },
       });
+
+      return response;
+    } catch (error) {
+      return error.response;
+    }
+  }
+
+  async create(student: Student): Promise<AxiosResponse<any>> {
+    try {
+      const response = await api.post('/students', student);
 
       return response;
     } catch (error) {
