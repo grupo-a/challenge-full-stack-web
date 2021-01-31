@@ -1,0 +1,17 @@
+{
+  "name": "subscription-api",
+  "version": "1.0.0",
+  "description": "API responsible for registering/enroll new students.",
+  "main": "app.js",
+  "author": "Lucas Santana",
+  "license": "ISC",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:express": "node ./app.js",
+    "start": "nodemon"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7"
+  }
+}
