@@ -25,3 +25,5 @@ const Student = database.define('student', {
         allowNull: false
     }
 })
+
+module.exports = Student

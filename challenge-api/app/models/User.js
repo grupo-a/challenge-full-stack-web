@@ -25,3 +25,5 @@ const User = database.define('user', {
         allowNull: false
     }
 })
+
+module.exports = User
