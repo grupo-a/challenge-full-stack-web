@@ -1,0 +1,21 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.0-alpine
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_PASSWORD: godzilla
+      POSTGRES_DB: challenge
+    volumes:  
+      - "./.docker/dbdata:/var/lib/postgresql/data"
+  api:
+    restart: always
+    build: ./challenge-api
+    volumes: 
+      - ./challenge-api:/app
+    depends_on:
+      - db
+    ports:
+      - "9000:3000"
