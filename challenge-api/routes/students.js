@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 //Call validation middlewares
-const { validate } = require('../app/middlewares/validate')
+const { validateStudentInsert, validateStudentUpdate } = require('../app/middlewares/validate')
 
 //Get controller instance
 const StudentController = require('../app/controllers/StudentController')
@@ -14,12 +14,12 @@ router.get('/', StudentController.list)
 router.get('/:id', StudentController.get)
 
 //Create student
-router.post('/create', validate, StudentController.create)
+router.post('/create', validateStudentInsert, StudentController.create)
 
 //Edit student
-router.post('/edit', validate, StudentController.edit)
+router.post('/edit', validateStudentUpdate, StudentController.edit)
 
 //Delete student
-router.post('/:id/delete', StudentController.delete)
+router.post('/delete', StudentController.delete)
 
 module.exports = router
