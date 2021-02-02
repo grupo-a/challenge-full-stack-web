@@ -1,22 +1,15 @@
-FROM node:lts-alpine
+FROM node:carbon-slim
+# vue-cli reqires 8.10.0+ 
 
-# Install basic http server for our UI
-RUN npm install -g http-server
+RUN apt-get -y update \
+  && apt-get install -y git
 
-# Define app workdir
+RUN npm install -g @vue/cli
+
 WORKDIR /app
 
-# Copy package.json
-COPY package*.json ./
-
-# Install projects dependencies
-RUN npm install
-
-# Copy all files to workdir
-COPY . .
-
-# Finally compile our UI and serve the assets
-RUN npm run build
-
 EXPOSE 8080
-CMD [ "http-server", "dist" ]
+
+USER node
+
+CMD ["yarn", "serve"]
