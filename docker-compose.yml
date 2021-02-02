@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
   db:
     image: postgres:12.0-alpine
@@ -24,7 +24,11 @@ services:
     build: ./challenge-ui
     volumes: 
       - ./challenge-ui:/app
+    stdin_open: true
+    tty: true
     depends_on:
       - api
     ports:
       - "4000:8080"
+    environment: 
+      - CHOKIDAR_USEPOLLING=true
