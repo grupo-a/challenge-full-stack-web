@@ -19,3 +19,12 @@ services:
       - db
     ports:
       - "9000:3000"
+  ui:
+    restart: always
+    build: ./challenge-ui
+    volumes: 
+      - ./challenge-ui:/app
+    depends_on:
+      - api
+    ports:
+      - "4000:8080"
