@@ -1,60 +1,52 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+    <v-navigation-drawer app>
+      <div class="logo">
+        <img src="./assets/logo.png" />
       </div>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+      <!-- Navigation menu -->
+      <v-list
+        dense
+        nav
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+        <v-list-item to="/">
+          <v-list-item-content>
+            <v-list-item-title>Consulta de alunos</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item to="/cadastro">
+          <v-list-item-content>
+            <v-list-item-title>Cadastro de alunos</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+
+    </v-navigation-drawer>
+
+    <!-- App Bar -->
+    <v-app-bar app>
+      <v-toolbar-title>Módulo acadêmico</v-toolbar-title>
     </v-app-bar>
 
+    <!-- App main content -->
     <v-main>
-      <HelloWorld/>
+      <v-container fluid>
+        <router-view/>
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld';
-
-export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-};
-</script>
+<!-- Basic CSS -->
+<style scoped>
+  .logo {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  .logo img {
+    max-height: 50px;
+  }
+</style>
