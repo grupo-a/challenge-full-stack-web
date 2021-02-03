@@ -1,15 +1,16 @@
-FROM node:carbon-slim
-# vue-cli reqires 8.10.0+ 
+FROM node:lts-alpine
 
-RUN apt-get -y update \
-  && apt-get install -y git
-
-RUN npm install -g @vue/cli
+RUN npm install -g http-server
 
 WORKDIR /app
 
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
 EXPOSE 8080
-
-USER node
-
-CMD ["yarn", "serve"]
+CMD [ "http-server", "dist" ]
