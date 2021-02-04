@@ -110,12 +110,16 @@
       }
     },
     beforeMount() {
-      axios.get('/students').then((response) => {
-        response = response.data
-        this.students = response
-      })
+      this.loadStudents()
     },
     methods: {
+      //Populate students list
+      loadStudents() {
+        axios.get('/students').then((response) => {
+          response = response.data
+          this.students = response
+        })
+      },
       //Define actions for a student
       studentActions(item, action) {
         if (action == 'delete') {
@@ -134,7 +138,8 @@
         axios.post('/students/delete', { id: id }).then((response) => {
           response = response.data
           if (response.success !== undefined) {
-            window.location.reload()
+            this.deleteModal.open = false
+            this.loadStudents()
           }
         })
       }
