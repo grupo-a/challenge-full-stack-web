@@ -1,35 +1,6 @@
 <template>
   <v-app>
-    <v-navigation-drawer app>
-      <div class="logo">
-        <img src="./assets/logo.png" />
-      </div>
-
-      <!-- Navigation menu -->
-      <v-list
-        dense
-        nav
-      >
-        <v-list-item to="/">
-          <v-list-item-content>
-            <v-list-item-title>Consulta de alunos</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-list-item to="/cadastro">
-          <v-list-item-content>
-            <v-list-item-title>Cadastro de alunos</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-
-    </v-navigation-drawer>
-
-    <!-- App Bar -->
-    <v-app-bar app>
-      <v-toolbar-title>Módulo acadêmico</v-toolbar-title>
-    </v-app-bar>
-
+    <Layout v-if="showLayout" />
     <!-- App main content -->
     <v-main>
       <v-container fluid>
@@ -38,6 +9,26 @@
     </v-main>
   </v-app>
 </template>
+
+<script>
+  import Layout from './components/Layout'
+
+  export default {
+    components: {
+      Layout
+    },
+    data() {
+      return {
+        showLayout: false
+      }
+    },
+    beforeMount() {
+      if (localStorage.getItem('token') !== null) {
+        this.showLayout = true
+      }
+    }
+  }
+</script>
 
 <!-- Basic CSS -->
 <style scoped>
