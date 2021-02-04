@@ -105,8 +105,8 @@
           localStorage.setItem('token', token)
 
           //Redirect user
-          setTimeout(function() {
-            window.location.href = '/'
+          setTimeout(() => {
+            this.$router.push('/')
           }, 1000)
         }).catch(err => {
           this.alert.show = true
