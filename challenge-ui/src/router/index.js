@@ -16,7 +16,7 @@ const routes = [
     }
   },
   {
-    path: '/cadastro',
+    path: '/cadastro/:id?',
     name: 'register',
     component: Register,
     meta: {
