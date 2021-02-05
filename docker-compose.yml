@@ -13,8 +13,8 @@ services:
   api:
     restart: always
     build: ./challenge-api
-    volumes: 
-      - ./challenge-api:/app
+    #volumes: 
+    #  - ./challenge-api:/app
     depends_on:
       - db
     ports:
