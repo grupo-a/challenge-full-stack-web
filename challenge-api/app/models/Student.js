@@ -21,7 +21,7 @@ const Student = database.define('student', {
         allowNull: false
     },
     cpf: {
-        type: Sequelize.INTEGER(11),
+        type: Sequelize.STRING(11),
         allowNull: false
     }
 })
