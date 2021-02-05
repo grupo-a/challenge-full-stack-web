@@ -37,6 +37,7 @@
                 persistent-hint
                 filled
                 required
+                :disabled="id !== null"
               ></v-text-field>
 
               <v-text-field
@@ -47,6 +48,7 @@
                 persistent-hint
                 filled
                 required
+                :disabled="id !== null"
               ></v-text-field>
 
               <v-btn
@@ -55,7 +57,7 @@
                 class="mr-4"
                 @click="validate"
               >
-                Enviar
+                 {{ id ? 'Salvar' : 'Enviar' }}
               </v-btn>
 
               <v-btn
@@ -115,10 +117,31 @@
           show: false,
           type: null,
           message: null
-        }
+        },
+        student: {}
       }
     },
+    //Get student if id was provided
     beforeMount() {
+      if (this.$route.params.id !== undefined) {
+        this.id = this.$route.params.id
+        axios.get('/students/'+this.id).then((response) => {
+          let student = response.data
+
+          if (student.notfound !== undefined) {
+            this.alert.show = true
+            this.alert.type = 'error'
+            this.alert.message = student.notfound
+
+            return
+          }
+
+          this.name = student.name
+          this.email = student.email
+          this.ra = student.ra
+          this.cpf = student.cpf
+        })
+      }
     },
     methods: {
       //Trigger validation
@@ -212,12 +235,23 @@
           this.alert.message = response.success.message
 
           //Redirect to the same page
-          const id = response.success.id
-          setTimeout(() => {
-            this.$router.push('/cadastro/' + id)
-          }, 1000)
+          const insertId = response.success.id
 
-        }).catch(err => {
+          /* If the user is being registered, redirect to the same page with 
+          created Id, otherwise only hide the successfull edit message */
+          if (!this.id) {
+            setTimeout(() => {
+              this.$router.push('/cadastro/' + insertId)
+              this.id = insertId
+              this.alert.show = false
+            }, 1000)
+          } else {
+            setTimeout(() => {
+              this.alert.show = false
+            }, 4000)
+          }
+
+        }).catch((err) => {
           this.alert.show = true
           this.alert.type = 'error'
           this.alert.message = err
