@@ -1,4 +1,5 @@
 const Student = require('../models/Student')
+const { Op } = require("sequelize")
 
 //List students
 exports.list = async (req, res) => {
@@ -20,6 +21,18 @@ exports.get = async (req, res) => {
 
 //Create student
 exports.create = async (req, res) => {
+    //Find students with same RA and CPF
+    const verify = await Student.count({
+        where: {
+            [Op.or]: [
+                { ra: req.body.ra },
+                { cpf: req.body.cpf }
+            ]
+        },
+    })
+
+    if (verify) res.json({ 'error': 'Já existe um registro com este mesmo RA/CPF' })
+
     try {
         let insert = await Student.create({
             'name': req.body.name,
