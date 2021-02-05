@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 var cors = require('cors')
 const bodyParser = require('body-parser')
-const dbSync = require('./app/config/database/sync')
+//const dbSync = require('./app/config/database/sync')
 
 //Implement bodyParser for better requests treatment
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(cors())
 
 //Sync DB within app
-dbSync.async()
+//dbSync.async()
 
 //Define routes
 const usersRoute = require('./routes/users')
