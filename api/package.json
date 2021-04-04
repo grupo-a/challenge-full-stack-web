@@ -1,0 +1,8 @@
+{
+  "name": "students-api",
+  "version": "0.0.1",
+  "description": "Api created as part of a test for joining Grupo A`s dev team",
+  "main": "src/server.js",
+  "author": "Joao Vitor Sousa",
+  "license": "MIT"
+}
