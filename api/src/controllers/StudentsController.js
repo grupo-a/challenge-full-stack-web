@@ -29,7 +29,7 @@ const StudentsController = {
 
     await StudentsRepository.delete(id);
 
-    return res.status(200);
+    return res.status(200).json();
   }
 }
 

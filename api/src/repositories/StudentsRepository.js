@@ -41,8 +41,6 @@ const StudentsRepository = {
     return student;
   },
   update: async function(id, studentData) {
-    const { id } = studentData;
-
     await db.Student.update(studentData, {
       where: {
         id: id
