@@ -5,6 +5,10 @@
   "main": "src/server.js",
   "author": "Joao Vitor Sousa",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
   "dependencies": {
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
