@@ -31,10 +31,12 @@ module.exports = (sequelize, DataTypes) => {
     ra: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
     cpf: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true
     },
   }, {
     sequelize,
