@@ -1,6 +1,6 @@
 var db = require('../models');
 
-const StudentRepository = {
+const StudentsRepository = {
   findAll: async function() {
     const students = await db.Student.findAll();
     return students;
@@ -62,4 +62,4 @@ const StudentRepository = {
   }
 }
 
-module.exports = StudentRepository;
+module.exports = StudentsRepository;

@@ -1,34 +1,36 @@
-const StudentRepository = require('../repositories/StudentRepository');
+const StudentsRepository = require('../repositories/StudentsRepository');
 
-const StudentController = {
+const StudentsController = {
   store: async function(req, res) {
     const { body } = req;
-    const student = await StudentRepository.create(body);
+    const student = await StudentsRepository.create(body);
 
     return res.status(201).json(student);
   },
   index: async function(req, res) {
-    const students = await StudentRepository.findAll();
+    const students = await StudentsRepository.findAll();
     return res.status(200).json(students);
   },
   show: async function(req, res) {
     const { id } = req.params;
 
-    const student = await StudentRepository.findById(id);
+    const student = await StudentsRepository.findById(id);
     return res.status(200).json(student);
   },
   update: async function(req, res) {
     const { id } = req.params;
     const { body } = req;
 
-    const student = await StudentRepository.update(id, body);
+    const student = await StudentsRepository.update(id, body);
     return res.status(200).json(student);
   },
   delete: async function (req, res) {
     const { id } = req.params;
 
-    await StudentRepository.delete(id);
+    await StudentsRepository.delete(id);
 
     return res.status(200);
   }
 }
+
+module.exports = StudentsController;
