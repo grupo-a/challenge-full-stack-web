@@ -1,6 +1,6 @@
 var db = require('../models');
 
-var StudentRepository = {
+const StudentRepository = {
   findAll: async function() {
     const students = await db.Student.findAll();
     return students;
@@ -36,11 +36,11 @@ var StudentRepository = {
 
     return student;
   },
-  createStudent: async function(studentData) {
+  create: async function(studentData) {
     const student = await db.Student.create(studentData);
     return student;
   },
-  update: async function(studentData) {
+  update: async function(id, studentData) {
     const { id } = studentData;
 
     await db.Student.update(studentData, {
@@ -62,4 +62,4 @@ var StudentRepository = {
   }
 }
 
-module.exports = StudentRepository
+module.exports = StudentRepository;
