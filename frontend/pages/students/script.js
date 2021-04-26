@@ -59,58 +59,7 @@ export default {
 
   methods: {
     initialize () {
-      this.desserts = [
-        {
-          academicRegistry: '12345',
-          name: 'Frozen Yogurt',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          academicRegistry: '12345',
-          name: 'Frozen Yogurt',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          academicRegistry: '12345',
-          name: 'Frozen Yogurt',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          academicRegistry: '12345',
-          name: 'Frozen Yogurt',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'Gingerbread',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'Jelly bean',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'Lollipop',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'Honeycomb',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'Donut',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-        {
-          name: 'KitKat',
-          academicRegistry: '12345',
-          taxNumber: '042.942.040-44',
-        },
-      ]
+      this.desserts = []
     },
 
     editItem (item) {
