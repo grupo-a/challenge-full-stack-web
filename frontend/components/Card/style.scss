@@ -1,0 +1,15 @@
+.v-card--material__heading {
+  font-size: 18px;  
+  position: relative;
+  transition: .3s ease;
+  z-index: 1;
+}
+
+.v-divider {
+  border-color: black;
+  border-width: 1px;
+}
+
+.v-card {
+  box-shadow: 0px 1px 3px #1B273129 !important;
+}
