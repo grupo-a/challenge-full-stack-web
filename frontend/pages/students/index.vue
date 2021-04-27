@@ -38,13 +38,13 @@
             <v-btn
               color="primary"
               v-bind="attrs"
-              v-on="on"
+              to="students/action"
             >
               Novo Cadastro
             </v-btn>
           </template>
         </v-dialog>
-        <Deletemessage />
+        <DeleteMessage />
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
