@@ -1,0 +1,12 @@
+.v-card__title {
+  font-size: 14px;  
+  position: relative;
+  transition: .3s ease;
+  z-index: 1;
+}
+
+.v-divider {
+  border-color: gray;
+  border-radius: 100px 100px 0px 0px;
+  border-width: 1px;
+}
