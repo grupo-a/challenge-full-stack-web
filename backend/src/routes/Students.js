@@ -1,12 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const controller = require('./controllers/StudentsController')
+const controller = require('../controllers/StudentsController')
 
-// STUDENTS' ROUTES
-router.insert('/', controller.insert);
-router.getAll('/', controller.getAll);
-router.update('/:id', controller.update);
-router.delete('/:id', controller.delete);
+const init = (expressInstance, basePath) => {
+    // STUDENTS' ROUTES
+    expressInstance.get(`${basePath}/students`, controller.getAll);
+    expressInstance.get(`${basePath}/students/:id`, controller.getById);
+    expressInstance.post(`${basePath}/students`, controller.create);
+    expressInstance.put(`${basePath}/students/:id`, controller.update);
+    expressInstance.delete(`${basePath}/students/:id`, controller.remove);
+}
 
-
-module.exports = router;
+module.exports = {
+    init
+};
