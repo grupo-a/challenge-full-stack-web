@@ -1,9 +1,23 @@
 <template>
   <div>
     <card
-      title="Cadastro de Aluno"
+      :title="title"
     >
       <v-form ref="form">
+        <v-row>
+          <v-col cols="6">
+            <v-text-field
+              v-if="isEdit"
+              v-model="item.id"
+              label="Matrícula"
+              outlined
+              clearable
+              dense
+              disabled
+              hide-details="auto"
+            ></v-text-field>
+          </v-col>
+        </v-row>
         <v-row>
           <v-col cols="6">
             <v-text-field
@@ -20,12 +34,12 @@
         <v-row>
           <v-col cols="6">
             <v-text-field
-              v-model="item.cpf"
-              v-mask="'###.###.###-##'"
+              v-model="item.tax"
               label="CPF"
               outlined
               clearable
               dense
+              :disabled="!!isEdit"
               hide-details="auto"
               :rules="[rules.required]"
             ></v-text-field>
@@ -43,22 +57,12 @@
               :rules="[rules.required, rules.email]"
             ></v-text-field>
           </v-col>
-          <v-col cols="4">
-            <v-text-field
-              v-if="ok === true"
-              v-model="item.phone"
-              label="Matrícula"
-              outlined
-              clearable
-              dense
-              hide-details="auto"
-              :rules="[rules.required]"
-            ></v-text-field>
-          </v-col>
         </v-row>
       </v-form>
+      <v-col class="text-right mt-5">
+        <v-btn type="submit" @click="handleSubmit"> Salvar</v-btn>
+      </v-col>
     </card>
-    <action-buttons :buttons="actionButtonItems" />
   </div>
 </template>
 
