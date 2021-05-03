@@ -1,7 +1,7 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="desserts"
+    :items="students"
     :items-per-page="5"
     class="elevation-1"
   >
@@ -20,7 +20,7 @@
           dense
           v-model="select"
           :loading="loading"
-          :items="items"
+          :items="students"
           :search-input.sync="search"
           cache-items
           class="mx-3"
@@ -34,7 +34,7 @@
           v-model="dialog"
           max-width="500px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <template v-slot:activator="{ attrs }">
             <v-btn
               color="primary"
               v-bind="attrs"
@@ -44,14 +44,14 @@
             </v-btn>
           </template>
         </v-dialog>
-        <DeleteMessage />
+        <DeleteMessage :value="dialogDelete" @accept="deleteConfirm" @reject="closeDelete"/>
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
         small
         class="mr-2"
-        @click="editItem(item)"
+        @click="updateStudent(item)"
       >
         mdi-pencil
       </v-icon>
@@ -64,7 +64,7 @@
     </template>
     <template v-slot:no-data>
       <v-icon
-        @click="initialize"
+        @click="getStudents"
       >
         mdi-refresh
       </v-icon>

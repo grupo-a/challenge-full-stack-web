@@ -1,3 +1,5 @@
+import { mapActions } from 'vuex'
+
 export default {
   data: () => ({
     loading: false,
@@ -5,94 +7,62 @@ export default {
     search: null,
     select: null,
     dialog: false,
+    idToDelete: null,
     dialogDelete: false,
     headers: [
       {
         text: 'Registro Acadêmico',
         align: 'start',
         sortable: false,
-        value: 'academicRegistry',
+        value: 'id',
       },
       { text: 'Nome', value: 'name' },
-      { text: 'CPF', value: 'taxNumber' },
+      { text: 'CPF', value: 'tax' },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
-    desserts: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
-    defaultItem: {
-      name: '',
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-    },
+    students: [],
   }),
 
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-    },
-  },
-
-  watch: {
-    dialog (val) {
-      val || this.close()
-    },
-    dialogDelete (val) {
-      val || this.closeDelete()
-    },
-    search (val) {
-      val && val !== this.select && this.querySelections(val)
-    },
-  },
-
-  created () {
-    this.initialize()
+  async mounted () {
+    await this.getStudents()
   },
 
   methods: {
-    initialize () {
-      this.desserts = []
+    ...mapActions ({
+      actionFetchStudents: 'students/actionFetchStudents',
+      actionDeleteStudent: 'students/actionDeleteStudent'
+    }),
+
+    async getStudents () {
+      const data = await this.actionFetchStudents()
+      this.students = data
     },
 
-    editItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
+    async updateStudent (item) {
+      const id = item.id
+      this.$router.push(`/students/action/${id}`)
+    },
+
+    async deleteStudent (id) {
+      const { data } = await this.actionDeleteStudent(id)
+      console.log(data)
     },
 
     deleteItem (item) {
-      this.editedIndex = this.desserts.indexOf(item)
-      this.editedItem = Object.assign({}, item)
+      this.idToDelete = item.id
       this.dialogDelete = true
     },
 
-    deleteItemConfirm () {
-      this.desserts.splice(this.editedIndex, 1)
+    async deleteConfirm () {
+      const id = this.idToDelete
+      await this.deleteStudent(id)
       this.closeDelete()
-    },
-
-    close () {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
+      alert('Item deletado com sucesso!')
+      window.location.reload()
     },
 
     closeDelete () {
       this.dialogDelete = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
     },
 
     save () {

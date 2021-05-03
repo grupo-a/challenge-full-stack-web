@@ -1,19 +1,19 @@
-import axiosClient from '@/plugins/axios.plugin'
+import API from '../plugins/axios.plugin'
 
 export default {
     fetch() {
-        return axiosClient.default().get('/students')
+        return API.get('/students')
     },
     getById(id) {
-        return axiosClient.default().get(`/students/${id}`)
+        return API.get(`/students/${id}`)
     },
     add(student) {
-        return axiosClient.default().post(`/students`, student)
+        return API.post(`/students`, student)
     },
     update(id, student) {
-        return axiosClient.default().put(`/students/${id}`, student)
+        return API.put(`/students/${id}`, student)
     },
     delete(id) {
-        return axiosClient.default().delete(`/students/${id}`)
+        return API.delete(`students/${id}`)
     }
 }
