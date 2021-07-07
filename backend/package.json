@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend",
+  "main": "src/shared/server.js",
+  "scripts": {
+    "serve": "NODE_ENV=dev nodemon --inspect --watch src src/shared/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "guilherme",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "celebrate": "^14.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "joi": "^17.4.0",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.9"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.2.0"
+  }
+}
