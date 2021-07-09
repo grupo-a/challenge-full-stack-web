@@ -4,7 +4,7 @@
   "description": "backend",
   "main": "src/shared/server.js",
   "scripts": {
-    "serve": "NODE_ENV=dev nodemon --inspect --watch src src/shared/server.js",
+    "serve": "NODE_ENV=dev nodemon  --inspect --watch src src/shared/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "guilherme",
@@ -17,7 +17,8 @@
     "express": "^4.17.1",
     "joi": "^17.4.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.9",
+    "sql-query": "^0.1.27"
   },
   "devDependencies": {
     "sequelize-cli": "^6.2.0"
