@@ -15,10 +15,10 @@ module.exports = class ConexaoMySQL {
     }
 
     query(sql) {
-        return new Promise((res) => {
+        return new Promise((res, rej) => {
             this.connection.query(sql, (error, results) => {
                 if (error)
-                    res(error)
+                    rej(error)
                 else
                     res(JSON.parse(JSON.stringify(results)))
             })
