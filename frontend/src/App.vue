@@ -1,32 +1,59 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+	<v-app>
+		<v-main>
+			<div class="d-flex height-100vh">
+				<left-menu></left-menu>
+				<div class="px-6 flex-grow-1">
+					<div class="py-3 d-flex space-between align-center">
+						<div>
+							<h2>Alunos</h2>
+						</div>
+						<v-spacer></v-spacer>
+						<div>
+							<label class="mr-2 font-weight-medium">GUILHERME</label>
+							<v-avatar :size="30">
+								<img src="https://avatars.githubusercontent.com/u/42628942?v=4" alt="alt" />
+							</v-avatar>
+						</div>
+					</div>
+					<v-divider class></v-divider>
+					<router-view class="pt-4" />
+				</div>
+			</div>
+		</v-main>
+	</v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import LeftMenu from "./components/LeftMenu/LeftMenu.vue";
+export default {
+	components: { LeftMenu },
+	name: "App",
 
-#nav {
-  padding: 30px;
-}
+	data: () => ({
+		//
+	}),
+};
+</script>
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+<style lang="sass">
+@import url('https://fonts.googleapis.com/css?family=Poppins')
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+html
+body
+	font-family: 'Poppins', sans-serif
+	color: #383738
+	height: 100vh
+	width: 100vw
+
+#app
+	overflow: hidden
+	height: 100vh
+	width: 100vw
+
+.height-100vh
+	height: 100vh
+
+.full-height
+	height: 100%
 </style>
