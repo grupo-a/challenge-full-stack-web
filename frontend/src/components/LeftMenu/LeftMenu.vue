@@ -1,5 +1,5 @@
 <template>
-	<div id="left-menu" class="py-4 indigo d-flex flex-column">
+	<div id="left-menu" class="py-4 d-flex flex-column">
 		<div class="d-flex align-center justify-center pb-2">
 			<img src="@/assets/logo.png" />
 		</div>
@@ -8,7 +8,7 @@
 		</div>
 		<ul class="flex-grow-1 pl-2 menu">
 			<router-link class="mt-2 menu-option" to="/">Home</router-link>
-			<router-link class="mt-2 menu-option" to="alunos">Alunos</router-link>
+			<router-link class="mt-2 menu-option" to="/alunos">Alunos</router-link>
 		</ul>
 		<v-divider></v-divider>
 		<div class="px-2 pt-2">
@@ -25,6 +25,11 @@ export default {};
 <style lang="sass">
 #left-menu
 	width: 200px
+	background-color: #7b88ce
+	border-color: #7b88ce
+	margin: 10px 0px
+	border-bottom-right-radius: 10px
+	border-top-right-radius: 10px
 
 #left-menu .title-modulo
 	background-color: #283593
@@ -41,7 +46,7 @@ export default {};
 	text-decoration: none
 	color: #383738
 
-#left-menu .menu .menu-option.selected
+#left-menu .menu .menu-option.router-link-exact-active
 	width: calc( 100% + 10px )
 	border-top-right-radius: 15px
 	border-bottom-right-radius: 15px

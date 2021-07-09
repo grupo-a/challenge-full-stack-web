@@ -6,7 +6,7 @@
 				<div class="px-6 flex-grow-1">
 					<div class="py-3 d-flex space-between align-center">
 						<div>
-							<h2>Alunos</h2>
+							<h2>{{$route.meta.label}}</h2>
 						</div>
 						<v-spacer></v-spacer>
 						<div>
@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<v-divider class></v-divider>
-					<router-view class="pt-4" />
+					<router-view class="pt-2 content-main" />
 				</div>
 			</div>
 		</v-main>
@@ -46,10 +46,18 @@ body
 	height: 100vh
 	width: 100vw
 
+h1,h2,h3,h4,h5,h6
+	color: #383738
+
 #app
+	background-color: #edf2f7
 	overflow: hidden
 	height: 100vh
 	width: 100vw
+
+#app .content-main
+	height: calc( 100% - 80px )
+	overflow: hidden
 
 .height-100vh
 	height: 100vh
