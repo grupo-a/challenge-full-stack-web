@@ -1,5 +1,5 @@
 
-const errorMiddleware = (err, _request, response, _,) => {
+const errorMiddleware = (err, _request, response, next) => {
 
     return response.status(500).json({
         status: 'error',
