@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig-build.json"
+    "build": "tsc -p tsconfig-build.json",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down"
   },
   "repository": {
     "type": "git",
