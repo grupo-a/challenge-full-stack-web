@@ -4,10 +4,14 @@
   "description": "GrupoA Educação - Full Stack Web Developer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc -p tsconfig-build.json",
     "up": "npm run build && docker-compose up -d",
-    "down": "docker-compose down"
+    "down": "docker-compose down",
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:staged": "jest --passWithNoTests --runInBand --no-cache --detectOpenHandles --forceExit",
+    "test:ci": "npm test -- --coverage --forceExit",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -21,6 +25,7 @@
   "homepage": "https://github.com/vinicamposdev/challenge-full-stack-web#readme",
   "dependencies": {},
   "devDependencies": {
+    "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "eslint": "^7.30.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
@@ -30,7 +35,9 @@
     "eslint-plugin-standard": "^5.0.0",
     "git-commit-msg-linter": "^3.2.6",
     "husky": "^7.0.1",
+    "jest": "^27.0.6",
     "lint-staged": "^11.0.0",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   }
 }
