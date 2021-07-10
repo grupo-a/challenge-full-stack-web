@@ -15,7 +15,7 @@ const routes = [
     },
     {
         path: '/alunos',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Students/Students.vue'),
+        component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/Students.vue'),
         children: [
             {
                 path: '/',
@@ -23,7 +23,7 @@ const routes = [
                 meta: {
                     label: 'Alunos > Listagem'
                 },
-                component: () => import(/* webpackChunkName: "about" */ '../views/Students/StudentsList.vue'),
+                component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/StudentsList.vue'),
             },
             {
                 path: 'new',
@@ -31,7 +31,7 @@ const routes = [
                 meta: {
                     label: 'Alunos > Novo'
                 },
-                component: () => import(/* webpackChunkName: "about" */ '../views/Students/StudentsForm.vue'),
+                component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/StudentsForm.vue'),
             },
             {
                 path: '/edit/:id',
@@ -39,7 +39,7 @@ const routes = [
                 meta: {
                     label: 'Alunos > Editar'
                 },
-                component: () => import(/* webpackChunkName: "about" */ '../views/Students/StudentsForm.vue'),
+                component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/StudentsForm.vue'),
             },
         ]
         // route level code-splitting

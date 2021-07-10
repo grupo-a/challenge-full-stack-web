@@ -7,7 +7,7 @@
 			<span>Módulo Acadêmico</span>
 		</div>
 		<ul class="flex-grow-1 pl-2 menu">
-			<router-link class="mt-2 menu-option" to="/">Home</router-link>
+			<router-link class="mt-2 menu-option" to="/" exact>Home</router-link>
 			<router-link class="mt-2 menu-option" to="/alunos">Alunos</router-link>
 		</ul>
 		<v-divider></v-divider>
@@ -46,7 +46,7 @@ export default {};
 	text-decoration: none
 	color: #383738
 
-#left-menu .menu .menu-option.router-link-exact-active
+#left-menu .menu .menu-option.router-link-active
 	width: calc( 100% + 10px )
 	border-top-right-radius: 15px
 	border-bottom-right-radius: 15px
