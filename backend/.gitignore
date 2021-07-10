@@ -1,0 +1,8 @@
+# Node Dependencies
+node_modules
+
+# Typescript Transpiled Code
+dist
+
+# Jest Coverage Reports
+coverage
