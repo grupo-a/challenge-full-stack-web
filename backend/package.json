@@ -1,0 +1,19 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "0.0.1",
+  "description": "GrupoA Educação - Full Stack Web Developer ===================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinicamposdev/challenge-full-stack-web.git"
+  },
+  "author": "Vinicius Campos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinicamposdev/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/vinicamposdev/challenge-full-stack-web#readme"
+}
