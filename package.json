@@ -1,0 +1,33 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "0.0.1",
+  "description": "O objetivo deste desafio é avaliar as competências técnicas dos candidatos a desenvolvedor Full Stack Web na Maior Plataforma de Educação do Brasil, Grupo A Educação.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lerna": "lerna run --concurrency 1 --stream precommit --since HEAD --exclude-dependents",
+    "prepare": "husky install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinicamposdev/challenge-full-stack-web.git"
+  },
+  "keywords": [
+    "express",
+    "vue",
+    "postgres"
+  ],
+  "author": "Vinicius Campos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinicamposdev/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/vinicamposdev/challenge-full-stack-web#readme",
+  "devDependencies": {
+    "husky": "^7.0.0",
+    "lerna": "^4.0.0"
+  },
+  "dependencies": {
+    "git-commit-msg-linter": "^3.2.6"
+  }
+}

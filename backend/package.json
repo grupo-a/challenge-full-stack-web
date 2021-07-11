@@ -9,6 +9,7 @@
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
     "logs": "docker logs api-node",
+    "precommit": "eslint . --fix && npm run test:staged",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:staged": "jest --passWithNoTests --runInBand --no-cache --detectOpenHandles --forceExit",
@@ -40,10 +41,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
-    "git-commit-msg-linter": "^3.2.6",
-    "husky": "^7.0.1",
     "jest": "^27.0.6",
-    "lint-staged": "^11.0.0",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
