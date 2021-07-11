@@ -2,18 +2,25 @@
 	<div class="page-list">
 		<v-row class="page-list-filter align-end pb-4">
 			<v-col md="6">
-				<v-text-field label="Pesquisar" hide-details></v-text-field>
+				<v-text-field v-model="textSearch" label="Pesquisar" hide-details></v-text-field>
 			</v-col>
 			<v-col md="4"></v-col>
 			<v-col md="2">
-				<v-btn to="alunos/new" color="info">Novo Registro</v-btn>
+				<v-btn @click="clickBtnNew" color="info">Novo Registro</v-btn>
 			</v-col>
 		</v-row>
+
 		<div class="page-list-grid">
-			<v-data-table height="100%" :headers="headers" :items="desserts">
+			<v-data-table
+				height="100%"
+				:sort-by="['nome']"
+				:headers="headers"
+				:items="students"
+				:search="textSearch"
+			>
 				<template v-slot:item.actions="{ item }">
-					<v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-					<v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+					<v-icon small class="mr-2" @click="clickBtnEdit(item)">mdi-pencil</v-icon>
+					<v-icon small @click="clickBtnDelete(item)">mdi-delete</v-icon>
 				</template>
 			</v-data-table>
 		</div>
@@ -21,9 +28,13 @@
 </template>
 
 <script>
+import { confirmar } from "@/utils/util";
+
 export default {
+	props: ["students"],
 	data() {
 		return {
+			textSearch: "",
 			headers: [
 				{
 					text: "Matrícula",
@@ -35,113 +46,20 @@ export default {
 				{ text: "CPF", value: "cpf" },
 				{ text: "Ações", value: "actions", sortable: false },
 			],
-			desserts: [
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					id_estudante: "1",
-					nome: "Guilherme Trindade",
-					email: "bsbtrindade@gmail.com",
-					cpf: "051.789.181-69",
-				},
-				{
-					name: "Ice cream sandwich",
-					calories: 237,
-					fat: 9.0,
-					carbs: 37,
-					protein: 4.3,
-					iron: "1%",
-				},
-			],
 		};
+	},
+	methods: {
+		clickBtnNew() {
+			this.$router.push("alunos/new");
+		},
+		clickBtnEdit(item) {
+			this.$router.push(`alunos/edit/${item.id_estudante}`);
+		},
+		async clickBtnDelete(item) {
+			await confirmar(`Deseja realmente delete o aluno ${item.nome}?`);
+
+			this.$emit("remove", item.id_estudante);
+		},
 	},
 	mounted() {
 		console.log("listagem");
