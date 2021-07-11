@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home/Home.vue'
+import Page404 from '../views/404/404.vue'
 
 Vue.use(VueRouter)
 
@@ -34,13 +35,14 @@ const routes = [
                 component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/StudentsForm.vue'),
             },
             {
-                path: '/edit/:id',
+                path: 'edit/:id',
                 name: 'StudentEdit',
                 meta: {
                     label: 'Alunos > Editar'
                 },
                 component: () => import(/* webpackChunkName: "alunos" */ '../views/Students/StudentsForm.vue'),
             },
+            { path: "*", component: Page404 }
         ]
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
