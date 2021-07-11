@@ -21,13 +21,13 @@ export class StudentController implements IController {
         cpf
       } = httpRequest.body
 
-      await this.addStudent.add({
+      const account = await this.addStudent.add({
         name,
         email,
         ra,
         cpf
       })
-      return ok({})
+      return ok(account)
     } catch (error) {
       return serverError()
     }
