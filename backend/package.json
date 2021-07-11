@@ -1,0 +1,50 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "0.0.1",
+  "description": "GrupoA Educação - Full Stack Web Developer",
+  "main": "index.js",
+  "scripts": {
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down",
+    "logs": "docker logs api-node",
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:staged": "jest --passWithNoTests --runInBand --no-cache --detectOpenHandles --forceExit",
+    "test:ci": "npm test -- --coverage --forceExit",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinicamposdev/challenge-full-stack-web.git"
+  },
+  "author": "Vinicius Campos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinicamposdev/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/vinicamposdev/challenge-full-stack-web#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.12",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "eslint": "^7.30.0",
+    "eslint-config-standard-with-typescript": "^20.0.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-standard": "^5.0.0",
+    "git-commit-msg-linter": "^3.2.6",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "lint-staged": "^11.0.0",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
+  }
+}
