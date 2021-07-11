@@ -4,9 +4,11 @@
   "description": "GrupoA Educação - Full Stack Web Developer",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig-build.json",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
     "up": "npm run build && docker-compose up -d",
     "down": "docker-compose down",
+    "logs": "docker logs api-node",
     "test": "jest --passWithNoTests --runInBand --no-cache",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:staged": "jest --passWithNoTests --runInBand --no-cache --detectOpenHandles --forceExit",
@@ -23,7 +25,12 @@
     "url": "https://github.com/vinicamposdev/challenge-full-stack-web/issues"
   },
   "homepage": "https://github.com/vinicamposdev/challenge-full-stack-web#readme",
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.12",
+    "rimraf": "^3.0.2"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
