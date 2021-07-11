@@ -64,4 +64,8 @@ h1,h2,h3,h4,h5,h6
 
 .full-height
 	height: 100%
+
+.v-text-field
+	padding-top: 20px !important
+	margin-top: 0px !important
 </style>
