@@ -52,6 +52,20 @@ const makeSut = (): ISutTypes => {
 }
 
 describe('Signup Controller', () => {
+  test('Should call AddStudent with correct values', async () => {
+    const { sut, addStudentStub } = makeSut()
+
+    const addSpy = jest.spyOn(addStudentStub, 'add')
+
+    const httpRequest = {
+      body: makeFakeStudent()
+    }
+
+    await sut.handle(httpRequest)
+
+    expect(addSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
   test('Should call Validation with correct values', async () => {
     const { sut, validationStub } = makeSut()
 
