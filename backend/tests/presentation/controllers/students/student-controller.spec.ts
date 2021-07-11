@@ -1,5 +1,7 @@
 import { StudentController } from '@/presentation/controllers/student/student-controller'
 import { IStudentModel, IAddStudentModel, IAddStudent } from '@/presentation/controllers/student/student-controller-protocols'
+import { MissingParamError } from '@/presentation/errors'
+import { badRequest } from '@/presentation/helpers/http/http-helpers'
 import { IValidation } from '@/presentation/protocols'
 
 const makeAddStudent = (): IAddStudent => {
@@ -62,5 +64,19 @@ describe('Signup Controller', () => {
     await sut.handle(httpRequest)
 
     expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+  })
+
+  test('Should returns 400 if Validation returns an error', async () => {
+    const { sut, validationStub } = makeSut()
+
+    jest.spyOn(validationStub, 'validate').mockReturnValue(new MissingParamError('any_field'))
+
+    const httpRequest = {
+      body: makeFakeStudent()
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
   })
 })
