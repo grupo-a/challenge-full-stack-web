@@ -19,7 +19,7 @@ const makeAddStudent = (): IAddStudent => {
 }
 
 const makeFakeStudent = (): IAddStudentModel => ({
-  name: 'any_mame',
+  name: 'any_name',
   email: 'any_email@mail.com',
   ra: 'any_ra',
   cpf: 'any_cpf'
@@ -81,6 +81,19 @@ describe('Signup Controller', () => {
 
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 200 if a valid data is provided', async () => {
+    const { sut } = makeSut()
+
+    const httpRequest = {
+      body: makeFakeStudent()
+    }
+
+    const httpResponse = await sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({ ...httpRequest.body, id: 'valid_id' })
   })
 
   test('Should call Validation with correct values', async () => {
