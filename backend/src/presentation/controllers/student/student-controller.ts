@@ -14,6 +14,19 @@ export class StudentController implements IController {
         return badRequest(error)
       }
 
+      const {
+        name,
+        email,
+        ra,
+        cpf
+      } = httpRequest.body
+
+      await this.addStudent.add({
+        name,
+        email,
+        ra,
+        cpf
+      })
       return ok({})
     } catch (error) {
       return serverError()
