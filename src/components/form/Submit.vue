@@ -1,5 +1,7 @@
 <template>
-        <input type="submit" value="send">
+    <v-btn color="primary" elevation="3">
+        <input type="submit" value="Logar">
+    </v-btn>
 </template>
 
 <script>

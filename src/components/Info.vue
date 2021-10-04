@@ -2,7 +2,8 @@
     <div>
         <p v-if="esta_logado">Aluno está matriculado em algum curso</p>
         <p v-else>Aluno não matriculado</p>
-        <ul v-show="mostra_dados">
+        <div @click="showDados" class="blue">{{ textButton }} dados do Aluno</div>
+        <ul v-show="mostrar_dados">
             <li>Nome</li>
             <li>Email</li>
             <li>RA</li>
@@ -17,7 +18,18 @@
         data() {
             return {
                 esta_logado: true,
-                mostra_dados: true
+                mostrar_dados: false,
+                textButton: "Mostrar "
+            }
+        },
+        methods: {
+            showDados() {
+                this.mostrar_dados = !this.mostrar_dados
+                if(!this.mostrar_dados) {
+                    this.textButton = "Mostrar "
+                } else {
+                    this.textButton = "Esconder "
+                }
             }
         }
     }
