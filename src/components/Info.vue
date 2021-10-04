@@ -9,6 +9,18 @@
             <li>RA</li>
             <li>CPF</li>
         </ul>
+        <p>Aluno optou utilizar tecnologias para back-end:</p>
+        <ul>
+            <li v-for="(technology, index) in backend_technologies" v-bind:key="index">
+                {{ technology }}
+            </li>
+        </ul>
+        <p>Aluno optou utilizar tecnologias para front-end:</p>
+        <ul>
+            <li v-for="(technology) in frontend_technologies" v-bind:key="technology.id">
+                {{ technology.language }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -19,7 +31,13 @@
             return {
                 esta_logado: true,
                 mostrar_dados: false,
-                textButton: "Mostrar "
+                textButton: "Mostrar ",
+                backend_technologies: ['JavaScript', 'PHP', 'Python', 'NodeJS'],
+                frontend_technologies: [
+                    {id: 1, language: 'HTML'},
+                    {id: 2, language: 'CSS'},
+                    {id: 3, language: 'Vue'}
+                ]
             }
         },
         methods: {

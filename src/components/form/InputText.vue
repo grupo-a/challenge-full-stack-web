@@ -1,6 +1,9 @@
 <template>
     <div class="container">
         <div>
+            <input type="text" v-model="name" class="">
+        </div>
+        <div>
             <label for="email">Email </label>
             <input class="white" type="email">
         </div>

@@ -30,6 +30,8 @@
         </h2>
       </v-col>
 
+      <MultiplosEventos />
+
       <v-col class="mb-5" cols="12">
         <h2 class="headline font-weight-bold mb-3">
           Alunos cadastrados
@@ -66,9 +68,14 @@
 </template>
 
 <script>
+
+  import MultiplosEventos from './MultiplosEventos.vue'
+
   export default {
     name: 'HelloWorld',
-
+    components: {
+      MultiplosEventos
+    },
     data: () => ({
       editar: [
         {
