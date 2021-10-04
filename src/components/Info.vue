@@ -1,5 +1,6 @@
 <template>
     <div>
+        <p>{{ alunoEmail }}</p>
         <p v-if="esta_logado">Aluno está matriculado em algum curso</p>
         <p v-else>Aluno não matriculado</p>
         <div @click="showDados" class="blue">{{ textButton }} dados do Aluno</div>
@@ -27,6 +28,9 @@
 <script lang="ts">
     export default {
         name: 'Info', 
+        props: {
+            alunoEmail: String
+        },
         data() {
             return {
                 esta_logado: true,

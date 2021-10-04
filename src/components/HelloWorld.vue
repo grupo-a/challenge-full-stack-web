@@ -31,6 +31,7 @@
       </v-col>
 
       <MultiplosEventos />
+      <Reutilizacao />
 
       <v-col class="mb-5" cols="12">
         <h2 class="headline font-weight-bold mb-3">
@@ -70,11 +71,13 @@
 <script>
 
   import MultiplosEventos from './MultiplosEventos.vue'
+  import Reutilizacao from './Reutilizacao.vue'
 
   export default {
     name: 'HelloWorld',
     components: {
-      MultiplosEventos
+      MultiplosEventos,
+      Reutilizacao
     },
     data: () => ({
       editar: [
