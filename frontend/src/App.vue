@@ -25,25 +25,19 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
-      <LifeCycle/>
-      <Pessoa/>
+      <Home/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-import LifeCycle from './components/LifeCycle';
-import Pessoa from './components/Pessoa';
+import Home from './components/Home';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
-    LifeCycle,
-    Pessoa
+    Home
   },
 
   data: () => ({
