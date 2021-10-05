@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import Info from './Info';
+    import Info from './Info.vue';
 
     export default {
         name: 'Pessoa',

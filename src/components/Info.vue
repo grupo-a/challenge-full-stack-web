@@ -22,12 +22,18 @@
                 {{ technology.language }}
             </li>
         </ul>
+    <Picture />
     </div>
 </template>
 
 <script lang="ts">
+    import Picture from './Picture.vue'
+
     export default {
-        name: 'Info', 
+        name: 'Info',
+        components: {
+            Picture
+        },
         props: {
             alunoEmail: String
         },
