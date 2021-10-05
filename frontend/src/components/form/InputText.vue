@@ -1,10 +1,11 @@
 <template>
     <div class="container">
         <div>
-            <input type="text" v-model="name" class="">
+            <label for="name">Nome </label>
+            <input class="white" type="text">
         </div>
         <div>
-            <label for="email">Email </label>
+            <label for="email">E-mail </label>
             <input class="white" type="email">
         </div>
         <div>

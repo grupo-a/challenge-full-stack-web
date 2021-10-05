@@ -25,7 +25,6 @@
     </v-app-bar>
 
     <v-main>
-      <Form/>
       <HelloWorld/>
       <LifeCycle/>
       <Pessoa/>
@@ -37,7 +36,6 @@
 import HelloWorld from './components/HelloWorld';
 import LifeCycle from './components/LifeCycle';
 import Pessoa from './components/Pessoa';
-import Form from './components/Form';
 
 export default {
   name: 'App',
@@ -45,8 +43,7 @@ export default {
   components: {
     HelloWorld,
     LifeCycle,
-    Pessoa,
-    Form
+    Pessoa
   },
 
   data: () => ({
