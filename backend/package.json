@@ -1,0 +1,27 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "API: Express e NodeJS com Banco de Dados MySQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DrielisonLopes/challenge-full-stack-web.git"
+  },
+  "keywords": [
+    "api",
+    "node",
+    "mysql"
+  ],
+  "author": "Drielison Lopes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DrielisonLopes/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/DrielisonLopes/challenge-full-stack-web#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
