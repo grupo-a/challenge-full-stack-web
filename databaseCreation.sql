@@ -1,0 +1,12 @@
+DROP SCHEMA IF EXISTS dateStudents;
+CREATE SCHEMA dateStudents;
+USE dateStudents;
+
+CREATE TABLE students(
+	id INT(11) AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(50),
+    RA VARCHAR(15) NOT NULL UNIQUE,
+    CPF VARCHAR(11),
+    CONSTRAINT PRIMARY KEY(id)
+);
