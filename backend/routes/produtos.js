@@ -1,4 +1,4 @@
-const exports = require('express')
+const express = require('express')
 const router = express.Router()
 
 // retorna todos os produtos
@@ -21,9 +21,9 @@ router.post('/', (req, res, next) =>{
 })
 
 // pegando o ID do http e armazenando na variável
-// retornando um produto
+// retornando um produto a partir do id
 router.get('/:id_produto', (req, res, next) =>{
-    const id = req.params.id_produto
+    const id = req.params.id_produto // armazena o id na variável
 
     if(id === 'especial') {
         res.status(200).send({

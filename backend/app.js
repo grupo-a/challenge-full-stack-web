@@ -11,6 +11,7 @@ app.use(morgan('dev'));
 // app.use(bodyParser.urlencoded({ extended: false }));
 // app.use(bodyParser.json());
 
+// definindo cabeçario
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(
@@ -18,10 +19,10 @@ app.use((req, res, next) => {
         'Origin, X-Requested-With, Content-Type, Accept, Authorization'
     )
 
-    // o OPTIONS é muito usado quando implementa frontend para consumir a API
+    // o OPTIONS é muito usado quando implementar frontend para consumir a API
     if (req.method === 'OPTIONS') {
-        req.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).send({})
+        req.header('Access-Control-Allow-Methods', 'GET, PUT, POST, PATCH, DELETE');
+        return res.status(200).send({});
     }
 
     next();
@@ -30,9 +31,9 @@ app.use((req, res, next) => {
 app.use('/produtos', rotaProdutos)
 app.use('/pedidos', rotaPedidos)
 
-// tratamento de erro para se não econtrar nenhuma rota
+// tratamento de erro se não econtrar nenhuma rota
 app.use((req, res, next) => {
-    const erro = new Error('Não encontrado')
+    const erro = new Error('Rota não encontrada!')
     erro.status = 404;
     next(erro)
 })
