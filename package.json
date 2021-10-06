@@ -1,0 +1,19 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "description": "Desafio tecnico A+ Educaçao",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lotar-lucas/challenge-full-stack-web.git"
+  },
+  "author": "Lucas Lotar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lotar-lucas/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/Lotar-lucas/challenge-full-stack-web#readme"
+}
