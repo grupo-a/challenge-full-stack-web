@@ -1,29 +1,31 @@
 const express = require('express')
 const router = express.Router()
 
-// retorna todos os produtos
+// retorna todos os cadastros
 router.get('/', (req, res, next) =>{
     res.status(200).send({
-        messagem: 'Usando o GET dentro da rota de produtos'
+        messagem: 'Usando o GET dentro da rota de cadastros'
     })
 })
 
-// insere um produto
+// insere um cadastro
 router.post('/', (req, res, next) =>{
-    const produto = {
+    const cadastro = {
         nome: req.body.nome,
-        preco: req.body.preco
+        email: req.body.email,
+        ra: req.body.ra,
+        cpf: req.body.cpf
     }
     res.status(201).send({
-        mensagem: 'Usando o POST dentro da rota de produtos',
-        produtoCriado: produto
+        mensagem: 'Usando o POST dentro da rota de cadastros',
+        cadastroCriado: cadastro
     })
 })
 
 // pegando o ID do http e armazenando na variável
-// retornando um produto a partir do id
-router.get('/:id_produto', (req, res, next) =>{
-    const id = req.params.id_produto // armazena o id na variável
+// retornando um cadastro a partir do id
+router.get('/:id_cadastro', (req, res, next) =>{
+    const id = req.params.id_cadastro // armazena o id na variável
 
     if(id === 'especial') {
         res.status(200).send({
@@ -37,17 +39,17 @@ router.get('/:id_produto', (req, res, next) =>{
     }
 })
 
-// altera um produto
+// altera um cadastro
 router.patch('/', (req, res, next) =>{
     res.status(201).send({
-        mensagem: 'Usando o PATCH dentro da rota de produtos'
+        mensagem: 'Usando o PATCH dentro da rota de cadastros'
     })
 })
 
-// deleta um produto
+// deleta um cadastro
 router.delete('/', (req, res, next) =>{
     res.status(201).send({
-        mensagem: 'Usando o DELETE dentro da rota de produtos'
+        mensagem: 'Usando o DELETE dentro da rota de cadastros'
     })
 })
 

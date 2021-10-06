@@ -3,8 +3,8 @@ const app = express()
 const morgan = require('morgan')
 // const bodyParser = require('body-parser')
 
-const rotaProdutos = require('./routes/produtos')
-const rotaPedidos = require('./routes/pedidos')
+const rotaCadastros = require('./routes/cadastros')
+const rotaAlunos = require('./routes/alunos')
 
 // o morgan executa um callback para dar proseguimento ao projeto
 app.use(morgan('dev'));
@@ -28,8 +28,8 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/produtos', rotaProdutos)
-app.use('/pedidos', rotaPedidos)
+app.use('/cadastros', rotaCadastros)
+app.use('/alunos', rotaAlunos)
 
 // tratamento de erro se não econtrar nenhuma rota
 app.use((req, res, next) => {
