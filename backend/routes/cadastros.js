@@ -11,11 +11,11 @@ router.get('/', (req, res, next) =>{
         if (error) { return res.status(500).send({ error: error }) }
         conn.query (
             'SELECT * FROM cadastros;',
-            (error, resultado, fields) => {
+            (error, result, fields) => {
                 if (error) { return res.status(500).send({ error: error }) }
                 const response = {
-                    quantidade: resultado.length,
-                    cadastros: resultado.map(cad => {
+                    quantidade: result.length,
+                    cadastros: result.map(cad => {
                         return {
                             id_cadastro: cad.id_cadastro,
                             nome: cad.nome,
@@ -76,6 +76,7 @@ router.get('/:id_cadastro', (req, res, next) =>{
         if (error) { return res.status(500).send({ error: error }) }
         conn.query (
             'SELECT * FROM cadastros WHERE id_cadastro = ?;',
+            [req.params.id_cadastro],
             (error, result, fields) => {
                 if (error) { return res.status(500).send({ error: error }) }
 
