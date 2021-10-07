@@ -40,7 +40,7 @@ router.post('/', (req, res, next) =>{
     })
 })
 
-// pegando o ID do http e armazenando na variável
+// pegando o id do http e armazenando na variável
 // retornando um cadastro a partir do id
 router.get('/:id_cadastro', (req, res, next) =>{
     mysql.getConnection((error, conn) => {
