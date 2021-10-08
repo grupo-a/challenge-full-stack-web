@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const mysql = require('../mysql').pool
+const login = require('../middleware/login')
 
 // retorna todos os cadastros
 router.get('/', (req, res, next) =>{
@@ -37,7 +38,7 @@ router.get('/', (req, res, next) =>{
 })
 
 // insere um cadastro
-router.post('/', (req, res, next) =>{
+router.post('/', login.obrigatorio, (req, res, next) =>{
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
@@ -106,7 +107,7 @@ router.get('/:id_cadastro', (req, res, next) =>{
 })
 
 // altera um cadastro
-router.patch('/', (req, res, next) =>{
+router.patch('/', login.obrigatorio, (req, res, next) =>{
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
@@ -148,7 +149,7 @@ router.patch('/', (req, res, next) =>{
 })
 
 // deleta um cadastro
-router.delete('/', (req, res, next) =>{
+router.delete('/', login.obrigatorio, (req, res, next) =>{
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
