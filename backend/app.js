@@ -5,6 +5,7 @@ const morgan = require('morgan')
 
 const rotaCadastros = require('./routes/cadastros')
 const rotaAlunos = require('./routes/alunos')
+const rotaUsuarios = require('./routes/usuarios')
 
 // o morgan executa um callback para dar proseguimento ao projeto
 app.use(morgan('dev'));
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 
 app.use('/cadastros', rotaCadastros)
 app.use('/alunos', rotaAlunos)
+app.use('/usuarios', rotaUsuarios)
 
 // tratamento de erro se não econtrar nenhuma rota
 app.use((req, res, next) => {

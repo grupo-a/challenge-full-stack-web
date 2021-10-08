@@ -15,8 +15,14 @@ router.get('/', (req, res, next) =>{
                     alunos: result.map(aluno => {
                         return {
                             id_aluno: aluno.id_aluno,
-                            id_cadastro: aluno.id_cadastro,
                             quantidade: aluno.quantidade,
+                            cadastro: {
+                                id_cadastro: aluno.id_cadastro,
+                                nome: aluno.nome,
+                                email: aluno.email,
+                                ra: aluno.ra,
+                                cpf: aluno.cpf
+                            },
                             request: {
                                 tipo: 'GET',
                                 descricao: 'Retorna os detalhes de um aluno específico',
