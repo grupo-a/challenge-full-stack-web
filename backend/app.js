@@ -1,7 +1,6 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-// const bodyParser = require('body-parser')
 
 const rotaCadastros = require('./routes/cadastros')
 const rotaAlunos = require('./routes/alunos')
@@ -9,8 +8,6 @@ const rotaUsuarios = require('./routes/usuarios')
 
 // o morgan executa um callback para dar proseguimento ao projeto
 app.use(morgan('dev'));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
 
 // definindo cabeçario
 app.use((req, res, next) => {

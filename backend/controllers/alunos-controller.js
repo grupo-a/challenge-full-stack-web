@@ -56,8 +56,8 @@ exports.postAlunos = (req, res, next) =>{
                     const response = {
                         mensagem: 'Aluno inserido com sucesso',
                         alunoCriado : {
-                            id_pedido: result.id_pedido,
-                            id_cadastro: req.body.id_produto,
+                            id_aluno: result.id_aluno,
+                            id_cadastro: req.body.cadastro,
                             quantidade: req.body.quantidade,
                             request: {
                                 tipo: 'GET',
@@ -104,7 +104,7 @@ exports.getUmAluno = (req, res, next) =>{
     })
 }
 
-exports.deletePedido = (req, res, next) =>{
+exports.deleteAluno = (req, res, next) =>{
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
@@ -119,7 +119,7 @@ exports.deletePedido = (req, res, next) =>{
                         descricao: 'Insere um aluno',
                         url: 'http://localhost:3000/alunos',
                         body: {
-                            id_produto: 'Number',
+                            id_cadastro: 'Number',
                             quantidade: 'Number'
                         }
                     }

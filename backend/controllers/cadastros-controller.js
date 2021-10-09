@@ -128,7 +128,7 @@ exports.updateCadastro = (req, res, next) =>{
                             request: {
                                 tipo: 'GET',
                                 descricao: 'Retorna detalhes de um cadastro específico',
-                                url: 'http//localhost:3000/cadastros' + req.body.id_produto
+                                url: 'http//localhost:3000/cadastros' + req.body.id_cadastro
                             }
                     }
                 }

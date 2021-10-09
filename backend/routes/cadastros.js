@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const login = require('../middleware/login')
 
-const CadastroController = require('../controllers/cadastro-controller')
+const CadastroController = require('../controllers/cadastros-controller')
 
 router.get('/', CadastroController.getCadastros)
 router.post('/', login.obrigatorio, CadastroController.postCadastro)
