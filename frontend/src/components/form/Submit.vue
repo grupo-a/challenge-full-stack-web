@@ -1,6 +1,6 @@
 <template>
     <v-btn color="primary" elevation="3">
-        <input type="submit" value="Logar">
+        <input type="submit" value="Login">
     </v-btn>
 </template>
 

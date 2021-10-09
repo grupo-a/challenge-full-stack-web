@@ -1,17 +1,39 @@
 <template>
     <div class="container">
-        <div>
-            <label for="name">Nome </label>
-            <input class="white" type="text">
-        </div>
-        <div>
-            <label for="email">E-mail </label>
-            <input class="white" type="email">
-        </div>
-        <div>
-            <label for="password">Senha </label>
-            <input class="white" type="password">
-        </div>
+        <v-form v-model="valid">
+    <v-container>
+        <v-row>
+        
+        <v-col
+            cols="12"
+            md="6"
+        >
+            <v-text-field
+            v-model="email"
+            :rules="emailRules"
+            label="E-mail"
+            required
+        ></v-text-field>
+        </v-col>
+
+        <v-col
+            cols="12"
+            md="6"
+        >
+        <v-text-field
+            v-model="lastname"
+            :rules="nameRules"
+            :type="show3 ? 'text' : 'password'"
+            :counter="10"
+            label="Senha"
+            required
+
+        ></v-text-field>
+        </v-col>
+
+    </v-row>
+    </v-container>
+</v-form>
     </div>
 </template>
 

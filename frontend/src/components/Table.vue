@@ -28,7 +28,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    New Item
+                    Novo Aluno
                 </v-btn>
             </template>
             <v-card>
@@ -45,8 +45,8 @@
                         md="4"
                     >
                         <v-text-field
-                        v-model="editedItem.name"
-                        label="Cadastrados"
+                        v-model="editedItem.nomes"
+                        label="Nome"
                         ></v-text-field>
                     </v-col>
                     <v-col
@@ -55,8 +55,19 @@
                         md="4"
                     >
                         <v-text-field
-                        v-model="editedItem.nomes"
-                        label="Nomes"
+                        v-model="editedItem.email"
+                        label="Email"
+                        ></v-text-field>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                    >
+                        <v-text-field
+                        v-model="editedItem.ra"
+                        type="number"
+                        label="RA"
                         ></v-text-field>
                     </v-col>
                     <v-col
@@ -66,6 +77,7 @@
                     >
                         <v-text-field
                         v-model="editedItem.cpf"
+                        type="number"
                         label="CPF"
                         ></v-text-field>
                     </v-col>
@@ -81,25 +93,26 @@
                     text
                     @click="close"
                 >
-                    Cancel
+                    Cancelar
                 </v-btn>
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="save"
+                    @click="salvar"
                 >
-                    Save
+                    Salvar
+                    <!-- <v-alert dense dismissible type="success">Aluno Cadastrado</v-alert> -->
                 </v-btn>
                 </v-card-actions>
             </v-card>
             </v-dialog>
             <v-dialog v-model="dialogDelete" max-width="500px">
             <v-card>
-                <v-card-title class="text-h5">Are you sure you want to delete this item?</v-card-title>
+                <v-card-title class="text-h5">Você tem certeza que deseja excluir esse Aluno?</v-card-title>
                 <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">Sim</v-btn>
                 <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
@@ -142,28 +155,30 @@
             text: 'Registro Acadêmico',
             align: 'start',
             sortable: false,
-            value: 'name',
+            value: 'ra',
             },
             { text: 'Nomes', value: 'nomes' },
-            { text: 'CPF (g)', value: 'cpf' },
+            { text: 'CPF', value: 'cpf' },
             { text: 'Actions', value: 'actions', sortable: false },
         ],
         Cadastrados: [],
         editedIndex: -1,
         editedItem: {
-            name: '',
-            nomes: 0,
-            cpf: 0,
+            ra: '',
+            nomes: '',
+            cpf: '',
+            email: '',
         },
         defaultItem: {
-            name: '',
-            nomes: 0,
-            cpf: 0,
+            ra: '',
+            nomes: '',
+            cpf: '',
+            email: '',
         },
         }),
         computed: {
         formTitle () {
-            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+            return this.editedIndex === -1 ? 'Novo Aluno' : 'Editar Aluno'
         },
         },
         watch: {
@@ -181,22 +196,22 @@
         initialize () {
             this.Cadastrados = [
             {
-                name: 101235,
+                ra: 101235,
                 nomes: 'Drielison Lopes',
                 cpf: 65478912322,
             },
             {
-                name: 111687,
+                ra: 111687,
                 nomes: 'Sarutobi Sensei',
                 cpf: 78945612311,
             },
             {
-                name: 11365,
+                ra: 11365,
                 nomes: 'Mitchel Telo',
                 cpf: 12345678999,
             },
             {
-                name: 101229,
+                ra: 101229,
                 nomes: 'Mauricío Miranda',
                 cpf: 12499999999,
             },
@@ -236,7 +251,7 @@
             })
         },
 
-        save () {
+        salvar () {
             if (this.editedIndex > -1) {
             Object.assign(this.Cadastrados[this.editedIndex], this.editedItem)
             } else {

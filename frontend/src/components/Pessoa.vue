@@ -6,7 +6,7 @@
 </template>
 
 <script>
-    import Info from './Info.vue';
+    import Info from './ExibirAlunos.vue';
 
     export default {
         name: 'Pessoa',

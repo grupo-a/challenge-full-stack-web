@@ -16,9 +16,6 @@
           Seja bem vindo!
         </h1>
           <p>Faça o login e comece seus estudos</p>
-        <p class="subheading font-weight-regular">
-          
-        </p>
       </v-col>
 
       <Form />
@@ -28,25 +25,7 @@
           e Realize sua Matrícula na Turma de Programação Web da instituição EdTech
         </p>
       </v-col>
-<!--  -->
-      <!-- <v-col class="mb-5" cols="12"> -->
-        <!-- <h2 class="headline font-weight-bold mb-3"> -->
-          <!-- Cadastrar novo aluno -->
-        <!-- </h2> -->
-          <!-- <li>Dado que estou na tela de Consulta de Alunos</li> -->
-          <!-- <li>Quando clico em Cadastrar Aluno</li> -->
-          <!-- <li>Então abre a tela de Cadastro do Aluno</li> -->
-          <!-- <li>E exibe os campos obrigatórios vazios</li> -->
-          <!-- <li>Dado que inseri dados válidos nos campos</li> -->
-          <!-- <li>Quando clico em Salvar</li> -->
-          <!-- <li>Então cria o novo aluno na base</li> -->
-          <!-- <li>E retorna mensagem de sucesso</li> -->
-          <!-- <li>Dado que inseri dados válidos nos campos</li> -->
-          <!-- <li>Quando clico em Cancelar</li> -->
-          <!-- <li>Então retorna para tela Consulta de Alunos</li> -->
-          <!-- <li>E não persiste a gravação dos dados no banco</li> -->
-      <!-- </v-col> -->
-<!--  -->
+
       <!-- <v-col class="mb-5" cols="12"> -->
         <!-- <h2 class="headline font-weight-bold mb-3"> -->
           <!-- Listar Alunos cadastrados -->
@@ -93,39 +72,24 @@
         <!-- <li>Então então fecha a modal e não persiste a exclusão</li> -->
       <!-- </v-col>        -->
 
-      <v-col class="mb-5" cols="12">
-        <v-row justify="center">
-          <h2>Campos obrigatórios: </h2>
-          <a
-            v-for="(eco, i) in editar"
-            :key="i"
-            :href="eco.href"
-            class="subheading mx-3"
-            target="_blank"
-          >
-            {{ eco.text }}
-          </a>
-          <br><br>
-        </v-row>
-    </v-col>
+      
     </v-row>
   </v-container>
-    <Table />
-    <Info />
+    <Footer />
+    <Consultar />
+    <Footer />
     <LifeCycle />
     <MudarImagem />
     <MultiplosEventos />
     <Pessoa />
     <Picture />
     <Reutilizacao />
-    <Footer />
   </div>
 </template>
 
 <script>
 
-  import Table from './Table.vue'
-  import Info from './Info.vue'
+  import Consultar from './Consultar.vue'
   import LifeCycle from './LifeCycle.vue'
   import MudarImagem from './MudarImagem.vue'
   import MultiplosEventos from './MultiplosEventos.vue'
@@ -138,15 +102,14 @@
   export default {
     name: 'Home',
     components: {
-      Table,
-      Info,
       LifeCycle,
       MudarImagem,
       MultiplosEventos,
       Pessoa,
       Picture,
       Reutilizacao,
-      Form, 
+      Form,
+      Consultar, 
       Footer
     },
     data: () => ({
