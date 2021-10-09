@@ -25,27 +25,6 @@
     </v-app-bar>
 
     <v-main>
-    
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>email</th>
-          <th>RA</th>
-          <th>CPF</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <!-- <tr v-for="cadastro of cadastros" :key="cadastro.id"> -->
-          <td>nome</td>
-          <td>email</td>
-          <td>RA</td>
-          <td>CPF</td>
-        </tr>
-      </tbody>
-    </table>
-
       <Home/>
     </v-main>
   </v-app>
@@ -59,7 +38,8 @@ export default {
   name: 'App',
 
   components: {
-    Home
+    Home,
+    Cadastro
   },
 
   data () {

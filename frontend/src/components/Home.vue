@@ -110,13 +110,27 @@
     </v-col>
     </v-row>
   </v-container>
+    <Table />
+    <Info />
+    <LifeCycle />
+    <MudarImagem />
+    <MultiplosEventos />
+    <Pessoa />
+    <Picture />
+    <Reutilizacao />
     <Footer />
   </div>
 </template>
 
 <script>
 
+  import Table from './Table.vue'
+  import Info from './Info.vue'
+  import LifeCycle from './LifeCycle.vue'
+  import MudarImagem from './MudarImagem.vue'
   import MultiplosEventos from './MultiplosEventos.vue'
+  import Pessoa from './Pessoa.vue'
+  import Picture from './Picture.vue'
   import Reutilizacao from './Reutilizacao.vue'
   import Form from './Form';
   import Footer from './Footer.vue'
@@ -124,7 +138,13 @@
   export default {
     name: 'Home',
     components: {
+      Table,
+      Info,
+      LifeCycle,
+      MudarImagem,
       MultiplosEventos,
+      Pessoa,
+      Picture,
       Reutilizacao,
       Form, 
       Footer
