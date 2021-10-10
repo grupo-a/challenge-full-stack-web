@@ -1,7 +1,7 @@
 <template>
     <v-data-table
         :headers="headers"
-        :items="Cadastrados"
+        :items="Registered"
         sort-by="nomes"
         class="elevation-1"
     >
@@ -98,7 +98,7 @@
                 <v-btn
                     color="blue darken-1"
                     text
-                    @click="salvar"
+                    @click="save"
                 >
                     Salvar
                     <!-- <v-alert dense dismissible type="success">Aluno Cadastrado</v-alert> -->
@@ -112,7 +112,7 @@
                 <v-card-actions>
                 <v-spacer></v-spacer>
                 <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
-                <v-btn color="blue darken-1" text @click="deleteItemConfirm">Sim</v-btn>
+                <v-btn color="blue darken-1" text @click="deleteItemConfirm">Confirmar</v-btn>
                 <v-spacer></v-spacer>
                 </v-card-actions>
             </v-card>
@@ -159,9 +159,9 @@
             },
             { text: 'Nomes', value: 'nomes' },
             { text: 'CPF', value: 'cpf' },
-            { text: 'Actions', value: 'actions', sortable: false },
+            { text: 'Ações', value: 'actions', sortable: false },
         ],
-        Cadastrados: [],
+        Registered: [],
         editedIndex: -1,
         editedItem: {
             nomes: '',
@@ -192,7 +192,7 @@
         },
         methods: {
         initialize () {
-            this.Cadastrados = [
+            this.Registered = [
             {
                 ra: 101235,
                 nomes: 'Drielison Lopes',
@@ -217,19 +217,19 @@
         },
 
         editItem (item) {
-            this.editedIndex = this.Cadastrados.indexOf(item)
+            this.editedIndex = this.Registered.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         },
 
         deleteItem (item) {
-            this.editedIndex = this.Cadastrados.indexOf(item)
+            this.editedIndex = this.Registered.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialogDelete = true
         },
 
         deleteItemConfirm () {
-            this.Cadastrados.splice(this.editedIndex, 1)
+            this.Registered.splice(this.editedIndex, 1)
             this.closeDelete()
         },
 
@@ -249,11 +249,11 @@
             })
         },
 
-        salvar () {
+        save () {
             if (this.editedIndex > -1) {
-            Object.assign(this.Cadastrados[this.editedIndex], this.editedItem)
+            Object.assign(this.Registered[this.editedIndex], this.editedItem)
             } else {
-            this.Cadastrados.push(this.editedItem)
+            this.Registered.push(this.editedItem)
             }
             this.close()
         },

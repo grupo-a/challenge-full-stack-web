@@ -17,7 +17,7 @@
             </v-col>
 
             <v-col>
-                <ExibirAlunos />
+                <ShowStudents />
             </v-col>
         </v-row>
     </v-container>
@@ -25,12 +25,12 @@
 
 <script>
 
-import ExibirAlunos from './ExibirAlunos.vue'
+import ShowStudents from './ShowStudents.vue'
 
 export default {
-    name: 'Consultar',
+    name: 'Consult',
     components: {
-        ExibirAlunos
+        ShowStudents
     }
 }
 </script>

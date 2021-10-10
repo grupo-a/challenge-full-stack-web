@@ -46,7 +46,7 @@ Abaixo alguns mockoups de interface como um guia para a criação do front-end. 
 - **Dado** que inseri dados válidos nos campos
 - **Quando** clico em Salvar
 - **Então** cria o novo aluno na base
-- **E** retorna mensagem de sucesso
+- **E** retorna message de sucesso
 ####
 - **Dado** que inseri dados válidos nos campos
 - **Quando** clico em Cancelar

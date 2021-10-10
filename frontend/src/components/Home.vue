@@ -29,14 +29,14 @@
     </v-row>
   </v-container>
     <Footer />
-    <Consultar />
+    <Consult />
     <Footer />
   </div>
 </template>
 
 <script>
 
-  import Consultar from './Consultar.vue'
+  import Consult from './Consult.vue'
   import Form from './Form';
   import Footer from './Footer.vue'
 
@@ -44,7 +44,7 @@
     name: 'Home',
     components: {
       Form,
-      Consultar, 
+      Consult, 
       Footer
     },
     data: () => ({

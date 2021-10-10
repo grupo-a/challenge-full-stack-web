@@ -10,7 +10,7 @@ exports.cadastraUsuario = (req, res, next) => {
             [req.body.email],
             (error, results) => {
                 if (results.length > 0) {
-                    res.status(409).send({ mensagem: 'Usuário já cadastrado' })
+                    res.status(409).send({ message: 'Usuário já cadastrado' })
                 } else {
                     bcrypt.hash(req.body.password, 10, (errBcrypt, hash) => {
                         if (errBcrypt) { return res.status(500).send({ error: errBcrypt }) }
@@ -21,7 +21,7 @@ exports.cadastraUsuario = (req, res, next) => {
                                 conn.release();
                                 if (error) { return res.status(500).send({ error: error })}
                                 response = { 
-                                    mensagem: 'Usuário criado com sucesso',
+                                    message: 'Usuário criado com sucesso',
                                     usuarioCriado: {
                                         id_usuario: results.insertId,
                                         email: req.body.email
@@ -44,11 +44,11 @@ exports.Login = (req, res, next) => {
             conn.release();
             if (error) { return res.status(500).send({ error: error }) }
             if (results.length < 1) {
-                return res.status(401).send({ mensagem: 'Falha na autenticação' })
+                return res.status(401).send({ message: 'Falha na autenticação' })
             }
             bcryot.compare(req.body.senha, results[0].senha, (err, result) => {
                 if (err) {
-                    return res.status(401).send({ mensagem: 'Falha na autenticação' })
+                    return res.status(401).send({ message: 'Falha na autenticação' })
                 }
                 if (result) {
                     const token = jwt.sign({
@@ -60,11 +60,11 @@ exports.Login = (req, res, next) => {
                         expiresIn: "1h"
                     })
                     return res.status(200).send({
-                        mensagem: 'Autenticado com sucesso',
+                        message: 'Autenticado com sucesso',
                         token: token    
                     })
                 }
-                return res.status(401).send({ mensagem: 'Falha na autenticação' })
+                return res.status(401).send({ message: 'Falha na autenticação' })
             })
         })
     })

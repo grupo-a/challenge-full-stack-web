@@ -42,7 +42,7 @@ exports.postCadastro = (req, res, next) =>{
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }                
                 const response = {
-                    mensagem: 'Cadastro realizado com sucesso',
+                    message: 'Cadastro realizado com sucesso',
                         cadastroCriado : {
                             id_cadastro: result.id_cadastro,
                             nome: req.body.nome,
@@ -74,7 +74,7 @@ exports.getUmCadastro = (req, res, next) =>{
 
                 if (result.length == 0) {
                     return res.status(404).send({
-                        mensagem: 'Não foi encontrado cadastro com este ID'
+                        message: 'Não foi encontrado cadastro com este ID'
                     })
                 }
                 const response = {
@@ -118,7 +118,7 @@ exports.updateCadastro = (req, res, next) =>{
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }  
                 const response = {
-                    mensagem: 'Cadastro atualizado com sucesso',
+                    message: 'Cadastro atualizado com sucesso',
                         cadastroAtualizado : {
                             id_cadastro: req.body.id_cadastro,
                             nome: req.body.nome,
@@ -147,7 +147,7 @@ exports.deleteCadastro = (req, res, next) =>{
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }  
                 const response = {
-                    mensagem: 'Cadastro excluido com sucesso!',
+                    message: 'Cadastro excluido com sucesso!',
                     request: {
                         tipo: 'POST',
                         descricao: 'Insere um cadastro',

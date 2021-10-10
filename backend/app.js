@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const morgan = require('morgan')
 
-const rotaCadastros = require('./routes/cadastros')
-const rotaAlunos = require('./routes/alunos')
-const rotaUsuarios = require('./routes/usuarios')
+const registeredsnRoute = require('./routes/registered')
+const studentsRoute = require('./routes/students')
+const usersRoute = require('./routes/users')
 
 // o morgan executa um callback para dar proseguimento ao projeto
 app.use(morgan('dev'));
@@ -26,9 +26,9 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/cadastros', rotaCadastros)
-app.use('/alunos', rotaAlunos)
-app.use('/usuarios', rotaUsuarios)
+app.use('/registered', registeredsnRoute)
+app.use('/alunos', studentsRoute)
+app.use('/usuarios', usersRoute)
 
 // tratamento de erro se não econtrar nenhuma rota
 app.use((req, res, next) => {
@@ -41,7 +41,7 @@ app.use((error, req, res, next) => {
     res.status(error.status || 500)
     return res.send({
         erro: {
-            mensagem: error.message
+            message: error.message
         }
     })
 })

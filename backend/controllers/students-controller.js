@@ -44,7 +44,7 @@ exports.postAlunos = (req, res, next) =>{
             if (error) { return res.status(500).send({ error : error })}
             if (result.length === 0) {
                 return res.status(404).send({
-                    mensagem : 'Não foi encontrado Aluno com esse ID'
+                    message : 'Não foi encontrado Aluno com esse ID'
                 })
             }
             conn.query (
@@ -54,7 +54,7 @@ exports.postAlunos = (req, res, next) =>{
                     conn.release();
                     if (error) { return res.status(500).send({ error: error }) }
                     const response = {
-                        mensagem: 'Aluno inserido com sucesso',
+                        message: 'Aluno inserido com sucesso',
                         alunoCriado : {
                             id_aluno: result.id_aluno,
                             id_cadastro: req.body.cadastro,
@@ -83,7 +83,7 @@ exports.getUmAluno = (req, res, next) =>{
                 if (error) { return res.status(500).send({ error: error }) }
                 if (result.length == 0) {
                     return res.status(404).send({
-                        mensagem: 'Não foi encontrado aluno com este ID'
+                        message: 'Não foi encontrado aluno com este ID'
                     })
                 }
                 const response = {
@@ -113,7 +113,7 @@ exports.deleteAluno = (req, res, next) =>{
                 conn.release()
                 if (error) { return res.status(500).send({ error: error }) }  
                 const response = {
-                    mensagem: 'Aluno excluído com sucesso!',
+                    message: 'Aluno excluído com sucesso!',
                     request: {
                         tipo: 'POST',
                         descricao: 'Insere um aluno',

@@ -4,8 +4,8 @@
   - Idioma de escrita do código: Inglês
 
   $critério de aceite
-  -Quando clico em Salvar ... E retorna mensagem de sucesso
-  -abre Cadastro do Aluno E exibe alteração dos campos editáveis
+  -Quando clico em Salvar ... E retorna message de sucesso
+  -abre Cadastro do Aluno E exibe alteração dos campos editáveis (nome e email)
 
   $Desejável
   -Teste unitários
