@@ -28,7 +28,7 @@
                     v-bind="attrs"
                     v-on="on"
                 >
-                    Novo Aluno
+                    Cadastrar Aluno
                 </v-btn>
             </template>
             <v-card>
@@ -164,9 +164,7 @@
         Cadastrados: [],
         editedIndex: -1,
         editedItem: {
-            ra: '',
             nomes: '',
-            cpf: '',
             email: '',
         },
         defaultItem: {
