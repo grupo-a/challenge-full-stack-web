@@ -4,7 +4,7 @@ exports.getAlunos = (req, res, next) =>{
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query (
-            'SELECT * FROM alunos;',
+            'SELECT * FROM cadastroalunos;',
             (error, result, fields) => {
                 if (error) { return res.status(500).send({ error: error }) }
                 const response = {
