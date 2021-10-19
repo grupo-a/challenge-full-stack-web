@@ -1,8 +1,7 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
-  </div>
+<v-app id="app">
+  <router-view />
+</v-app>
 </template>
 
 <script>
@@ -13,11 +12,19 @@ export default {
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Inter', Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background: #E9E9E9;
+}
+
+html {
+  overflow-y: auto
+}
+
+.no-uppercase {
+  text-transform: none !important;
+  letter-spacing: 0em !important;
 }
 </style>
