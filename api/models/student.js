@@ -14,25 +14,35 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Student.init({
-    name: DataTypes.STRING,
-    validate: {
-      len: {
-        args: [4-50],
-        msg: 'Name must have between 4 and 50 characters'
+    ra: {
+      type: DataTypes.INTEGER, 
+      primaryKey: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        len: {
+          args: [4-50],
+          msg: 'Name must have between 4 and 50 characters'
+        }
       }
     },
-    email: DataTypes.STRING,
-    validate: {
-      isEmail: {
-        args: true,
-        msg: 'Invalid e-mail'
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true,
+          msg: 'Invalid e-mail'
+        }
       }
     },
-    cpf: DataTypes.STRING,
-    validate: {
-      len: 11,
-      msg: 'Invalid CPF'
-    }
+    cpf: {
+      type: DataTypes.STRING,
+      validate: {
+        len: 11,
+        msg: 'Invalid CPF'
+      }
+    }, 
   }, {
     sequelize,
     modelName: 'Student',
