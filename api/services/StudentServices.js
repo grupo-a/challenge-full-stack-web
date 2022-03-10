@@ -1,9 +1,10 @@
 const database = require('../models');
-const {DuplicatedInfoError} = require('../errors/errors')
+const {DuplicatedInfoError, StudentNotFoundError} = require('../errors/errors')
 const { Op } = require('sequelize');
 const { Sequelize } = require('../models');
 
 class StudentServices {
+
     async getAllStudents() {
         return database.Student.findAll();
     }
@@ -28,7 +29,11 @@ class StudentServices {
     }
 
     async deleteStudent(ra) {
-        return database.Student.destroy({where: { ra: ra } });
+        const studentExists = await database.Student.findByPk(ra);
+        if(!studentExists) {
+            throw new StudentNotFoundError();
+        }
+        return await database.Student.destroy({where: { ra: ra } });
     }
 }
 

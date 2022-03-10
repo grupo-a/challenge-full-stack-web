@@ -1,3 +1,4 @@
+
 class DuplicatedInfoError extends Error {
     constructor(message, statusCode) {
         super(message);
@@ -6,4 +7,12 @@ class DuplicatedInfoError extends Error {
       }
 }
 
-module.exports = {DuplicatedInfoError};
+class StudentNotFoundError extends Error {
+  constructor() {
+    super();
+    this.name = 'Student not Found';
+    this.statusCode = 400;
+  }
+}
+
+module.exports = {DuplicatedInfoError, StudentNotFoundError};
