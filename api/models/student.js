@@ -17,10 +17,12 @@ module.exports = (sequelize, DataTypes) => {
     ra: {
       type: DataTypes.INTEGER, 
       primaryKey: true,
+      allowNull: false,
       autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         len: {
           args: [4-50],
@@ -30,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         isEmail: {
           args: true,
@@ -39,6 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     cpf: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
         len: {
           args: [11],

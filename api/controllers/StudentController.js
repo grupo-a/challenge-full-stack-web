@@ -47,7 +47,7 @@ class StudentsController {
         try {
             const { ra } = req.params;
             await studentServices.deleteStudent(Number(ra));
-            return res.status(200).json({message: 'student deleted'});
+            return res.status(200).json({message: `student ${ra} deleted`});
         } catch (error) {
             return res.status(500).json(error.message)
         }

@@ -2,23 +2,23 @@ const database = require('../models');
 
 class StudentServices {
     async getAllStudents() {
-        return database['Student'].findAll();
+        return database.Student.findAll();
     }
 
     async getOneStudent(ra) {
-        return database['Student'].findByPk(ra);
+        return database.Student.findByPk(ra);
     }
 
     async createStudent(student) {
-        return database['Student'].create(student);
+        return database.Student.create(student);
     }
 
     async updateStudent(studentDataToUpdate, ra) {
-        return database['Student'].update(studentDataToUpdate, { where: { ra: ra } })
+        return database.Student.update(studentDataToUpdate, { where: { ra: ra } });
     }
 
     async deleteStudent(ra) {
-        return database['Student'].destroy({where: { ra: ra } });
+        return database.Student.destroy({where: { ra: ra } });
     }
 }
 
