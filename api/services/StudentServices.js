@@ -12,6 +12,10 @@ class StudentServices {
     async createStudent(student) {
         return database['Student'].create(student);
     }
+
+    async updateStudent(studentDataToUpdate, ra) {
+        return database['Student'].update(studentDataToUpdate, { where: { ra: ra } })
+    }
 }
 
 module.exports = StudentServices;
