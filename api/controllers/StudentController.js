@@ -21,13 +21,13 @@ class StudentsController {
         }
     }
 
-    static async createStudent(req, res) {
+    static async createStudent(req, res, next) {
         try {
             const newStudent = req.body;
             const createdStudent = await studentServices.createStudent(newStudent);
             res.status(201).json(createdStudent);
         } catch (error) {
-            return res.status(500).json(error.message);
+            next(error)
         }
     }
 
