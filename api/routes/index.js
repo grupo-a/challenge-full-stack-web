@@ -13,7 +13,7 @@ module.exports = app => {
         }
         return res.status(500).json({
             status: 'error',
-            message: 'Internal Server Error'
+            message: error.message
         });
     })
 }

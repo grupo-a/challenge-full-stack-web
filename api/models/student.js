@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: {
-          args: [4-50],
+          args: [4,50],
           msg: 'Name must have between 4 and 50 characters'
         }
       }
@@ -38,6 +38,10 @@ module.exports = (sequelize, DataTypes) => {
         isEmail: {
           args: true,
           msg: 'Invalid e-mail'
+        },
+        len: {
+          args:[5,50],
+          msg: 'E-mail must have between 5 and 50 characters'
         }
       }
     },
