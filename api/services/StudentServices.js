@@ -16,6 +16,10 @@ class StudentServices {
     async updateStudent(studentDataToUpdate, ra) {
         return database['Student'].update(studentDataToUpdate, { where: { ra: ra } })
     }
+
+    async deleteStudent(ra) {
+        return database['Student'].destroy({where: { ra: ra } });
+    }
 }
 
 module.exports = StudentServices;

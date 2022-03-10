@@ -32,14 +32,24 @@ class StudentsController {
     }
 
     static async updateStudent(req, res) {
-        const { ra } = req.params;
-        const studentDataToUpdate = req.body;
         try {
-            await studentServices.updateStudent(studentDataToUpdate, ra);
+            const { ra } = req.params;
+            const studentDataToUpdate = req.body;
+            await studentServices.updateStudent(studentDataToUpdate, Number(ra));
             const updatedStudent = await studentServices.getOneStudent(Number(ra));
             return res.status(200).json(updatedStudent);
         } catch (error) {
             return res.status(500).json(error.message);
+        }
+    }
+
+    static async deleteStudent(req, res) {
+        try {
+            const { ra } = req.params;
+            await studentServices.deleteStudent(Number(ra));
+            return res.status(200).json({message: 'student deleted'});
+        } catch (error) {
+            return res.status(500).json(error.message)
         }
     }
 }
