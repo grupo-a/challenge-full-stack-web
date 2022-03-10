@@ -1,9 +1,9 @@
-class StudentAlreadyExistsError extends Error {
-    constructor(mensagem, statusCode) {
-        super(mensagem);
-        this.name = 'StudentAlreadyExistsError';
+class DuplicatedInfoError extends Error {
+    constructor(message, statusCode) {
+        super(message);
+        this.name = 'Info Already Exists Error';
         this.statusCode = statusCode;
       }
 }
 
-module.exports = {StudentAlreadyExistsError};
+module.exports = {DuplicatedInfoError};
