@@ -1,5 +1,5 @@
 const database = require('../models');
-const {DuplicatedInfoError, StudentNotFoundError} = require('../errors/errors')
+const {DuplicatedInfoError, StudentNotFoundError, ValidationError} = require('../errors/errors')
 const { Op } = require('sequelize');
 const { Sequelize } = require('../models');
 
@@ -16,10 +16,14 @@ class StudentServices {
     async createStudent(student) {
         try {
             return await database.Student.create(student);
-        } catch (erro) {
-            if (erro instanceof Sequelize.UniqueConstraintError) {
-                throw new DuplicatedInfoError(erro.errors[0].message, 400);
+        } catch (error) {
+            if (error instanceof Sequelize.UniqueConstraintError) {
+                throw new DuplicatedInfoError(error.errors[0].message);
             }
+            if (error instanceof Sequelize.ValidationError) {
+                throw new ValidationError(error.errors[0].message)
+            }
+            return(error)
         }
         
     }
