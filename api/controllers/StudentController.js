@@ -20,6 +20,16 @@ class StudentsController {
             return res.status(500).json(error.message);
         }
     }
+
+    static async createStudent(req, res) {
+        try {
+            const newStudent = req.body;
+            const createdStudent = await studentServices.createStudent(newStudent);
+            res.status(201).json(createdStudent);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = StudentsController;

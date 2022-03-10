@@ -8,6 +8,10 @@ class StudentServices {
     async getOneStudent(ra) {
         return database['Student'].findByPk(ra);
     }
+
+    async createStudent(student) {
+        return database['Student'].create(student);
+    }
 }
 
 module.exports = StudentServices;

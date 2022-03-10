@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   Student.init({
     ra: {
       type: DataTypes.INTEGER, 
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     name: {
       type: DataTypes.STRING,
@@ -39,8 +40,10 @@ module.exports = (sequelize, DataTypes) => {
     cpf: {
       type: DataTypes.STRING,
       validate: {
-        len: 11,
-        msg: 'Invalid CPF'
+        len: {
+          args: [11],
+          msg: 'Invalid CPF'
+        }
       }
     }, 
   }, {
