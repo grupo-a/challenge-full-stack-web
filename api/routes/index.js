@@ -23,7 +23,6 @@ module.exports = app => {
                 message: error.message
             })
         }
-
         return res.status(500).json({
             status: 'error',
             message: error.message

@@ -1,5 +1,5 @@
 const database = require('../models');
-const {StudentNotFoundError} = require('../errors/errors');
+const {StudentNotFoundError, ValidationError} = require('../errors/errors');
 const { errorHandler } = require("../errors/errorHandler");
 
 class StudentServices {

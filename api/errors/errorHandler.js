@@ -8,5 +8,10 @@ function errorHandler(error) {
     if (error instanceof Sequelize.ValidationError) {
         throw new ValidationError(error.errors[0].message);
     }
+
+    if (error instanceof ValidationError) {
+        throw new ValidationError(error.message);
+    }
+
 }
 exports.errorHandler = errorHandler;

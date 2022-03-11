@@ -1,6 +1,7 @@
+const {cpf} = require('cpf-cnpj-validator');
 'use strict';
 const {
-  Model
+  Model, ValidationError
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
@@ -52,7 +53,16 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: {
           args: [11],
-          msg: 'Invalid CPF'
+          msg: 'CPF must have 11 characters'
+        },
+        is: {
+          args: /^[0-9]+$/,
+          msg: 'CPF must be numbers only'
+        },
+        isValidCpf(value) {
+          if (!cpf.isValid(value)) {
+            throw new ValidationError('CPF not valid')
+          }
         }
       }
     }, 
