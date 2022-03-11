@@ -59,8 +59,8 @@ module.exports = (sequelize, DataTypes) => {
           args: /^[0-9]+$/,
           msg: 'CPF must be numbers only'
         },
-        isValidCpf(value) {
-          if (!cpf.isValid(value)) {
+        isValidCpf(givenCpf) {
+          if (!cpf.isValid(givenCpf)) {
             throw new ValidationError('CPF not valid')
           }
         }
