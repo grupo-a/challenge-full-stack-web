@@ -14,7 +14,9 @@ class StudentsController {
                 totalStudents: allStudents.count,
                 currentPage: pagination.page,
                 content: allStudents.rows,
-                totalPages: Math.ceil(allStudents.count / pagination.size)
+                totalPages: Math.ceil(allStudents.count / pagination.size),
+                orderBy: pagination.orderBy,
+                order: pagination.order
             });
         } catch (error) {
             next(error);

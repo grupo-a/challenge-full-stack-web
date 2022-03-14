@@ -59,11 +59,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       validate: {
         len: {
-          args: [11],
-          msg: 'CPF must have 11 characters'
+          args: [14],
+          msg: 'CPF must have 14 characters'
         },
         is: {
-          args: /^[0-9]+$/,
+          args: /^\d{3}\.\d{3}\.\d{3}\-\d{2}$/,
           msg: 'CPF must be numbers only'
         },
         isValidCpf(givenCpf) {
