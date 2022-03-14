@@ -16,9 +16,11 @@ exports.paginationBuilder = function(givenOrderBy, givenPage, givenSize, givenOr
     }
 
     let orderBy = 'ra';
-    if (givenOrderBy !== 'ra') {
+    if (givenOrderBy !== 'ra' && givenOrderBy) {
         orderBy = givenOrderBy;
     }
+
+    console.log(orderBy)
 
     return {orderBy, order, page, size};
 }
