@@ -9,7 +9,6 @@ class StudentsController {
             const sizeAsNumber = Number.parseInt(req.query.size);
             const pagination = paginationBuilder(req.query.orderBy, pageAsNumber, sizeAsNumber, req.query.order);
             const allStudents = await studentServices.getAllStudents([[pagination.orderBy, pagination.order]], pagination.page, pagination.size);
-            console.log(allStudents);
             return res.status(200).json({
                 totalStudents: allStudents.count,
                 currentPage: pagination.page,

@@ -20,7 +20,5 @@ exports.paginationBuilder = function(givenOrderBy, givenPage, givenSize, givenOr
         orderBy = givenOrderBy;
     }
 
-    console.log(orderBy)
-
     return {orderBy, order, page, size};
 }
