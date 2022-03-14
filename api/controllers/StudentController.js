@@ -2,22 +2,22 @@ const StudentServices = require('../services/StudentServices');
 const studentServices = new StudentServices();
 
 class StudentsController {
-    static async getAllStudents(req, res) {
+    static async getAllStudents(req, res, next) {
         try {
             const allStudents = await studentServices.getAllStudents();
             return res.status(200).json(allStudents);
         } catch (error) {
-            return res.status(500).json(error.message);
+            next(error);
         }
     }
 
-    static async getOneStudent(req, res) {
+    static async getOneStudent(req, res, next) {
         try {
             const {ra} = req.params;
             const student = await studentServices.getOneStudent(Number(ra));
             return res.status(200).json(student);
         } catch (error) {
-            return res.status(500).json(error.message);
+            next(error)
         }
     }
 
@@ -31,7 +31,7 @@ class StudentsController {
         }
     }
 
-    static async updateStudent(req, res) {
+    static async updateStudent(req, res, next) {
         try {
             const { ra } = req.params;
             const studentDataToUpdate = req.body;
@@ -39,7 +39,7 @@ class StudentsController {
             const updatedStudent = await studentServices.getOneStudent(Number(ra));
             return res.status(200).json(updatedStudent);
         } catch (error) {
-            return res.status(500).json(error.message);
+            next(error)
         }
     }
 

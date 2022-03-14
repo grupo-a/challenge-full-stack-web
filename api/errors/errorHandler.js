@@ -1,17 +1,24 @@
-const { Sequelize } = require('../models');
-const { DuplicatedInfoError, ValidationError } = require('./errors')
+const { Sequelize } = require('sequelize')
 
-function errorHandler(error) {
-    if (error instanceof Sequelize.UniqueConstraintError) {
-        throw new DuplicatedInfoError(error.errors[0].message);
-    }
+module.exports = (error, req, res, next) => {
+    
     if (error instanceof Sequelize.ValidationError) {
-        throw new ValidationError(error.errors[0].message);
+        if(error.name === 'SequelizeUniqueConstraintError') {
+            error.status = 409;
+        }
+        if(error.name === 'SequelizeValidationError') {
+            error.status = 400;
+        }
+        error.message = error.errors[0].message;
     }
-
-    if (error instanceof ValidationError) {
-        throw new ValidationError(error.message);
-    }
-
+    const status = error.status || 500;
+    res
+        .status(status)
+        .send(
+            {
+                message: error.message,
+                timestamp: Date.now(),
+                path: req.originalUrl
+            }
+        );
 }
-exports.errorHandler = errorHandler;

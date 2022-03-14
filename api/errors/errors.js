@@ -1,25 +1,16 @@
-
-class DuplicatedInfoError extends Error {
-    constructor(message) {
-        super(message);
-        this.name = 'Info Already Exists Error';
-        this.statusCode = 400;
-      }
-}
-
 class StudentNotFoundError extends Error {
   constructor() {
-    super();
+    super('Student not found');
     this.name = 'Student not Found';
-    this.statusCode = 400;
+    this.status = 404;
   }
 }
 
 class ValidationError extends Error {
   constructor(message) {
-    super(message);
-    this.statusCode = 400;
+    super(`${message}`);
+    this.status = 400;
   }
 }
 
-module.exports = {DuplicatedInfoError, StudentNotFoundError, ValidationError};
+module.exports = {StudentNotFoundError, ValidationError};

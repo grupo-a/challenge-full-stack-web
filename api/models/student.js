@@ -1,7 +1,8 @@
 const {cpf} = require('cpf-cnpj-validator');
+const { ValidationError } = require('../errors/errors')
 'use strict';
 const {
-  Model, ValidationError
+  Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Student extends Model {
@@ -34,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'E-mail already registered'
+      },
       validate: {
         isEmail: {
           args: true,
@@ -49,7 +53,10 @@ module.exports = (sequelize, DataTypes) => {
     cpf: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: {
+        args: true,
+        msg: 'CPF already registered'
+      },
       validate: {
         len: {
           args: [11],

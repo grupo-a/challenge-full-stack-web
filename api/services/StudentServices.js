@@ -1,6 +1,5 @@
 const database = require('../models');
-const {StudentNotFoundError, ValidationError} = require('../errors/errors');
-const { errorHandler } = require("../errors/errorHandler");
+const {StudentNotFoundError} = require('../errors/errors');
 
 class StudentServices {
 
@@ -9,19 +8,20 @@ class StudentServices {
     }
 
     async getOneStudent(ra) {
-        return database.Student.findByPk(ra);
+        const student = await database.Student.findByPk(ra);
+        if (!student) {
+            throw new StudentNotFoundError();
+        }
+        return student;
     }
 
     async createStudent(student) {
-        try {
-            return await database.Student.create(student);
-        } catch (error) {
-            errorHandler(error);
-            return(error)
-        }
+        return database.Student.create(student);
     }
 
     async updateStudent(studentDataToUpdate, ra) {
+        delete studentDataToUpdate.cpf;
+        delete studentDataToUpdate.ra;
         return database.Student.update(studentDataToUpdate, { where: { ra: ra } });
     }
 
