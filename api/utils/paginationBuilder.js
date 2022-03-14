@@ -1,4 +1,4 @@
-exports.paginationBuilder = function(givenPage, givenSize, givenOrder) {
+exports.paginationBuilder = function(givenOrderBy, givenPage, givenSize, givenOrder) {
 
     let page = 0;
     if (!Number.isNaN(givenPage) && givenPage > 0) {
@@ -15,5 +15,10 @@ exports.paginationBuilder = function(givenPage, givenSize, givenOrder) {
         order = givenOrder;
     }
 
-    return {order, page, size};
+    let orderBy = 'ra';
+    if (givenOrderBy !== 'ra') {
+        orderBy = givenOrderBy;
+    }
+
+    return {orderBy, order, page, size};
 }
