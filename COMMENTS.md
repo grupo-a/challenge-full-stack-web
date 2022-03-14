@@ -14,3 +14,4 @@ de terceiros para máscara do campo de CPF.
 Gostaria de ter estudado mais sobre como são utilizadas as branchs do git. Acredito não ser boa prática publicar tudo na branch master. Até sei sobre os comandos de branch, mas 
 como nunca trabalhei efetivamente em equipe sinto que ainda não compreendo quando fazer a criação de uma nova branch, gostaria de um suporte neste aspecto para melhoria 
 em futuros projetos.
+Mas percebi que ao desenvolver o front end eu deveria ter criado uma nova branch. Acabei fazendo todo o front end em um commit só e na mesma branch, o que é terrível. É um aspecto a melhorar.
