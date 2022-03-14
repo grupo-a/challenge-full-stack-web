@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.min.css">  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <style>
+  #app{
+      background-color:#CFD8DC;      
+  }
+  </style>
+  <script>
+    function maskCPF() {
+      let cpf = document.getElementById('cpf')
+      if(cpf.value.length == 3 || cpf.value.length == 7) {
+        cpf.value = cpf.value.concat(".")
+      } else if(cpf.value.length == 11) {
+        cpf.value = cpf.value.concat("-")
+      } else if(cpf.value.length == 14) {
+        cpf.value = cpf.value.slice(0, -1)
+      }
+      return cpf;
+    }
+  </script>
+</head>
+<body>
+  <div id="app">
+    <v-app>
+
+      <v-main>      
+        <v-card class="mx-auto mt-5" color="transparent" max-width="1280" elevation="0">         
+        <v-btn @click="formNewStudent()">Adicionar Estudante</v-btn>     
+        <v-pagination
+          v-model="currentPage" 
+          :length="totalPages"
+          :total-visible=6 
+          @input="handlePageChange"
+        ></v-pagination>      
+        <v-simple-table class="mt-5">
+            <template v-slot:default>
+                <thead>
+                    <tr class="blue">
+                        <th class="white--text" @click="changeOrderBy('ra')"><a class="white--text">RA</a></th>
+                        <th class="white--text" @click="changeOrderBy('name')"><a class="white--text">Nome</a></th>
+                        <th class="white--text" @click="changeOrderBy('email')"><a class="white--text">E-mail</a></th>
+                        <th class="white--text" @click="changeOrderBy('cpf')"><a class="white--text">CPF</a></th>
+                        <th class="white--text text-center">AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="student in students" :key="student.ra">
+                    <td>{{ student.ra }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>{{ student.cpf }}</td>
+                    <td align="center">
+                        <v-btn class="blue" dark small fab  @click="formEdit(student.ra, student.name, student.email, student.cpf)"><v-icon>mdi-pencil</v-icon></v-btn>
+                        <v-btn class="error" fab dark small @click="remove(student.ra)"><v-icon>mdi-delete</v-icon></v-btn>
+                    </td>
+                    </tr>
+                </tbody>
+            </template>
+        </v-simple-table>
+        </v-card>        
+      <v-dialog v-model="dialog" max-width="500">        
+        <v-card>
+          <v-card-title class="grey darken-1 white--text">Estudante</v-card-title>    
+          <v-card-text>            
+            <v-form>             
+              <v-container>
+                    <p v-if="!showRA">RA:</p>
+                    <v-text-field v-if="!showRA" :disabled="true" placeholder="RA é gerado automaticamente"></v-text-field>
+                    <p v-if="showRA">RA:</p>
+                    <v-text-field v-if="showRA" v-model="student.ra" :disabled="true">{{student.ra}}</v-text-field>
+                    <p>Nome:</p>
+                    <v-text-field v-model="student.name" placeholder="Digite o nome completo" solo required>{{student.name}}</v-text-field>
+                    <p>E-mail:</p>
+                    <v-text-field v-model="student.email" placeholder="Digite um endereço de e-mail" type="email" solo required></v-text-field>
+                    <p>CPF:</p>
+                    <v-text-field id="cpf" onkeypress="maskCPF()" v-model="student.cpf" placeholder="000.000.000-00" type="text" solo required :disabled="operation === 'edit' ? true : false" ></v-text-field>
+              </v-container>            
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn @click="dialog=false" color="red" dark>Cancelar</v-btn>
+            <v-btn @click="create()" type="submit" color="blue" dark>Salvar</v-btn>
+          </v-card-actions>
+          </v-form>
+        </v-card>
+      </v-dialog>
+      </v-main>
+    </v-app>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js" integrity="sha512-nqIFZC8560+CqHgXKez61MI0f9XSTKLkm0zFVm/99Wt0jSTZ7yeeYwbzyl0SGn/s8Mulbdw+ScCG41hmO2+FKw==" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.0.2/dist/sweetalert2.all.min.js"></script>
+  <script>
+    let url = 'http://localhost:3000/students/';
+    new Vue({
+      el: '#app',
+      vuetify: new Vuetify(),
+       data() {
+        return {
+            currentPage:0,
+            totalPages: '',            
+            students: [],
+            dialog: false,
+            operation: '',
+            order: '',
+            orderBy: '',            
+            student:{
+                ra: null,
+                name:'',
+                email:'',
+                cpf:''
+            },
+            showRA: true          
+        }
+       },
+       created(){       
+          this.show()
+       },  
+       methods:{         
+            handlePageChange(value) {
+              axios.get(url, {
+                params: {
+                  page: value - 1,
+                  order: this.order,
+                  orderBy: this.orderBy
+                }
+              }).then(response => {
+                this.students = response.data.content;
+                this.page = value - 1;
+                this.order = response.data.order;
+                this.orderBy = response.data.orderBy;
+              })
+            }, 
+            show:function(){
+              axios.get(url)
+              .then(response =>{
+                this.students = response.data.content;
+                this.totalPages = response.data.totalPages;
+                this.currentPage = response.data.currentPage + 1;
+                this.orderBy = response.data.orderBy;
+                this.order = response.data.order;
+              })
+            },
+            createStudent:function(){
+                let parameters = {name:this.student.name, email:this.student.email,cpf:this.student.cpf };               
+                axios.post(url, parameters)
+                .then(response =>{
+                  this.show();
+                });     
+                this.student.name="";
+                this.student.email="";
+                this.student.cpf="";
+            },                        
+            edit: function(){
+            let parameters = {name:this.student.name, email:this.student.email, ra:this.student.ra};                                            
+                 axios.put(url+this.student.ra, parameters)                            
+                  .then(response => {                                
+                     this.show();
+                  })                
+                  .catch(error => {
+                      console.log(error);            
+                  });
+            },
+            remove:function(ra){
+             Swal.fire({
+                title: 'Confirma deleção do estudante?',   
+                confirmButtonText: `Confirmar`,                  
+                showCancelButton: true,                          
+              }).then((result) => {                
+                if (result.isConfirmed) {      
+                      axios.delete(url+ra)
+                      .then(response =>{           
+                          this.show();
+                       });      
+                      Swal.fire('Deletado', '', 'success')
+                } else if (result.isDenied) {                  
+                }
+              });              
+            },
+
+            create:function(){
+              if(this.operation=='create'){
+                this.createStudent();                
+              }
+              if(this.operation=='edit'){ 
+                this.edit();                           
+              }
+              this.dialog=false;                        
+            },
+            formNewStudent:function () {
+              this.showRA = false;
+              this.dialog=true;
+              this.operation='create';
+              this.student.name='';                           
+              this.student.email='';
+              this.student.cpf='';
+            },
+            formEdit:function(ra, name, email, cpf){
+              this.showRA=true;              
+              this.student.ra = ra;
+              this.student.name = name;                            
+              this.student.email = email;
+              this.student.cpf = cpf;                      
+              this.dialog=true;                            
+              this.operation='edit';
+            },
+            changeOrderBy(param) {
+              if (this.order === 'ASC') {
+                this.order = 'DESC'
+              } else {
+                this.order = 'ASC'
+              }
+              axios.get(url, {
+                params: {
+                  orderBy: param,
+                  order: this.order,
+                  page: this.page
+                }
+              }).then(response => {
+                this.students = response.data.content;
+                this.orderBy = param
+              })
+            }
+       }      
+    });
+  </script>
+</body>
+</html> 
