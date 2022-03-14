@@ -3,8 +3,10 @@ const {StudentNotFoundError} = require('../errors/errors');
 
 class StudentServices {
 
-    async getAllStudents() {
-        return database.Student.findAll();
+    async getAllStudents(order, page, size) {
+        const req_limit = size;
+        const req_offset = size * page;
+        return database.Student.findAndCountAll({order: order, limit: req_limit, offset: req_offset});
     }
 
     async getOneStudent(ra) {

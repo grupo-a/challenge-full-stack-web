@@ -1,11 +1,18 @@
 const StudentServices = require('../services/StudentServices');
+const { paginationBuilder } = require('../utils/paginationBuilder');
 const studentServices = new StudentServices();
 
 class StudentsController {
     static async getAllStudents(req, res, next) {
         try {
-            const allStudents = await studentServices.getAllStudents();
-            return res.status(200).json(allStudents);
+            const pageAsNumber = Number.parseInt(req.query.page);
+            const sizeAsNumber = Number.parseInt(req.query.size);
+            const pagination = paginationBuilder(pageAsNumber, sizeAsNumber, req.query.order);
+            const allStudents = await studentServices.getAllStudents([['ra', pagination.order]], pagination.page, pagination.size);
+            return res.status(200).json({
+                content: allStudents.rows,
+                totalPages: Math.ceil(allStudents.count / pagination.size)
+            });
         } catch (error) {
             next(error);
         }
