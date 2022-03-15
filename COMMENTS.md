@@ -20,3 +20,5 @@ em futuros projetos.
 Mas percebi que ao desenvolver o front end eu deveria ter criado uma nova branch. Acabei fazendo todo o front end em um commit só e na mesma branch, o que é terrível. É um aspecto a melhorar.
 
 - Estudaria e implementaria tratamento de erros no front-end
+
+- Adicionaria tela de login com autenticação via token para aumentar a segurança da aplicação
