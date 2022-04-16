@@ -4,20 +4,22 @@
       <MenuBar />
     </div>
     <div class="column is-three-fifth">
-      <p> Content </p>
+      <SearchStudent />
     </div>
   </main>
 </template>
 
 <script>
 import MenuBar from "./components/MenuBar.vue";
+import SearchStudent from "./components/SearchStudent.vue";
 
 
 export default {
   name: 'App',
   components: {
-    MenuBar
-  }
+    MenuBar,
+    SearchStudent
+}
 }
 </script>
 
