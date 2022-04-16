@@ -13,7 +13,7 @@
                 <th>{{ student.name }}</th>
                 <th>{{ student.cpf }}</th>
                 <th>
-                    <a @click="$emit('updateStudent')">[Editar]</a>
+                    <a @click="$emit('updateStudent', 'Edit', student)">[Editar]</a>
                     <a @click="deleteStudent(student.ra)">[Excluir]</a>
                 </th>
             </tr>
