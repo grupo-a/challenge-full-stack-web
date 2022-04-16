@@ -14,7 +14,7 @@
 import MenuBar from "./components/MenuBar.vue";
 import SearchStudent from "./components/SearchStudent.vue";
 import StudentsTable from "./components/StudentsTable.vue";
-
+const axios = require('axios')
 
 export default {
   name: 'App',
@@ -30,9 +30,12 @@ export default {
   },
   methods: {
     async getStudents() {
-      const req = await fetch('http://localhost:3000/students');
-      const data = await req.json();
-      this.studentsList = data.content;
+      await axios.get('http://localhost:3000/students')
+        .then( res => {
+          this.studentsList = res.data.content
+        })
+      console.log(this.studentsList)
+
     }
   },
   mounted() {
