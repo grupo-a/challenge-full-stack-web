@@ -4,9 +4,9 @@
       <MenuBar />
     </div>
     <div class="column is-three-fifth">
-      <StudentForm v-if="openForm" @closeForm="closeCreationForm"/>
-      <SearchStudent @createStudent="openCreationForm"/>
-      <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" />
+      <StudentForm v-if="openForm" @closeForm="closeStudentForm" :formMode="formMode"/>
+      <SearchStudent @createStudent="openStudentForm('Create')"/>
+      <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" @updateStudent="openStudentForm('Edit')"/>
     </div>
   </main>
 </template>
@@ -29,7 +29,8 @@ export default {
   data() {
     return {
       studentsList: [],
-      openForm: false
+      openForm: false,
+      formMode: ''
     }
   },
   methods: {
@@ -39,10 +40,11 @@ export default {
           this.studentsList = res.data.content
         });
     },
-    openCreationForm() {
+    openStudentForm(mode) {
       this.openForm = true;
+      this.formMode = mode
     },
-    closeCreationForm() {
+    closeStudentForm() {
       this.openForm = false;
     }
   },

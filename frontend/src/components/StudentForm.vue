@@ -3,7 +3,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Formulário de Estudante</p>
+                <p class="modal-card-title">{{ title }} de Estudante</p>
                 <button @click="closeForm" class="delete" aria-label="close"></button>
             </header>
             <section class="modal-card-body">
@@ -38,12 +38,25 @@
 export default {
     name: 'StudentForm',
     emits: ['closeForm'],
+    props: ['formMode'],
+    data() {
+        return {
+            title: ''
+        }
+    },
     methods: {
         closeForm() {
             this.$emit('closeForm')
         },
         saveForm() {
             console.log('Saving form')
+        }
+    },
+    mounted() {
+        if (this.formMode === 'Create') {
+            this.title = 'Cadastro'
+        } else {
+            this.title = 'Alteração'
         }
     }
 }
