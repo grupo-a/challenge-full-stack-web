@@ -35,6 +35,7 @@ export default {
     methods: {
         async deleteStudent(ra) {
             await axios.delete(`http://localhost:3000/students/${ra}`)
+            alert(`Estudante ${ra} deletado`)
             this.$emit('updateStudentsList')
         }
     },

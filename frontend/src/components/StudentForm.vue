@@ -24,10 +24,9 @@
                 </div>
                 <div class="field">
                     <label for="studentCpf" class="label">CPF</label>
-                    <input v-model="studentCpf" type="text" class="input" id="studentCpf"
+                    <input v-mask="'###.###.###-##'" v-model="studentCpf" type="text" class="input" id="studentCpf"
                         placeholder="Informe o número do documento">
                 </div>
-                
             </section>
             <footer class="modal-card-foot">
                 <input type="submit" @click="saveForm" class="button is-success" value="Salvar">
@@ -42,6 +41,7 @@
 <script>
 
 const axios = require('axios')
+import {mask} from 'vue-the-mask'
 
 export default {
     name: 'StudentForm',
@@ -50,6 +50,7 @@ export default {
         formMode: String,
         student: Object
     },
+    directives: {mask},
     data() {
         return {
             title: '',
@@ -67,7 +68,7 @@ export default {
             const dataFromForm = {
                     'name': this.studentName,
                     'email': this.studentEmail,
-                    'cpf': this.studentCpf
+                    'cpf': this.studentCpf.replace(/[^\d]+/g,'')
                 }
                 const dataToSave = await JSON.stringify(dataFromForm)
             if (this.formMode === 'Create') {
@@ -82,11 +83,15 @@ export default {
                 {
                     headers: { 'Content-Type': 'application/json' }
                 })
-                .then(res => console.log(res))
+                .then(res => {
+                    console.log(res);
+                    alert('Estudante criado com sucesso');
+                    this.closeForm();
+                })
                 .catch(error => {
-                    alert(error.response.data.message)
-                    console.log(error.response.data.message)
-                    console.log(error.response.status)
+                    alert(error.response.data.message);
+                    console.log(error.response.data.message);
+                    console.log(error.response.status);
                 })
         },
         async updateStudent(dataToSave, ra) {
