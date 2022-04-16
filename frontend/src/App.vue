@@ -5,6 +5,7 @@
     </div>
     <div class="column is-three-fifth">
       <SearchStudent />
+      <StudentsTable />
     </div>
   </main>
 </template>
@@ -12,13 +13,15 @@
 <script>
 import MenuBar from "./components/MenuBar.vue";
 import SearchStudent from "./components/SearchStudent.vue";
+import StudentsTable from "./components/StudentsTable.vue";
 
 
 export default {
   name: 'App',
   components: {
     MenuBar,
-    SearchStudent
+    SearchStudent,
+    StudentsTable
 }
 }
 </script>
