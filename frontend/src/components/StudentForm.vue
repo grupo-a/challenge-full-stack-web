@@ -10,7 +10,7 @@
                 <div class="field">
                     <label for="studentRa" class="label">Registro Acadêmico</label>
                     <input v-model="studentRa" type="text" class="input" id="studentRa"
-                        :placeholder="student?.ra || 'Registro acadêmico gerado automaticamente pelo servidor'" />
+                        :placeholder="student?.ra || 'Registro acadêmico gerado automaticamente pelo servidor'" disabled="" />
                 </div>
                 <div class="field">
                     <label for="studentName" class="label">Nome</label>
