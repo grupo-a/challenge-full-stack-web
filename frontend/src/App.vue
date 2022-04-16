@@ -4,6 +4,7 @@
       <MenuBar />
     </div>
     <div class="column is-three-fifth">
+      <StudentForm />
       <SearchStudent />
       <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" />
     </div>
@@ -14,6 +15,7 @@
 import MenuBar from "./components/MenuBar.vue";
 import SearchStudent from "./components/SearchStudent.vue";
 import StudentsTable from "./components/StudentsTable.vue";
+import StudentForm from "./components/StudentForm.vue"
 const axios = require('axios')
 
 export default {
@@ -21,7 +23,8 @@ export default {
   components: {
     MenuBar,
     SearchStudent,
-    StudentsTable
+    StudentsTable,
+    StudentForm
   },
   data() {
     return {
