@@ -52,7 +52,11 @@ export default {
     },
     data() {
         return {
-            title: ''
+            title: '',
+            studentRa: '',
+            studentEmail: '',
+            studentCpf: '',
+            studentName: ''
         }
     },
     methods: {
@@ -80,6 +84,7 @@ export default {
                 })
                 .then(res => console.log(res))
                 .catch(error => {
+                    alert(error.response.data.message)
                     console.log(error.response.data.message)
                     console.log(error.response.status)
                 })
@@ -96,6 +101,7 @@ export default {
                     }
                 })
                 .catch(error => {
+                    alert(error.response.data.message)
                     console.log(error.response.data.message)
                     console.log(error.response.status)
                 })

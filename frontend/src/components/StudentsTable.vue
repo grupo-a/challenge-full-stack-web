@@ -4,6 +4,7 @@
             <thead>
                 <th>Registro Acadêmico</th>
                 <th>Nome</th>
+                <th>Email</th>
                 <th>CPF</th>
                 <th>Ações</th>
             </thead>
@@ -11,6 +12,7 @@
             <tr v-for="student in studentsList" :key="student.ra">
                 <th>{{ student.ra }}</th>
                 <th>{{ student.name }}</th>
+                <th>{{ student.email }}</th>
                 <th>{{ student.cpf }}</th>
                 <th>
                     <a @click="$emit('updateStudent', 'Edit', student)">[Editar]</a>
