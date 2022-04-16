@@ -9,32 +9,39 @@
             <section class="modal-card-body">
                 <div class="field">
                     <label for="studentRa" class="label">Registro Acadêmico</label>
-                    <input type="text" class="input" id="studentRa" placeholder="Registro acadêmico gerado automaticamente pelo servidor"/>
+                    <input v-model="studentRa" type="text" class="input" id="studentRa"
+                        placeholder="Registro acadêmico gerado automaticamente pelo servidor" />
                 </div>
                 <div class="field">
                     <label for="studentName" class="label">Nome</label>
-                    <input type="text" class="input" id="studentName" placeholder="Informe o nome completo"/>
+                    <input v-model="studentName" type="text" class="input" id="studentName"
+                        placeholder="Informe o nome completo" />
                 </div>
                 <div class="field">
                     <label for="studentEmail" class="label">E-mail</label>
-                    <input type="text" class="input" id="studentEmail" placeholder="Informe apenas um e-mail"/>
+                    <input v-model="studentEmail" type="text" class="input" id="studentEmail"
+                        placeholder="Informe apenas um e-mail" />
                 </div>
                 <div class="field">
                     <label for="studentCpf" class="label">CPF</label>
-                    <input type="text" class="input" id="studentCpf" placeholder="Informe o número do documento"/>
+                    <input v-model="studentCpf" type="text" class="input" id="studentCpf"
+                        placeholder="Informe o número do documento" />
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-success">Salvar</button>
+                <input type="submit" @click="saveForm" class="button is-success" value="Salvar">
                 <button @click="closeForm" class="button">Cancelar</button>
             </footer>
         </div>
-        
+
     </div>
 
 </template>
 
 <script>
+
+const axios = require('axios')
+
 export default {
     name: 'StudentForm',
     emits: ['closeForm'],
@@ -48,10 +55,32 @@ export default {
         closeForm() {
             this.$emit('closeForm')
         },
-        saveForm() {
-            console.log('Saving form')
+        async saveForm() {
+            if (this.formMode === 'Create') {
+                const dataFromForm = {
+                    'name': this.studentName,
+                    'email': this.studentEmail,
+                    'cpf': this.studentCpf
+                }
+                const dataToSave = await JSON.stringify(dataFromForm)
+                await this.createStudent(dataToSave)
+                console.log(dataToSave)
+            }
+        },
+        async createStudent(dataToSave) {
+            await axios.post('http://localhost:3000/students', dataToSave,
+                {
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(res => console.log(res))
+                .catch(error => {
+                    console.log(error.response.data.message)
+                    console.log(error.response.status)
+
+                })
         }
     },
+
     mounted() {
         if (this.formMode === 'Create') {
             this.title = 'Cadastro'
@@ -65,6 +94,4 @@ export default {
 
 
 <style scoped>
-
-
 </style>
