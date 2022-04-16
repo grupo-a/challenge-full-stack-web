@@ -1,15 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main class="columns is-gapless is-multiline">
+    <div class="column is-one-fifth">
+      <MenuBar />
+    </div>
+    <div class="column is-three-fifth">
+      <p> Content </p>
+    </div>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MenuBar from "./components/MenuBar.vue";
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MenuBar
   }
 }
 </script>
@@ -21,6 +28,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
+
+
 </style>
