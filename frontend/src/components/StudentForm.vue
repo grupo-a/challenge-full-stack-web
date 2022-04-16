@@ -37,9 +37,10 @@
 <script>
 export default {
     name: 'StudentForm',
+    emits: ['closeForm'],
     methods: {
         closeForm() {
-            console.log('Closing the form')
+            this.$emit('closeForm')
         },
         saveForm() {
             console.log('Saving form')

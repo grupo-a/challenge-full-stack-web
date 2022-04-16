@@ -4,8 +4,8 @@
       <MenuBar />
     </div>
     <div class="column is-three-fifth">
-      <StudentForm />
-      <SearchStudent />
+      <StudentForm v-if="openForm" @closeForm="closeCreationForm"/>
+      <SearchStudent @createStudent="openCreationForm"/>
       <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" />
     </div>
   </main>
@@ -28,7 +28,8 @@ export default {
   },
   data() {
     return {
-      studentsList: []
+      studentsList: [],
+      openForm: false
     }
   },
   methods: {
@@ -36,9 +37,13 @@ export default {
       await axios.get('http://localhost:3000/students')
         .then( res => {
           this.studentsList = res.data.content
-        })
-      console.log(this.studentsList)
-
+        });
+    },
+    openCreationForm() {
+      this.openForm = true;
+    },
+    closeCreationForm() {
+      this.openForm = false;
     }
   },
   mounted() {

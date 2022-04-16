@@ -6,7 +6,7 @@
                 <div class="field has-addons">
                     <input class="input" type="text" placeholder="Digite sua busca">
                     <button class="button is-info">Pesquisar</button>
-                    <button class="btn-add">Cadastrar Aluno</button>
+                    <button class="btn-add" @click="$emit('createStudent')">Cadastrar Aluno</button>
                 </div>
 
             </div>
@@ -18,7 +18,8 @@
 
 <script>
 export default {
-    name: 'SearchStudent'
+    name: 'SearchStudent',
+    emits: ['createStudent']
 }
 
 </script>
