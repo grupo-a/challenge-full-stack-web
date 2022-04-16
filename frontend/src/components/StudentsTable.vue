@@ -8,7 +8,7 @@
                 <th>Ações</th>
             </thead>
         <tbody>
-            <tr v-for="student in students" :key="student.ra">
+            <tr v-for="student in studentsList" :key="student.ra">
                 <th>{{ student.ra }}</th>
                 <th>{{ student.name }}</th>
                 <th>{{ student.cpf }}</th>
@@ -26,32 +26,7 @@
 <script>
 export default {
     name: 'StudentsTable',
-    data() {
-        return {
-            students: [
-                {
-                    'ra': 1,
-                    'name': 'Bruno',
-                    'cpf': '12345678912'
-                },
-                {
-                    'ra': 2,
-                    'name': 'Bruno',
-                    'cpf': '12345678912'
-                },
-                {
-                    'ra': 3,
-                    'name': 'Bruno',
-                    'cpf': '12345678912'
-                },
-                {
-                    'ra': 4,
-                    'name': 'Bruno',
-                    'cpf': '12345678912'
-                }
-            ]
-        }
-    }
+    props: ['studentsList']
 }
 
 </script>

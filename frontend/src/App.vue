@@ -5,7 +5,7 @@
     </div>
     <div class="column is-three-fifth">
       <SearchStudent />
-      <StudentsTable />
+      <StudentsTable :studentsList="studentsList"/>
     </div>
   </main>
 </template>
@@ -22,7 +22,22 @@ export default {
     MenuBar,
     SearchStudent,
     StudentsTable
-}
+  },
+  data() {
+    return {
+      studentsList: []
+    }
+  },
+  methods: {
+    async getStudents() {
+      const req = await fetch('http://localhost:3000/students');
+      const data = await req.json();
+      this.studentsList = data.content;
+    }
+  },
+  mounted() {
+    this.getStudents();
+  }
 }
 </script>
 
