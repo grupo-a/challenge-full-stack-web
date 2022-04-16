@@ -13,8 +13,8 @@
                 <th>{{ student.name }}</th>
                 <th>{{ student.cpf }}</th>
                 <th>
-                    <a href="#">[Editar]</a>
-                    <a href="#">[Excluir]</a>
+                    <a>[Editar]</a>
+                    <a @click="deleteStudent(student.ra)">[Excluir]</a>
                 </th>
             </tr>
         </tbody>
@@ -24,9 +24,19 @@
 </template>
 
 <script>
+
+const axios = require ('axios');
+
 export default {
     name: 'StudentsTable',
-    props: ['studentsList']
+    props: ['studentsList'],
+    methods: {
+        async deleteStudent(ra) {
+            await axios.delete(`http://localhost:3000/students/${ra}`)
+            this.$emit('updateStudentsList')
+        }
+    },
+    emits: ['updateStudentsList']
 }
 
 </script>

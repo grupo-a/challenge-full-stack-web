@@ -5,7 +5,7 @@
     </div>
     <div class="column is-three-fifth">
       <SearchStudent />
-      <StudentsTable :studentsList="studentsList"/>
+      <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" />
     </div>
   </main>
 </template>
