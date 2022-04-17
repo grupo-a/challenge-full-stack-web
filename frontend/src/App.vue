@@ -6,7 +6,8 @@
     <div class="column is-three-fifth">
       <StudentForm v-if="openForm" @closeForm="closeStudentForm" :formMode="formMode" :student="student" />
       <SearchStudent @createStudent="openStudentForm('Create')" />
-      <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" @updateStudent="openStudentForm" />
+      <StudentsTable :studentsList="studentsList" @updateStudentsList="getStudents" @updateStudent="openStudentForm"
+        @changeListOrder="changeListOrder" />
       <Pagination :totalPages="totalPages" :perPage="10" :currentPage="currentPage" @pageChanged="handlePageChange" />
     </div>
   </main>
@@ -28,7 +29,7 @@ export default {
     StudentsTable,
     StudentForm,
     Pagination
-},
+  },
   data() {
     return {
       studentsList: [],
@@ -36,7 +37,11 @@ export default {
       formMode: '',
       student: null,
       currentPage: 1,
-      paginationParams: {}
+      paginationParams: {
+        page: 0,
+        order: 'ASC',
+        orderBy: 'ra'
+      }
     }
   },
   methods: {
@@ -45,7 +50,13 @@ export default {
       this.currentPage = page;
     },
     async getStudents() {
-      await axios.get('http://localhost:3000/students')
+      await axios.get('http://localhost:3000/students', {
+        params: {
+          page: this.paginationParams.page,
+          order: this.paginationParams.order,
+          orderBy: this.paginationParams.orderBy
+        }
+      })
         .then(res => {
           this.totalPages = res.data.totalPages;
           this.currentPage = res.data.currentPage + 1;
@@ -62,9 +73,9 @@ export default {
       this.formMode = mode
     },
     closeStudentForm() {
-      this.openForm = false;
+      this.openForm = false
       this.student = null
-      this.getStudents();
+      this.getStudents()
     },
     async handlePageChange(value) {
       await axios.get('http://localhost:3000/students', {
@@ -75,11 +86,19 @@ export default {
         }
       }).then(res => {
         this.totalPages = res.data.totalPages;
-        this.currentPage = res.data.currentPage + 1;
+        this.currentPage = res.data.currentPage + 1
         this.studentsList = res.data.content;
-        this.paginationParams.order = res.data.order;
-        this.paginationParams.orderBy = res.data.orderBy;
+
       })
+    },
+    changeListOrder(param) {
+      this.paginationParams.orderBy = param
+      if (this.paginationParams.order === 'ASC') {
+        this.paginationParams.order = 'DESC'
+      } else {
+        this.paginationParams.order = 'ASC'
+      }
+      this.getStudents();
     }
   },
   mounted() {

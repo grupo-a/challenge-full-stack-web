@@ -2,10 +2,10 @@
     <div class="table-container">
         <table class="table is-striped">
             <thead>
-                <th>Registro Acadêmico</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>CPF</th>
+                <th @click="$emit('changeListOrder', 'ra')"><a>Registro Acadêmico</a></th>
+                <th @click="$emit('changeListOrder', 'name')"><a>Nome</a></th>
+                <th @click="$emit('changeListOrder', 'email')"><a>Email</a></th>
+                <th @click="$emit('changeListOrder', 'cpf')"><a>CPF</a></th>
                 <th>Ações</th>
             </thead>
         <tbody>
@@ -39,7 +39,7 @@ export default {
             this.$emit('updateStudentsList')
         }
     },
-    emits: ['updateStudentsList', 'updateStudent']
+    emits: ['updateStudentsList', 'updateStudent', 'changeListOrder']
 }
 
 </script>
