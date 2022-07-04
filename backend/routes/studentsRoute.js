@@ -3,7 +3,9 @@ const StudentsController = require('../controllers/StudentsController');
 
 const router = Router();
 
-router.get('/students', StudentsController.allStudents);
-router.get('/students/:id', StudentsController.catchOneStudent);
+router
+    .get('/students', StudentsController.allStudents)
+    .get('/students/:id', StudentsController.catchOneStudent)
+    .post('/students', StudentsController.createStudent)
 
 module.exports = router;

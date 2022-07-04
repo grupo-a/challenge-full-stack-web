@@ -26,6 +26,18 @@ class StudentsController {
             return res.status(500).json(error.message);
         }
     }
+
+    static async createStudent(req, res) {
+        const newStudent = req.body;
+
+        try {
+            const newStudentCreated = await database.Students.create(newStudent);
+
+            return res.status(200).json(newStudentCreated);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = StudentsController;
