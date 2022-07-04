@@ -10,6 +10,22 @@ class StudentsController {
             return res.status(500).json(error.message);
         }
     }
+
+    static async catchOneStudent(req, res) {
+        const { id } = req.params;
+
+        try {
+            const oneStudent = await database.Students.findOne({
+                where: { 
+                    id: Number(id)
+                }
+            });
+
+            return res.status(200).json(oneStudent);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = StudentsController;
