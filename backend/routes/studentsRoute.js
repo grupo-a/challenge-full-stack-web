@@ -8,5 +8,6 @@ router
     .get('/students/:id', StudentsController.catchOneStudent)
     .post('/students', StudentsController.createStudent)
     .put('/students/:id', StudentsController.updateStudent)
+    .delete('/students/:id', StudentsController.deleteStudent);
 
 module.exports = router;
