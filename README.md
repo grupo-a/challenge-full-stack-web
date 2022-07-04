@@ -13,7 +13,6 @@ Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula d
 - **Banco de Dados:** Postgress ou MySQL
 - **Idioma de escrita do código:** Inglês
 
-
 # Requisitos
 ## Contextualização
 Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para realizar a matrícula, é necessário que o cadastro de aluno tenha sido realizado.
