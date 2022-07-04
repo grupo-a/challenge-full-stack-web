@@ -38,6 +38,29 @@ class StudentsController {
             return res.status(500).json(error.message);
         }
     }
+
+    static async updateStudent(req, res) {
+        const { id } = req.params;
+        const newInfos = req.body;
+
+        try {
+            await database.Students.update(newInfos, {
+                where: {
+                    id: Number(id)
+                }
+            });
+
+            const updatedStudent = await database.Students.findOne({
+                where: { 
+                    id: Number(id)
+                }
+            });
+
+            return res.status(200).json(updatedStudent);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = StudentsController;
