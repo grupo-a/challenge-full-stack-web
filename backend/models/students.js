@@ -8,21 +8,29 @@ module.exports = (sequelize, DataTypes) => {
   }
   
   Students.init({
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING(150),
+      validate: {
+        min: 4,
+        max: 150
+      }
+    },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(150),
       validate: {
         isEmail: {
           args: true,
-          msg: 'E-mail inválido!'
+          msg: 'E-mail inválido!',
+          max: 150
         }
       }
     },
-    ra: DataTypes.INTEGER,
+    ra: DataTypes.STRING,
     cpf: {
-      type: DataTypes.INTEGER,
-      min: 11,
-      max: 11
+      type: DataTypes.STRING(11),
+      validate: {
+        len: 11
+      }
     }
   }, {
     sequelize,
