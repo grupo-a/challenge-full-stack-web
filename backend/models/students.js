@@ -19,7 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     ra: DataTypes.INTEGER,
-    cpf: DataTypes.INTEGER
+    cpf: {
+      type: DataTypes.INTEGER,
+      min: 11,
+      max: 11
+    }
   }, {
     sequelize,
     modelName: 'Students',
