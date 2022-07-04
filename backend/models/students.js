@@ -11,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING(150),
       validate: {
-        min: 4,
-        max: 150
+        isAlpha: true
       }
     },
     email: {
