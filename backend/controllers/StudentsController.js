@@ -77,6 +77,20 @@ class StudentsController {
             return res.status(500).json(error.message);
         }
     }
+
+    static async findStudentsByName(req, res) {
+        const { name } = req.params;
+
+        try {
+            const allStudentsByName = await database.Students.findAll({
+                where: { name: name }
+            });
+
+            return res.status(200).json(allStudentsByName);
+        } catch (error) {
+            return res.status(500).json(error.message);
+        }
+    }
 }
 
 module.exports = StudentsController;
