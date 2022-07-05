@@ -5,9 +5,10 @@ const router = Router();
 
 router
     .get('/students', StudentsController.allStudents)
-    .get('/students/:id', StudentsController.catchOneStudent)
-    .post('/students', StudentsController.createStudent)
-    .put('/students/:id', StudentsController.updateStudent)
+    .get('/students/one/:id', StudentsController.catchOneStudent)
+    .get('/students/name/:name', StudentsController.findStudentsByName)
+    .post('/students/form', StudentsController.createStudent)
+    .put('/students/form/:id', StudentsController.updateStudent)
     .delete('/students/:id', StudentsController.deleteStudent);
 
 module.exports = router;
