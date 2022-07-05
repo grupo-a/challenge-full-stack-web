@@ -9,10 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   
   Students.init({
     name: {
-      type: DataTypes.STRING(150),
-      validate: {
-        isAlpha: true
-      }
+      type: DataTypes.STRING(150)
     },
     email: {
       type: DataTypes.STRING(150),
@@ -26,10 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     ra: DataTypes.STRING,
     cpf: {
-      type: DataTypes.STRING(11),
-      validate: {
-        len: 11
-      }
+      type: DataTypes.STRING(11)
     }
   }, {
     sequelize,
