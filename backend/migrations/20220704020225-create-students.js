@@ -15,10 +15,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       ra: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       cpf: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

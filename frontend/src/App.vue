@@ -19,9 +19,16 @@
 
       <v-app-bar app color="grey lighten-2">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+        
         <v-spacer />
-        <v-toolbar-title>Consulta de Alunos</v-toolbar-title>
+        
+        <v-toolbar-title>+A Educação</v-toolbar-title>
+        
         <v-spacer />
+        
+        <v-btn text v-if="!$store.state.token" to="/Register">Register</v-btn>
+        <v-btn text v-if="!$store.state.token" to="/Login">Login</v-btn>
+        <v-btn text v-if="$store.state.token" @click="$store.commit('LOGOUT')">Logout</v-btn>
       </v-app-bar>
       
       <v-main>

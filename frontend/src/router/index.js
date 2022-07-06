@@ -21,6 +21,17 @@ export default new Router({
       name: "Update Student",
       component: () => import("@/components/StudentsForm"),
       props: true
-    }
+    },
+    {
+      path: "/register",
+      name: "Register",
+      component: () => import("@/components/StudentsRegister"),
+      props: true
+    },
+    { 
+      path: "/login",
+      name: "Login",
+      component: () => import("@/components/StudentsLogin"),
+    },
   ]
 });
