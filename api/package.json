@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Student registration API",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node ./src/server.js",
     "dev": "nodemon ./src/server.js",
