@@ -2,9 +2,13 @@ const StudentService = require('../service/StudentService');
 
 module.exports = {
   async index(req, res) {
-    const students = await StudentService.listStudents();
-
-    res.json(students);
+    try {
+      const students = await StudentService.listStudents();
+      res.json(students);
+    } catch (error) {
+      console.error(error);
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
   },
 
   async show(req, res) {

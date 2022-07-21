@@ -6,6 +6,9 @@ const validateCPF = require('../shared/utils/validateCPF');
 module.exports = {
   async listStudents() {
     const students = await Student.findAll();
+    if (students.length === 0) {
+      throw new AppError('Não há alunos cadastrados.', 404);
+    }
     return students;
   },
   async findStudent(id) {
