@@ -1,5 +1,5 @@
 const AppError = require('../shared/errors/AppError');
-const CPFvalidator = require('../shared/utils/CPFvalidator');
+const validateCPF = require('../shared/utils/validateCPF');
 
 module.exports = {
   validateEmail(email) {
@@ -10,7 +10,7 @@ module.exports = {
       );
   },
 
-  inputValidator(data, next) {
+  inputValidator(data) {
     const { name, email, CPF } = data;
     if (!name) {
       throw new AppError('Favor informar o campo nome.', 400);
@@ -35,7 +35,7 @@ module.exports = {
       throw new AppError('Favor informar o campo CPF.', 400);
     }
 
-    if (!CPFvalidator(CPF)) {
+    if (!validateCPF(CPF)) {
       throw new AppError('Favor informar um CPF válido.', 400);
     }
   },

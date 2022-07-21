@@ -2,11 +2,11 @@ const { Student } = require('../db/models');
 const StudentService = require('../service/StudentService');
 
 module.exports = {
-  async store(req, res, next) {
+  async store(req, res) {
     const inputData = req.body;
 
     try {
-      StudentService.inputValidator(inputData, next);
+      StudentService.inputValidator(inputData);
 
       const student = await Student.create(inputData);
 
