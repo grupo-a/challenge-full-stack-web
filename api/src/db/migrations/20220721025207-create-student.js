@@ -9,16 +9,21 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       RA: {
-        type: Sequelize.BIGINT,
+        allowNull: false,
         unique: true,
+        autoIncrement: true,
+        type: Sequelize.INTEGER,
       },
       CPF: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       createdAt: {
