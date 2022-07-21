@@ -11,6 +11,7 @@ app.get('/status', (req, res) => {
 });
 
 app.get('/student', Student.index);
+app.get('/student/:id', Student.show);
 app.post('/student', Student.store);
 
 app.listen(PORT, () => {

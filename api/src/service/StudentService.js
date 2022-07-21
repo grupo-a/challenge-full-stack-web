@@ -8,6 +8,13 @@ module.exports = {
     const students = await Student.findAll();
     return students;
   },
+  async findStudent(id) {
+    const student = await Student.findOne({ where: { id } });
+    if (!student) {
+      throw new AppError('Aluno não encontrado.', 404);
+    }
+    return student;
+  },
   async createStudent(inputData) {
     this.inputValidator(inputData);
 
