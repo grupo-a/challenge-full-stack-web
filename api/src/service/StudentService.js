@@ -1,15 +1,16 @@
+const { Student } = require('../db/models');
 const AppError = require('../shared/errors/AppError');
+const validateEmail = require('../shared/utils/validateEmail');
 const validateCPF = require('../shared/utils/validateCPF');
 
 module.exports = {
-  validateEmail(email) {
-    return String(email)
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      );
-  },
+  async createStudent(inputData) {
+    this.inputValidator(inputData);
 
+    const student = await Student.create(inputData);
+
+    return student;
+  },
   inputValidator(data) {
     const { name, email, CPF } = data;
     if (!name) {
@@ -27,7 +28,7 @@ module.exports = {
       throw new AppError('Favor informar o campo e-mail.', 400);
     }
 
-    if (!this.validateEmail(email)) {
+    if (!validateEmail(email)) {
       throw new AppError('Favor informar um e-mail váildo.', 400);
     }
 

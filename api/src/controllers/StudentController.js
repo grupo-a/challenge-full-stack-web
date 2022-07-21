@@ -1,4 +1,3 @@
-const { Student } = require('../db/models');
 const StudentService = require('../service/StudentService');
 
 module.exports = {
@@ -6,9 +5,7 @@ module.exports = {
     const inputData = req.body;
 
     try {
-      StudentService.inputValidator(inputData);
-
-      const student = await Student.create(inputData);
+      const student = await StudentService.createStudent(inputData);
 
       res.json({ message: 'Aluno cadastrado com sucesso!', data: student });
     } catch (error) {
