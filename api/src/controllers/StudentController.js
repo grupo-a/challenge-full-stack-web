@@ -1,16 +1,19 @@
 const { Student } = require('../db/models');
+const StudentService = require('../service/StudentService');
 
 module.exports = {
   async store(req, res, next) {
-    const { name, email, CPF } = req.body;
+    const inputData = req.body;
 
     try {
-      const student = await Student.create({ name, email, CPF });
+      StudentService.inputValidator(inputData, next);
+
+      const student = await Student.create(inputData);
 
       res.json({ message: 'Aluno cadastrado com sucesso!', data: student });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ message: 'Falha ao registrar usuário' });
+      res.status(error.statusCode || 500).json({ message: error.message });
     }
   },
 };

@@ -4,7 +4,6 @@ const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
 
-const errorHandler = require('./shared/errors/errorHandler');
 const Student = require('./controllers/StudentController');
 
 app.get('/status', (req, res) => {
@@ -12,8 +11,6 @@ app.get('/status', (req, res) => {
 });
 
 app.post('/student', Student.store);
-
-app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
