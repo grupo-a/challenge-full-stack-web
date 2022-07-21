@@ -10,6 +10,7 @@ module.exports = {
     }
     return students;
   },
+
   async findStudent(id) {
     const student = await Student.findOne({ where: { id } });
     if (!student) {
@@ -17,6 +18,15 @@ module.exports = {
     }
     return student;
   },
+
+  async createStudent(inputData) {
+    validateStudentInput(inputData);
+
+    const student = await Student.create(inputData);
+
+    return student;
+  },
+
   async updateStudent(id, inputData) {
     const student = await Student.findOne({ where: { id: id } });
 
@@ -32,11 +42,14 @@ module.exports = {
     student.email = inputData.email;
     await student.save({ fields: ['name', 'email'] });
   },
-  async createStudent(inputData) {
-    validateStudentInput(inputData);
 
-    const student = await Student.create(inputData);
+  async removeStudent(id) {
+    const student = await Student.findOne({ where: { id: id } });
 
-    return student;
+    if (!student) {
+      throw new AppError('Aluno não encontrado.', 404);
+    }
+
+    await student.destroy({ where: { id } });
   },
 };

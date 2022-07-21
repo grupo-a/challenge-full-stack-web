@@ -47,4 +47,16 @@ module.exports = {
       res.status(error.statusCode || 500).json({ message: error.message });
     }
   },
+
+  async destroy(req, res) {
+    const id = parseInt(req.params.id);
+
+    try {
+      await StudentService.removeStudent(id);
+      res.json({ message: 'Aluno excluído com sucesso!' });
+    } catch (error) {
+      console.error(error);
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  },
 };
