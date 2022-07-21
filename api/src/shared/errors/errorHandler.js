@@ -1,4 +1,4 @@
-import AppError from './AppError.js';
+const AppError = require('./AppError');
 function errorHandler(err, req, res, next) {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({
@@ -15,4 +15,4 @@ function errorHandler(err, req, res, next) {
   });
 }
 
-export default errorHandler;
+module.exports = errorHandler;

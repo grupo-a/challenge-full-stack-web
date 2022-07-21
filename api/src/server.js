@@ -1,11 +1,10 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-import express from 'express';
+require('dotenv').config();
+const express = require('express');
 
 const app = express();
 const PORT = process.env.PORT;
 
-import errorHandler from './shared/errors/errorHandler.js';
+const errorHandler = require('./shared/errors/errorHandler');
 
 app.use(express.json());
 app.use(errorHandler);
