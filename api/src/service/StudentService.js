@@ -4,6 +4,10 @@ const validateEmail = require('../shared/utils/validateEmail');
 const validateCPF = require('../shared/utils/validateCPF');
 
 module.exports = {
+  async listStudents() {
+    const students = await Student.findAll();
+    return students;
+  },
   async createStudent(inputData) {
     this.inputValidator(inputData);
 

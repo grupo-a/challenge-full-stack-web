@@ -10,6 +10,7 @@ app.get('/status', (req, res) => {
   res.json({ message: 'API online!' });
 });
 
+app.get('/student', Student.index);
 app.post('/student', Student.store);
 
 app.listen(PORT, () => {
