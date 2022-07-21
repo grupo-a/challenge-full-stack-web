@@ -13,6 +13,7 @@ app.get('/status', (req, res) => {
 app.get('/student', Student.index);
 app.get('/student/:id', Student.show);
 app.post('/student', Student.store);
+app.put('/student/:id', Student.update);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -34,4 +34,17 @@ module.exports = {
       res.status(error.statusCode || 500).json({ message: error.message });
     }
   },
+
+  async update(req, res) {
+    const id = parseInt(req.params.id);
+    const inputData = req.body;
+
+    try {
+      await StudentService.updateStudent(id, inputData);
+      res.json({ message: 'Dados do aluno atualizados com sucesso!' });
+    } catch (error) {
+      console.error(error);
+      res.status(error.statusCode || 500).json({ message: error.message });
+    }
+  },
 };

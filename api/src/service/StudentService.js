@@ -18,6 +18,21 @@ module.exports = {
     }
     return student;
   },
+  async updateStudent(id, inputData) {
+    const student = await Student.findOne({ where: { id: id } });
+
+    if (!student) {
+      throw new AppError('Aluno não encontrado.', 404);
+    }
+
+    inputData.RA = student.RA;
+    inputData.CPF = student.CPF;
+    this.inputValidator(inputData);
+
+    student.name = inputData.name;
+    student.email = inputData.email;
+    await student.save({ fields: ['name', 'email'] });
+  },
   async createStudent(inputData) {
     this.inputValidator(inputData);
 
