@@ -42,21 +42,34 @@
         <v-row>
           <v-col>
             <v-card-title>
-              Nutrition
+              Alunos
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="search"
                 append-icon="mdi-magnify"
-                label="Search"
+                label="Pesquisar"
                 single-line
                 hide-details
               ></v-text-field>
             </v-card-title>
             <v-data-table
+              :loading="loading"
+              loading-text="Carregando..."
+              no-data-text="Nenhum registro encontrado"
+              no-results-text="Nenhum registro correspondente encontrado"
               :headers="headers"
               :items="desserts"
               :search="search"
-            ></v-data-table>
+              :footer-props="{
+                'items-per-page-all-text': 'Todos',
+                'items-per-page-text': 'Alunos por página',
+              }"
+            >
+              <template v-slot:[`footer.page-text`]="items">
+                {{ items.pageStart }} - {{ items.pageStop }} de
+                {{ items.itemsLength }}
+              </template>
+            </v-data-table>
           </v-col>
         </v-row>
       </v-container>
@@ -76,8 +89,8 @@ export default {
   },
 
   data: () => ({
-    //
     search: '',
+    loading: false,
     headers: [
       {
         text: 'Registro Acadêmico',
