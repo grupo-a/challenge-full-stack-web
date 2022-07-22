@@ -58,10 +58,12 @@
             </v-row>
             <v-row justify="end">
               <v-col class="col-auto">
-                <v-btn color="gray" link to="/students">Cancelar</v-btn>
+                <v-btn color="light" class="white--text" link to="/students"
+                  >Cancelar</v-btn
+                >
               </v-col>
               <v-col class="col-auto">
-                <v-btn color="green" class="white--text" @click="submitForm"
+                <v-btn color="info" class="white--text" @click="submitForm"
                   >Salvar</v-btn
                 >
               </v-col>
@@ -69,20 +71,23 @@
           </v-form>
         </v-col>
       </v-container>
+      <v-snackbar
+        v-model="showSnackbar"
+        :timeout="snackbarTimeout"
+        :color="snackbarColor"
+        >{{ snackbarText }}</v-snackbar
+      >
     </v-main>
   </div>
 </template>
 
 <script>
+import api from '../data/api';
 import validateCPF from '../utils/validateCPF';
 export default {
   data: () => ({
     name: '',
-    nameRules: [
-      (v) => !!v || 'Nome é obrigatório',
-      (v) =>
-        (v && v.length <= 10) || 'O nome precisa ter ao menos 10 caracteres',
-    ],
+    nameRules: [(v) => !!v || 'Nome é obrigatório'],
     email: '',
     emailRules: [
       (v) => !!v || 'E-mail é obrigatório',
@@ -96,26 +101,54 @@ export default {
       (v) => validateCPF(v) || 'CPF inválido',
     ],
     valid: false,
+    showSnackbar: false,
+    snackbarTimeout: 5000,
+    snackbarText: '',
+    snackbarColor: '',
   }),
   methods: {
     validateForm() {
       this.$refs.form.validate();
     },
-    getFormInputValues() {
-      const json = JSON.stringify({
+    resetForm() {
+      this.name = '';
+      this.email = '';
+      this.ra = '';
+      this.cpf = '';
+      this.$refs.form.resetValidation();
+    },
+    getFormData() {
+      const formData = {
         name: this.name,
         email: this.email,
-        ra: this.ra,
-        cpf: this.cpf,
-      });
-      return json;
+        RA: this.ra,
+        CPF: this.cpf,
+      };
+      return formData;
     },
     submitForm() {
       this.validateForm();
       if (this.valid) {
-        console.log('submited');
-        console.log(this.getFormInputValues());
+        const formData = this.getFormData();
+        this.saveStudent(formData);
       }
+    },
+    async saveStudent(formData) {
+      try {
+        const response = await api.post('/student', formData);
+        this.callSnackBar(response.data.message);
+        this.resetForm();
+      } catch (error) {
+        this.callSnackBar(error.response.data.message, 'error');
+      }
+    },
+    callSnackBar(text, status = 'success') {
+      status === 'error'
+        ? (this.snackbarColor = 'red accent-2')
+        : (this.snackbarColor = 'green');
+
+      this.snackbarText = text;
+      this.showSnackbar = true;
     },
   },
 };
