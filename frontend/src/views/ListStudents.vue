@@ -3,7 +3,13 @@
     <v-container class="mt-3">
       <v-row>
         <v-col>
-          <v-btn color="secondary" class="white--text">Cadastrar Aluno</v-btn>
+          <v-btn
+            color="secondary"
+            class="white--text"
+            link
+            to="/students/register"
+            >Cadastrar Aluno</v-btn
+          >
         </v-col>
       </v-row>
 

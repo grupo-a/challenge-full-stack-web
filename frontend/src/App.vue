@@ -13,7 +13,7 @@
         <v-divider></v-divider>
 
         <v-list dense nav>
-          <v-list-item link>
+          <v-list-item link to="/students">
             <v-list-item-icon>
               <v-icon>mdi-account-group</v-icon>
             </v-list-item-icon>
