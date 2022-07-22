@@ -1,70 +1,76 @@
 <template>
-  <v-main>
-    <v-container class="mt-3">
-      <v-col class="col-6 mx-auto">
-        <v-form ref="form" v-model="valid">
-          <v-row>
-            <v-col>
-              <v-text-field
-                v-model="name"
-                label="Nome"
-                :rules="nameRules"
-                outlined
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field
-                v-model="email"
-                label="E-mail"
-                :rules="emailRules"
-                outlined
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field
-                v-model="ra"
-                label="RA"
-                :rules="raRules"
-                type="number"
-                hide-spin-buttons
-                outlined
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col>
-              <v-text-field
-                v-model="cpf"
-                label="CPF"
-                :rules="cpfRules"
-                type="number"
-                hide-spin-buttons
-                outlined
-                required
-              ></v-text-field>
-            </v-col>
-          </v-row>
-          <v-row justify="end">
-            <v-col class="col-auto">
-              <v-btn color="gray" link to="/students">Cancelar</v-btn>
-            </v-col>
-            <v-col class="col-auto">
-              <v-btn color="green" class="white--text" @click="submitForm"
-                >Salvar</v-btn
-              >
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-col>
-    </v-container>
-  </v-main>
+  <div>
+    <v-app-bar app color="primary" dark>
+      <div>Cadastro de aluno</div>
+      <v-spacer></v-spacer>
+    </v-app-bar>
+    <v-main>
+      <v-container class="mt-3">
+        <v-col class="col-6 mx-auto">
+          <v-form ref="form" v-model="valid">
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="name"
+                  label="Nome"
+                  :rules="nameRules"
+                  outlined
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="email"
+                  label="E-mail"
+                  :rules="emailRules"
+                  outlined
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="ra"
+                  label="RA"
+                  :rules="raRules"
+                  type="number"
+                  hide-spin-buttons
+                  outlined
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col>
+                <v-text-field
+                  v-model="cpf"
+                  label="CPF"
+                  :rules="cpfRules"
+                  type="number"
+                  hide-spin-buttons
+                  outlined
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <v-row justify="end">
+              <v-col class="col-auto">
+                <v-btn color="gray" link to="/students">Cancelar</v-btn>
+              </v-col>
+              <v-col class="col-auto">
+                <v-btn color="green" class="white--text" @click="submitForm"
+                  >Salvar</v-btn
+                >
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-col>
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
@@ -95,7 +101,7 @@ export default {
     validateForm() {
       this.$refs.form.validate();
     },
-    getFormInputs() {
+    getFormInputValues() {
       const json = JSON.stringify({
         name: this.name,
         email: this.email,
@@ -108,7 +114,7 @@ export default {
       this.validateForm();
       if (this.valid) {
         console.log('submited');
-        console.log(this.getFormInputs());
+        console.log(this.getFormInputValues());
       }
     },
   },

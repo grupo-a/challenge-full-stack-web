@@ -26,11 +26,6 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark>
-      <div>Consulta de alunos</div>
-      <v-spacer></v-spacer>
-    </v-app-bar>
-
     <router-view></router-view>
   </v-app>
 </template>

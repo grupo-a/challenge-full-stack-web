@@ -1,53 +1,60 @@
 <template>
-  <v-main>
-    <v-container class="mt-3">
-      <v-row>
-        <v-col>
-          <v-btn
-            color="secondary"
-            class="white--text"
-            link
-            to="/students/register"
-            >Cadastrar Aluno</v-btn
-          >
-        </v-col>
-      </v-row>
+  <div>
+    <v-app-bar app color="primary" dark>
+      <div>Consulta de alunos</div>
+      <v-spacer></v-spacer>
+    </v-app-bar>
 
-      <v-row>
-        <v-col>
-          <v-card-title>
-            Alunos
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="Pesquisar"
-              single-line
-              hide-details
-            ></v-text-field>
-          </v-card-title>
-          <v-data-table
-            :loading="loading"
-            loading-text="Carregando..."
-            no-data-text="Nenhum registro encontrado"
-            no-results-text="Nenhum registro correspondente encontrado"
-            :headers="headers"
-            :items="desserts"
-            :search="search"
-            :footer-props="{
-              'items-per-page-all-text': 'Todos',
-              'items-per-page-text': 'Alunos por página',
-            }"
-          >
-            <template v-slot:[`footer.page-text`]="items">
-              {{ items.pageStart }} - {{ items.pageStop }} de
-              {{ items.itemsLength }}
-            </template>
-          </v-data-table>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-main>
+    <v-main>
+      <v-container class="mt-3">
+        <v-row>
+          <v-col>
+            <v-btn
+              color="secondary"
+              class="white--text"
+              link
+              to="/students/register"
+              >Cadastrar Aluno</v-btn
+            >
+          </v-col>
+        </v-row>
+
+        <v-row>
+          <v-col>
+            <v-card-title>
+              Alunos
+              <v-spacer></v-spacer>
+              <v-text-field
+                v-model="search"
+                append-icon="mdi-magnify"
+                label="Pesquisar"
+                single-line
+                hide-details
+              ></v-text-field>
+            </v-card-title>
+            <v-data-table
+              :loading="loading"
+              loading-text="Carregando..."
+              no-data-text="Nenhum registro encontrado"
+              no-results-text="Nenhum registro correspondente encontrado"
+              :headers="headers"
+              :items="desserts"
+              :search="search"
+              :footer-props="{
+                'items-per-page-all-text': 'Todos',
+                'items-per-page-text': 'Alunos por página',
+              }"
+            >
+              <template v-slot:[`footer.page-text`]="items">
+                {{ items.pageStart }} - {{ items.pageStop }} de
+                {{ items.itemsLength }}
+              </template>
+            </v-data-table>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </div>
 </template>
 
 <script>
