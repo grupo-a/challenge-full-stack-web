@@ -50,7 +50,32 @@
                 <v-icon small class="mr-2" @click="editItem(item)">
                   mdi-pencil
                 </v-icon>
-                <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+                <v-dialog v-model="dialog" persistent max-width="350">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-icon small v-bind="attrs" v-on="on"> mdi-delete </v-icon>
+                  </template>
+                  <v-card>
+                    <v-card-title class="text-h6">
+                      Tem certeza que deseja excluir?
+                    </v-card-title>
+                    <v-card-text
+                      >Esta ação não poderá ser desfeita.</v-card-text
+                    >
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn
+                        color="light"
+                        class="white--text"
+                        @click="closeDialog()"
+                      >
+                        Cancelar
+                      </v-btn>
+                      <v-btn color="info" @click="deleteStudent(item)">
+                        Sim
+                      </v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
               </template>
               <template v-slot:[`footer.page-text`]="items">
                 {{ items.pageStart }} - {{ items.pageStop }} de
@@ -72,6 +97,7 @@ export default {
   data: () => ({
     search: '',
     loading: true,
+    dialog: false,
     headers: [
       {
         text: 'Registro Acadêmico',
@@ -95,6 +121,19 @@ export default {
     },
     editItem(item) {
       this.$router.push({ name: 'editStudent', params: { id: item.id } });
+    },
+    closeDialog() {
+      this.dialog = false;
+    },
+    async deleteStudent(item) {
+      const id = item.id;
+      try {
+        await api.delete(`/student/${id}`);
+        await this.getStudents();
+        this.closeDialog();
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
   created() {
