@@ -5,9 +5,6 @@ const validateStudentInput = require('../shared/utils/validateStudentInput');
 module.exports = {
   async listStudents() {
     const students = await Student.findAll();
-    if (students.length === 0) {
-      throw new AppError('Não há alunos cadastrados.', 404);
-    }
     return students;
   },
 

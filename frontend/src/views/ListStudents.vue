@@ -33,18 +33,25 @@
               ></v-text-field>
             </v-card-title>
             <v-data-table
+              class="elevation-1"
               :loading="loading"
               loading-text="Carregando..."
               no-data-text="Nenhum registro encontrado"
               no-results-text="Nenhum registro correspondente encontrado"
               :headers="headers"
-              :items="desserts"
+              :items="students"
               :search="search"
               :footer-props="{
                 'items-per-page-all-text': 'Todos',
                 'items-per-page-text': 'Alunos por página',
               }"
             >
+              <template v-slot:[`item.actions`]="{ item }">
+                <v-icon small class="mr-2" @click="editItem(item)">
+                  mdi-pencil
+                </v-icon>
+                <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+              </template>
               <template v-slot:[`footer.page-text`]="items">
                 {{ items.pageStart }} - {{ items.pageStop }} de
                 {{ items.itemsLength }}
@@ -58,46 +65,37 @@
 </template>
 
 <script>
+import api from '../data/api';
+
 export default {
   name: 'ListStudents',
   data: () => ({
     search: '',
-    loading: false,
+    loading: true,
     headers: [
       {
         text: 'Registro Acadêmico',
-        value: 'ra',
+        value: 'RA',
       },
       { text: 'Nome', value: 'name' },
-      { text: 'CPF', value: 'cpf' },
-      { text: 'Ações', value: 'action' },
+      { text: 'CPF', value: 'CPF' },
+      { text: 'Ações', value: 'actions', sortable: false },
     ],
-    desserts: [
-      {
-        ra: 101235,
-        name: 'Paula Souza',
-        cpf: '121.999.999-99',
-        action: '[Editar] [Excluir]',
-      },
-      {
-        ra: 111687,
-        name: 'João Silva',
-        cpf: '122.999.999-99',
-        action: '[Editar] [Excluir]',
-      },
-      {
-        ra: 111365,
-        name: 'Marina Miranda',
-        cpf: '123.999.999-99',
-        action: '[Editar] [Excluir]',
-      },
-      {
-        ra: 101299,
-        name: 'Maurício Souza',
-        cpf: '124.999.999-99',
-        action: '[Editar] [Excluir]',
-      },
-    ],
+    students: [],
   }),
+  methods: {
+    async getStudents() {
+      try {
+        const result = await api.get('/student');
+        this.students = result.data;
+        this.loading = false;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+  created() {
+    this.getStudents();
+  },
 };
 </script>
