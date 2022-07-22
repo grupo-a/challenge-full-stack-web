@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app-bar app color="primary" dark>
-      <div>Cadastro de aluno</div>
+      <div>Editar de aluno</div>
       <v-spacer></v-spacer>
     </v-app-bar>
     <v-main>
@@ -35,8 +35,8 @@
                 <v-text-field
                   v-model="ra"
                   label="RA"
-                  :rules="raRules"
                   type="number"
+                  disabled
                   hide-spin-buttons
                   outlined
                   required
@@ -48,8 +48,8 @@
                 <v-text-field
                   v-model="cpf"
                   label="CPF"
-                  :rules="cpfRules"
                   type="number"
+                  disabled
                   hide-spin-buttons
                   outlined
                   required
@@ -83,10 +83,9 @@
 
 <script>
 import api from '../data/api';
-import validateCPF from '../utils/validateCPF';
 
 export default {
-  name: 'RegisterStudent',
+  name: 'ManageStudent',
   data: () => ({
     name: '',
     nameRules: [(v) => !!v || 'Nome é obrigatório'],
@@ -96,12 +95,7 @@ export default {
       (v) => /.+@.+\..+/.test(v) || 'E-mail inválido',
     ],
     ra: '',
-    raRules: [(v) => !!v || 'RA é obrigatório'],
     cpf: '',
-    cpfRules: [
-      (v) => !!v || 'CPF é obrigatório',
-      (v) => validateCPF(v) || 'CPF inválido',
-    ],
     valid: false,
     showSnackbar: false,
     snackbarTimeout: 5000,
@@ -136,10 +130,10 @@ export default {
       }
     },
     async saveStudent(formData) {
+      const id = this.$route.params.id;
       try {
-        const response = await api.post('/student', formData);
+        const response = await api.put(`/student/${id}`, formData);
         this.callSnackBar(response.data.message);
-        this.resetForm();
       } catch (error) {
         this.callSnackBar(error.response.data.message, 'error');
       }
@@ -152,9 +146,21 @@ export default {
       this.snackbarText = text;
       this.showSnackbar = true;
     },
+    async getStudent() {
+      const id = this.$route.params.id;
+      try {
+        const result = await api.get(`/student/${id}`);
+        this.name = result.data.name;
+        this.email = result.data.email;
+        this.ra = result.data.RA;
+        this.cpf = result.data.CPF;
+      } catch (error) {
+        this.callSnackBar(error.response.data.message, 'error');
+      }
+    },
   },
   created() {
-    console.log(this.$route.params.id);
+    this.getStudent();
   },
 };
 </script>

@@ -93,6 +93,9 @@ export default {
         console.error(error);
       }
     },
+    editItem(item) {
+      this.$router.push({ name: 'editStudent', params: { id: item.id } });
+    },
   },
   created() {
     this.getStudents();
