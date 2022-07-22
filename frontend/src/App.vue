@@ -31,13 +31,7 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-
 export default {
-  ra: 'App',
-
-  components: {
-    //HelloWorld,
-  },
+  name: 'App',
 };
 </script>
