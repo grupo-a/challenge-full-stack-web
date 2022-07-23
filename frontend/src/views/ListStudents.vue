@@ -50,7 +50,7 @@
                 <v-icon small class="mr-2" @click="editItem(item)">
                   mdi-pencil
                 </v-icon>
-                <v-dialog v-model="dialog" persistent max-width="350">
+                <v-dialog v-model="dialog" max-width="350">
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon small v-bind="attrs" v-on="on"> mdi-delete </v-icon>
                   </template>
