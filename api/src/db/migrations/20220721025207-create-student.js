@@ -24,7 +24,8 @@ module.exports = {
       },
       CPF: {
         allowNull: false,
-        type: Sequelize.STRING,
+        unique: true,
+        type: Sequelize.STRING(11),
       },
       createdAt: {
         allowNull: false,

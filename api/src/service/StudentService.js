@@ -19,9 +19,19 @@ module.exports = {
   async createStudent(inputData) {
     validateStudentInput(inputData);
 
-    const student = await Student.create(inputData);
+    let student = await Student.findOne({ where: { CPF: inputData.CPF } });
+    if (student) {
+      throw new AppError('CPF já existente.', 400);
+    }
 
-    return student;
+    student = await Student.findOne({ where: { RA: inputData.RA } });
+    if (student) {
+      throw new AppError('RA já existente.', 400);
+    }
+
+    const newStudent = await Student.create(inputData);
+
+    return newStudent;
   },
 
   async updateStudent(id, inputData) {
