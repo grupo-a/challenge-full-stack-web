@@ -25,7 +25,7 @@ Frontend
 
 API - Uma arquitetura mais robusta, visto que essa feature deve fazer parte de um sistema bem maior
 
-Frontend - Criaria mais componentes, deixando o codigo mais organizado
+Frontend - Criaria mais componentes, deixando o codigo mais organizado. Também faria pesquisa, ordenação e paginação em server-side.
 
 ### Quais requisitos obrigatórios que não foram entregues
 
