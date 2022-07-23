@@ -50,7 +50,11 @@
                 <v-icon small class="mr-2" @click="editItem(item)">
                   mdi-pencil
                 </v-icon>
-                <v-dialog v-model="dialog" max-width="350">
+                <v-dialog
+                  v-model="dialog"
+                  max-width="350"
+                  :retain-focus="false"
+                >
                   <template v-slot:activator="{ on, attrs }">
                     <v-icon small v-bind="attrs" v-on="on"> mdi-delete </v-icon>
                   </template>
@@ -126,6 +130,7 @@ export default {
       this.dialog = false;
     },
     async deleteStudent(item) {
+      console.log(item);
       const id = item.id;
       try {
         await api.delete(`/student/${id}`);
