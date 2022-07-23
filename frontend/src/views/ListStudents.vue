@@ -47,20 +47,29 @@
               }"
             >
               <template v-slot:[`item.actions`]="{ item }">
-                <v-icon small class="mr-2" @click="editItem(item)">
+                <v-icon small class="mr-2" @click="editStudent(item)">
                   mdi-pencil
                 </v-icon>
                 <v-dialog
                   v-model="dialog"
                   max-width="350"
+                  persistent
                   :retain-focus="false"
                 >
                   <template v-slot:activator="{ on, attrs }">
-                    <v-icon small v-bind="attrs" v-on="on"> mdi-delete </v-icon>
+                    <v-icon
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="deleteStudent(item)"
+                    >
+                      mdi-delete
+                    </v-icon>
                   </template>
                   <v-card>
                     <v-card-title class="text-h6">
-                      Tem certeza que deseja excluir?
+                      Tem certeza que deseja excluir o aluno
+                      {{ selectedStudent.name }}?
                     </v-card-title>
                     <v-card-text
                       >Esta ação não poderá ser desfeita.</v-card-text
@@ -74,7 +83,7 @@
                       >
                         Cancelar
                       </v-btn>
-                      <v-btn color="info" @click="deleteStudent(item)">
+                      <v-btn color="info" @click="deleteStudentConfirm">
                         Sim
                       </v-btn>
                     </v-card-actions>
@@ -111,8 +120,16 @@ export default {
       { text: 'CPF', value: 'CPF' },
       { text: 'Ações', value: 'actions', sortable: false },
     ],
+    selectedStudentIndex: -1,
+    selectedStudent: {
+      name: '',
+      email: '',
+      ra: '',
+      cpf: '',
+    },
     students: [],
   }),
+
   methods: {
     async getStudents() {
       try {
@@ -123,15 +140,18 @@ export default {
         console.error(error);
       }
     },
-    editItem(item) {
+    editStudent(item) {
       this.$router.push({ name: 'editStudent', params: { id: item.id } });
     },
     closeDialog() {
       this.dialog = false;
     },
-    async deleteStudent(item) {
-      console.log(item);
-      const id = item.id;
+    deleteStudent(item) {
+      this.selectedStudentIndex = this.students.indexOf(item);
+      this.selectedStudent = this.students[this.selectedStudentIndex];
+    },
+    async deleteStudentConfirm() {
+      const id = this.selectedStudent.id;
       try {
         await api.delete(`/student/${id}`);
         await this.getStudents();

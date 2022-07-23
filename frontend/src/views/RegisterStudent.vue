@@ -153,8 +153,5 @@ export default {
       this.showSnackbar = true;
     },
   },
-  created() {
-    console.log(this.$route.params.id);
-  },
 };
 </script>
