@@ -84,7 +84,7 @@
                         Cancelar
                       </v-btn>
                       <v-btn color="info" @click="deleteStudentConfirm">
-                        Sim
+                        Confirmar
                       </v-btn>
                     </v-card-actions>
                   </v-card>
