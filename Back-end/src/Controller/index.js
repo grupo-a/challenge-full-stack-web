@@ -18,14 +18,15 @@ const registerStudent = async (req, res, next) => {
   return res.status(201).json(registered);
 };
 
-const updateStudent = async (req, res) => {
+const updateStudent = async (req, res, next) => {
   const {
     id, ra, name, cpf, email,
   } = req.body;
 
   const registeringUpdate = await service.updateStudent(id, ra, name, cpf, email);
+  if (registeringUpdate.error) return next(registeringUpdate);
 
-  res.status(201).json(registeringUpdate);
+  return res.status(201).json(registeringUpdate);
 };
 
 module.exports = {
