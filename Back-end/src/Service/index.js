@@ -16,8 +16,8 @@ const registerStudent = async (ra, name, cpf, email) => {
   return registered;
 };
 
-const updateStudent = async (id, ra, name, cpf, email) => {
-  const registeringUpdate = await model.updateStudent(id, ra, name, cpf, email);
+const updateStudent = async (id, name, email) => {
+  const registeringUpdate = await model.updateStudent(id, name, email);
 
   return registeringUpdate;
 };

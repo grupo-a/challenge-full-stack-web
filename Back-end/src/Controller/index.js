@@ -20,10 +20,10 @@ const registerStudent = async (req, res, next) => {
 
 const updateStudent = async (req, res, next) => {
   const {
-    id, ra, name, cpf, email,
+    id, name, email,
   } = req.body;
 
-  const registeringUpdate = await service.updateStudent(id, ra, name, cpf, email);
+  const registeringUpdate = await service.updateStudent(id, name, email);
   if (registeringUpdate.error) return next(registeringUpdate);
 
   return res.status(201).json(registeringUpdate);
