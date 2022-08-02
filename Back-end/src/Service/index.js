@@ -17,6 +17,7 @@ const registerStudent = async (ra, name, cpf, email) => {
 };
 
 const updateStudent = async (id, name, email) => {
+  if (!id) return { error: 400, message: 'Id is required' };
   const registeringUpdate = await model.updateStudent(id, name, email);
 
   return registeringUpdate;

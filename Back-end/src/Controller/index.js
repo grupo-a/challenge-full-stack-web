@@ -26,7 +26,7 @@ const updateStudent = async (req, res, next) => {
   const registeringUpdate = await service.updateStudent(id, name, email);
   if (registeringUpdate.error) return next(registeringUpdate);
 
-  return res.status(201).json(registeringUpdate);
+  return res.status(201).json({ message: 'Student successfully updated' });
 };
 
 const removeStudent = async (req, res, next) => {
@@ -35,7 +35,7 @@ const removeStudent = async (req, res, next) => {
 
   if (delStudent.error) return next(delStudent);
 
-  return res.status(200).json(delStudent);
+  return res.status(200).json({ message: 'Student successfully removed' });
 };
 
 module.exports = {
