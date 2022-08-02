@@ -56,5 +56,19 @@ describe('Service', function () {
       Sinon.restore();
     });
   });
+
+  describe('#Update', function () {
+    it('Atualizando dados de um aluno', async function () {
+      Sinon.stub(listModel, 'updateStudent').resolves(dataDb[0]);
+      const data = await listService.updateStudent(1, 'Ale', 'Ale@gmail.com');
+      expect(data).to.deep.eq(dataDb[0]);
+      Sinon.restore();
+    });
+    it('Atualizar estudante que não existe, retorna a mensagem "Student not exist"', async function () {
+      Sinon.stub(listModel, 'getAll').resolves({ error: 400, message: 'Student not exist' });
+      const data = await listService.getAll(1243, 'Ale', 'Ale@gmail.com');
+      expect(data.message).to.deep.eq('Student not exist');
+    });
+  });
   
 });
