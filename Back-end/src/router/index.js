@@ -5,5 +5,6 @@ const route = Router();
 
 route.get('/', controller.getAll);
 route.post('/', controller.registerStudent);
+route.put('/', controller.updateStudent);
 
 module.exports = route;

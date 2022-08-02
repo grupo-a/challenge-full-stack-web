@@ -16,7 +16,14 @@ const registerStudent = async (ra, name, cpf, email) => {
   return registered;
 };
 
+const updateStudent = async (id, ra, name, cpf, email) => {
+  const registeringUpdate = await model.updateStudent(id, ra, name, cpf, email);
+
+  return registeringUpdate;
+};
+
 module.exports = {
   getAll,
   registerStudent,
+  updateStudent,
 };
