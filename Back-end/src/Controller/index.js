@@ -15,7 +15,7 @@ const registerStudent = async (req, res, next) => {
 
   if (registered.error) return next(registered);
 
-  return res.status(201).json(registered);
+  return res.status(201).json({ message: 'Student successfully registered' });
 };
 
 const updateStudent = async (req, res, next) => {

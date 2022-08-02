@@ -19,7 +19,7 @@ describe('Models', () => {
     });
   });
 
-  describe('#FindOne', () => {
+  describe('#Register', () => {
     afterEach(sinon.restore);
     it('Cadastrando um estudando no banco', async () => {
       sinon.stub(User, 'findOne').resolves(false);
@@ -32,6 +32,16 @@ describe('Models', () => {
       const data = await model.registerStudent(123, 'Alessandro', '432.322.432-59', 'Alessandro@gmail.com');
 
       expect(data.message).to.be.equal('existing student');
+    });
+  });
+
+  describe('#Update', () => {
+    afterEach(sinon.restore);
+    it('Tentando atualizar estudante que não existe. Deve retornar a mensagem "Student not exist"', async () => {
+      sinon.stub(User, 'update').resolves(dataDb[0]);
+      const data = await model.updateStudent(123, 'Alessandro P', 'Alessandro@gmail.com');
+
+      expect(data.message).to.be.equal('Student not exist');
     });
   });
 
