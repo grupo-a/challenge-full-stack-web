@@ -22,8 +22,15 @@ const updateStudent = async (id, name, email) => {
   return registeringUpdate;
 };
 
+const removeStudent = async (id) => {
+  const delStudent = await model.removeStudent(id);
+
+  return delStudent;
+};
+
 module.exports = {
   getAll,
   registerStudent,
   updateStudent,
+  removeStudent,
 };

@@ -8,7 +8,6 @@ const getAll = async () => {
 
 const findStudent = async (id) => {
   const student = await User.findOne({ where: { id } });
-  console.log(student);
 
   return student;
 };
@@ -38,8 +37,18 @@ const updateStudent = async (id, name, email) => {
   return registeringUpdate;
 };
 
+const removeStudent = async (id) => {
+  const checking = await findStudent(id);
+  if (!checking) return { error: 400, message: 'Student not exist' };
+
+  const delStudent = await User.destroy({ where: { id } });
+
+  return delStudent;
+};
+
 module.exports = {
   getAll,
   registerStudent,
   updateStudent,
+  removeStudent,
 };

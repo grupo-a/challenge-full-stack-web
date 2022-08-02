@@ -29,8 +29,18 @@ const updateStudent = async (req, res, next) => {
   return res.status(201).json(registeringUpdate);
 };
 
+const removeStudent = async (req, res, next) => {
+  const { id } = req.params;
+  const delStudent = await service.removeStudent(+id);
+
+  if (delStudent.error) return next(delStudent);
+
+  return res.status(200).json(delStudent);
+};
+
 module.exports = {
   getAll,
   registerStudent,
   updateStudent,
+  removeStudent,
 };

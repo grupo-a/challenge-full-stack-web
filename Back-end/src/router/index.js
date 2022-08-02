@@ -6,5 +6,6 @@ const route = Router();
 route.get('/', controller.getAll);
 route.post('/', controller.registerStudent);
 route.put('/', controller.updateStudent);
+route.delete('/:id', controller.removeStudent);
 
 module.exports = route;
