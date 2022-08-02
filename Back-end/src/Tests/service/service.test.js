@@ -70,5 +70,19 @@ describe('Service', function () {
       expect(data.message).to.deep.eq('Student not exist');
     });
   });
+
+  describe('#Delete', function () {
+    it('Deletando um estudante', async function () {
+      Sinon.stub(listModel, 'removeStudent').resolves(dataDb[0]);
+      const data = await listService.removeStudent(1);
+      expect(data).to.deep.eq(dataDb[0]);
+      Sinon.restore();
+    });
+    it('Deletando estudante que não existe, retorna a mensagem "Student not exist"', async function () {
+      Sinon.stub(listModel, 'removeStudent').resolves({ error: 400, message: 'Student not exist' });
+      const data = await listService.removeStudent(1243, 'Ale', 'Ale@gmail.com');
+      expect(data.message).to.deep.eq('Student not exist');
+    });
+  });
   
 });
