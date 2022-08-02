@@ -6,12 +6,14 @@ const getAll = async (_req, res) => {
   return res.status(200).json(data);
 };
 
-const registerStudent = async (req, res) => {
+const registerStudent = async (req, res, next) => {
   const {
     ra, name, cpf, email,
   } = req.body;
 
   const registered = await service.registerStudent(ra, name, cpf, email);
+
+  if (registered.error) return next(registered);
 
   return res.status(201).json(registered);
 };

@@ -7,6 +7,9 @@ const getAll = async () => {
 };
 
 const registerStudent = async (ra, name, cpf, email) => {
+  const checkingStudent = await User.findOne({ where: { cpf } });
+  if (checkingStudent) return { error: 400, message: 'existing student' };
+
   const registered = await User.create({
     ra, name, cpf, email,
   });
