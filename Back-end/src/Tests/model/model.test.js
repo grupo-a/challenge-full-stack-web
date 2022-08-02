@@ -45,4 +45,14 @@ describe('Models', () => {
     });
   });
 
+  describe('#Delete', () => {
+    afterEach(sinon.restore);
+    it('Tentando Deletar estudante que não existe. Deve retornar a mensagem "Student not exist"', async () => {
+      sinon.stub(User, 'destroy').resolves(dataDb[0]);
+      const data = await model.updateStudent(123, 'Alessandro P', 'Alessandro@gmail.com');
+
+      expect(data.message).to.be.equal('Student not exist');
+    });
+  });
+
 });
