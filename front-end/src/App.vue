@@ -1,16 +1,30 @@
 <template>
-  <h1>Olá mundo</h1>
-  <InputDados />
+  <nav>
+    <router-link to="/">Home</router-link> |
+    <router-link to="/cadastrar">Cadastrar</router-link>
+  </nav>
+  <router-view/>
 </template>
 
-<script>
-import InputDados from './components/Input.vue';
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
-export default {
-  name: 'App',
-  components: {
-    InputDados,
-  },
-};
+nav {
+  padding: 30px;
+}
 
-</script>
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+</style>
