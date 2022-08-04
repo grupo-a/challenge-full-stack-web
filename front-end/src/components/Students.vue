@@ -1,6 +1,12 @@
 <template>
   <div class="hello">
-    <h1>teste</h1>
+    <div>
+      <label for="search">
+        <input type="text" v-model="txtSearch">
+      </label>
+      <button @click="serachStudent">Pesquisar</button>
+      <p>{{txtSearch}}</p>
+    </div>
     <table>
       <tr>
         <td>Ra</td>
@@ -13,7 +19,11 @@
         <td>{{student.ra}}</td>
         <td>{{student.name}}</td>
         <td>{{student.cpf}}</td>
-        <td>{{student.email}}</td>
+        <td> {{student.email}} </td>
+        <td>
+          <button type="button">[editar]</button>
+          <button type="button">[excluir]</button>
+        </td>
       </tr>
     </table>
   </div>
@@ -23,10 +33,11 @@
 import api from '@/RequestApi/api';
 
 export default {
-  name: 'HelloWorld',
+  name: 'StudentsData',
   data() {
     return {
       listStudents: [],
+      txtSearch: '',
     };
   },
   mounted() {
@@ -34,23 +45,20 @@ export default {
       this.listStudents = response.data;
     });
   },
+  methods: {
+    serachStudent: () => {
+      console.log('filtro');
+      const filtro = [...this.listStudents].filter((student) => (
+        student.name.toLowerCase().inclides(this.txtSearch)
+      ));
+      this.listStudents = filtro;
+      console.log(this.listStudents);
+    },
+  },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
