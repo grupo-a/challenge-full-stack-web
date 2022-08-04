@@ -12,7 +12,8 @@
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.0.3"
+    "vue-router": "^4.0.3",
+    "vuelidate": "^0.7.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

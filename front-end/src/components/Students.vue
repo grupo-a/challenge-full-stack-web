@@ -15,6 +15,7 @@
         <td>E-mail</td>
       </tr>
       <!-- Dinamico nessa parte -->
+      <p v-if="listStudents.length === 0">Nenhum estudante encontrado</p>
       <tr v-for="(student) in listStudents" :key="student.id">
         <td>{{student.ra}}</td>
         <td>{{student.name}}</td>

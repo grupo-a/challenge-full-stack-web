@@ -2,45 +2,54 @@
 <div class="container">
   <form @submit="enviarForm">
     <div class="input">
-      <label for="ra">
+      <label for="ra" class="label">
         Ra:
-        <input type="text" v-model="ra" id="ra" />
+        <input
+          type="text"
+          v-model="ra"
+          id="ra"
+        />
       </label>
+      <!-- <p v-if="valid">Ra precisa ser numerico</p> -->
     </div>
 
     <div class="input">
-      <label for="nome">
+      <label for="nome" class="label">
         Nome:
         <input type="text" v-model="nome" id="nome" />
       </label>
     </div>
 
     <div class="input">
-      <label for="cpf">
+      <label for="cpf" class="label">
         CPF:
         <input type="text" v-model="cpf" id="cpf" />
       </label>
     </div>
 
     <div class="input">
-      <label for="email">
+      <label for="email" class="label">
         E-mail:
         <input type="email" v-model="email" id="email" />
       </label>
     </div>
 
     <div class="">
-      <label for="submit">
-        <input type="submit" />
-      </label>
+      <button
+        type="submit"
+        :disabled="!(isValidEmail(email))"
+      >
+      Cadastrar
+    </button>
     </div>
 
   </form>
+  <p v-if="error">Por Favor corrigir informações</p>
 </div>
 </template>
 
 <script>
-// import api from '@/RequestApi/api';
+import api from '@/RequestApi/api';
 
 export default {
   name: 'CadastroStudents',
@@ -50,12 +59,37 @@ export default {
       nome: '',
       cpf: '',
       email: '',
+      valid: false,
+      disabled: true,
+      error: false,
     };
   },
   methods: {
+    validationRa(ra) {
+      return !Number.isNaN(ra);
+    },
+
+    isValidEmail(email) {
+      this.validationRa(this.ra);
+      const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
+      return regex.test(email);
+    },
+
     enviarForm(e) {
       e.preventDefault();
-      console.log(this.ra, this.nome, this.cpf, this.email);
+      if (!this.nome || !this.cpf || !this.ra || !this.email) {
+        this.error = true;
+      } else {
+        this.error = false;
+      }
+
+      if (!this.error) {
+        this.error = false;
+
+        api.post('/', {
+          ra: this.ra, name: this.nome, cpf: this.cpf, email: this.email,
+        });
+      }
     },
   },
 };
@@ -63,16 +97,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.container {
-  max-width: 400px;
-  margin: auto;
-}
-.input {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-input {
-  margin-right: 0px;
-}
+
 </style>
