@@ -1,5 +1,6 @@
 <template>
 <div class="container">
+  <h1 class="txt-cadastro">Cadastro de aluno</h1>
   <form @submit="enviarForm">
     <div class="input">
       <label for="ra" class="label">
@@ -36,10 +37,15 @@
 
     <div class="">
       <button
+        type="button"
+      >
+        <a href="/">Cancelar</a>
+      </button>
+      <button
         type="submit"
         :disabled="!(isValidEmail(email))"
       >
-      Cadastrar
+      Salvar
     </button>
     </div>
 
@@ -50,6 +56,7 @@
 
 <script>
 import api from '@/RequestApi/api';
+import VueRouter from 'vue-router';
 
 export default {
   name: 'CadastroStudents',
@@ -75,6 +82,10 @@ export default {
       return regex.test(email);
     },
 
+    redirect() {
+      VueRouter.push({ name: '/' });
+    },
+
     enviarForm(e) {
       e.preventDefault();
       if (!this.nome || !this.cpf || !this.ra || !this.email) {
@@ -89,6 +100,10 @@ export default {
         api.post('/', {
           ra: this.ra, name: this.nome, cpf: this.cpf, email: this.email,
         });
+        this.ra = '';
+        this.nome = '';
+        this.cpf = '';
+        this.email = '';
       }
     },
   },
@@ -97,5 +112,38 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container {
+  max-width: 450px;
+  margin: auto;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  padding: 10px 5px 30px 10px;
+}
+.txt-cadastro {
+  text-align: center;
+}
 
+input {
+  display: block;
+  width: 90%;
+  height: 25px;
+  border-radius: 5px;
+}
+label {
+  padding: 4px;
+}
+
+button {
+  color: white;
+  font-weight: 900;
+  padding: 8px 15px;
+  background-color: rgb(204, 13, 13);
+  border-radius: 5px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
 </style>

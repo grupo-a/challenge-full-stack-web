@@ -1,6 +1,6 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link> |
+    <router-link to="/">Lista de Alunos</router-link> |
     <router-link to="/cadastrar">
       <button type="button">Cadastrar</button>
     </router-link>

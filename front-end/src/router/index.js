@@ -12,6 +12,11 @@ const routes = [
     name: 'CadastroStudents',
     component: () => import(/* webpackChunkName: "about" */ '../views/CadastroView.vue'),
   },
+  {
+    path: '/update',
+    name: 'updateStudent',
+    component: () => import(/* webpackChunkName: "about" */ '../views/UpdateView.vue'),
+  },
 ];
 
 const router = createRouter({
