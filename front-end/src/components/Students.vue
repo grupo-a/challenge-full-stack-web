@@ -46,13 +46,11 @@ export default {
     });
   },
   methods: {
-    serachStudent: () => {
-      console.log('filtro');
+    serachStudent() {
       const filtro = [...this.listStudents].filter((student) => (
-        student.name.toLowerCase().inclides(this.txtSearch)
+        student.name.toLowerCase().includes(this.txtSearch.toLowerCase())
       ));
       this.listStudents = filtro;
-      console.log(this.listStudents);
     },
   },
 };

@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <form>
+  <form @submit="enviarForm">
     <div class="input">
       <label for="ra">
         Ra:
@@ -31,7 +31,7 @@
 
     <div class="">
       <label for="submit">
-        <input type="submit" v-on:click="addStudent" />
+        <input type="submit" />
       </label>
     </div>
 
@@ -53,19 +53,11 @@ export default {
     };
   },
   methods: {
-    addStudent: (e) => {
+    enviarForm(e) {
       e.preventDefault();
-      console.log(this.ra);
-      // api.post('/', {
-      //   ra: this.ra, name: this.nome, cpf: this.cpf, email: this.email,
-      // });
+      console.log(this.ra, this.nome, this.cpf, this.email);
     },
   },
-  // mounted() {
-  //   api.get('/').then((response) => {
-  //     this.listStudents = response.data
-  //   });
-  // },
 };
 </script>
 
