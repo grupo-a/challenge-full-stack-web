@@ -47,6 +47,9 @@
       >
       Salvar
     </button>
+    <div class="save-div" v-if="save">
+      <p class="save">Estudante salvo com sucesso!</p>
+    </div>
     </div>
 
   </form>
@@ -69,6 +72,7 @@ export default {
       valid: false,
       disabled: true,
       error: false,
+      save: false,
     };
   },
   methods: {
@@ -80,6 +84,10 @@ export default {
       this.validationRa(this.ra);
       const regex = /^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i;
       return regex.test(email);
+    },
+
+    isSave() {
+      this.save = false;
     },
 
     redirect() {
@@ -100,10 +108,12 @@ export default {
         api.post('/', {
           ra: this.ra, name: this.nome, cpf: this.cpf, email: this.email,
         });
+        this.save = true;
         this.ra = '';
         this.nome = '';
         this.cpf = '';
         this.email = '';
+        setTimeout(this.isSave, 2000);
       }
     },
   },
@@ -145,5 +155,17 @@ button {
 a {
   text-decoration: none;
   color: white;
+}
+
+.save {
+  background-color: darkred;
+  color: white;
+  display: inline;
+  border-radius: 5px;
+  padding: 5px;
+  transition: 3s;
+}
+.save-div {
+  margin-top: 20px;
 }
 </style>
