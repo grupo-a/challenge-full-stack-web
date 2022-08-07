@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    entrypoint: ./.docker/entrypoint.sh
+    container_name: ed_tech
+    volumes:
+      - .:/home/node/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+
+  postgres:
+    build: .docker/postgres
+    tty: true
+    volumes:
+      - .docker/dbdata:/var/lib/postgresql/data
+    env_file:
+      - '.env'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    tty: true
+    env_file:
+      - '.env'
+    ports:
+      - '9000:80'
+    depends_on:
+      - postgres
