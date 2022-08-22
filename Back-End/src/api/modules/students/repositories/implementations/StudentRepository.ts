@@ -15,10 +15,10 @@ export default class StudentRepository implements IStudentRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<Student> {
+  async findByRa(ra: string): Promise<Student> {
     const student = await prismaClient.student.findFirst({
       where: {
-        email,
+        ra,
       },
     });
     return student as Student;

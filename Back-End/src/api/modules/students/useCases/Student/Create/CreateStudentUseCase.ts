@@ -16,7 +16,7 @@ export default class CreateStudentUseCase {
     ra,
     cpf,
   }: IRequest): Promise<void> {
-    const checkStudentExistance = await this.studentRepository.findByEmail(email);
+    const checkStudentExistance = await this.studentRepository.findByRa(ra);
 
     if (checkStudentExistance) {
       throw new Error("Student already exists");
