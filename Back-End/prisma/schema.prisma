@@ -13,7 +13,7 @@ datasource db {
 model Student {
   name String
   email String @unique
-  RA String @id @unique
-  CPF String
+  ra String @id @unique
+  cpf String
   @@map("students")
 }
