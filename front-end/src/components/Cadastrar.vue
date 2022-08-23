@@ -125,8 +125,9 @@ export default {
 .container {
   max-width: 450px;
   margin: auto;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 6px 6px 5px rgba(0, 0, 0, 0.4);
   padding: 10px 5px 30px 10px;
+  margin-top: 20px;
 }
 .txt-cadastro {
   text-align: center;

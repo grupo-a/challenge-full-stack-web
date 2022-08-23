@@ -6,28 +6,33 @@
       </label>
       <button @click="serachStudent" class="search">Pesquisar</button>
     </div>
-    <table class="consulta">
-      <tr class="">
-        <td>Ra</td>
-        <td>Nome</td>
-        <td>CPF</td>
-        <td>E-mail</td>
-      </tr>
-      <!-- Dinamico nessa parte -->
-      <p v-if="listStudents.length === 0">Nenhum estudante registrado</p>
-      <tr v-for="(student) in listStudents" :key="student.id">
-        <td class="td-bottom">{{student.ra}}</td>
-        <td class="td-bottom">{{student.name}}</td>
-        <td class="td-bottom">{{student.cpf}}</td>
-        <td class="td-bottom"> {{student.email}} </td>
-        <td>
-          <button type="button" class="edit" @click='to="/cadastrar"'>
-            [editar]
-          </button>
-          <button type="button" @click="deleteStudent(student)" class="edit">[excluir]</button>
-        </td>
-      </tr>
-    </table>
+
+    <div v-if="listStudents.length > 0">
+        <table class="consulta">
+          <tr class="">
+            <td>Registro acadêmico</td>
+            <td>Nome</td>
+            <td>CPF</td>
+            <td>Ações</td>
+          </tr>
+          <!-- Dinamico nessa parte -->
+          <tr v-for="(student) in listStudents" :key="student.id">
+            <td class="td-bottom">{{student.ra}}</td>
+            <td class="td-bottom">{{student.name}}</td>
+            <td class="td-bottom">{{student.cpf}}</td>
+            <td class="td-bottom"> {{student.email}} </td>
+            <td>
+              <button type="button" class="edit" @click='to="/cadastrar"'>
+                [editar]
+              </button>
+              <button type="button" @click="deleteStudent(student)" class="edit">[excluir]</button>
+            </td>
+          </tr>
+        </table>
+    </div>
+    <div v-else class="consulta">
+      <p>Sem dados de alunos</p>
+    </div>
   </div>
 </template>
 
@@ -76,18 +81,19 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
   max-width: 650px;
   margin: auto;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  box-shadow: 4px 8px 8px 8px rgba(0, 0, 0, 0.4);
   padding: 10px 5px 30px 10px;
 }
 
 .consulta {
   text-align: center;
-  padding: 10px
+  padding: 10px;
+  width: 98%;
 }
 
 .td-bottom {
