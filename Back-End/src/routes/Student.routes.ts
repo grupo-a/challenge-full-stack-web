@@ -3,6 +3,7 @@ import CreateStudentController from "../api/modules/students/useCases/Student/Cr
 import StudentMiddlewares from '../api/modules/students/useCases/Student/Middlewares/StudentMiddlewares'
 import ReadStudentController from "../api/modules/students/useCases/Student/List";
 import UpdateStudentController from "../api/modules/students/useCases/Student/Update/";
+import DeleteStudentController from "../api/modules/students/useCases/Student/Delete/";
 
 const studentRoutes = Router();
 
@@ -29,6 +30,12 @@ studentRoutes.put(
   StudentMiddlewares.raValidateParams,
   (req, res) => {
     return UpdateStudentController().handle(req, res);
+})
+
+studentRoutes.delete(
+  "/:ra",
+  (req, res) => {
+    return DeleteStudentController().handle(req, res);
   }
 )
 

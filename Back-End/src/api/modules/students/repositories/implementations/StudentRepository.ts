@@ -41,7 +41,7 @@ export default class StudentRepository implements IStudentRepository {
     });
   };
   
-  async destroy({ ra }: IStudentDTO): Promise<void> {
+  async destroy(ra: string): Promise<void> {
     await prismaClient.student.delete({
       where: {
         ra,

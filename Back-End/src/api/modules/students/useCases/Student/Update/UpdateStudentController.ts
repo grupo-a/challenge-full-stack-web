@@ -15,7 +15,7 @@ export default class UpdateStudentController {
         ra,
         cpf,
       });
-      return res.status(201).json({ message: "User updated with success" })
+      return res.status(200).json({ message: "User updated with success" })
     } catch (error) {
       return res.status(404).json({ message: "Student doesn't exist"});
     }
