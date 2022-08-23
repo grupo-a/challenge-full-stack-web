@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import ReadStudentUseCase from '../Read/ReadStudentUseCase'
+import ReadStudentUseCase from './ReadStudentUseCase'
 
 export default class ReadStudentController {
   constructor(private readStudentUseCase: ReadStudentUseCase) {}

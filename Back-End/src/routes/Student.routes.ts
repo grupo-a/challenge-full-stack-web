@@ -1,7 +1,7 @@
 import { Router } from "express";
 import CreateStudentController from "../api/modules/students/useCases/Student/Create/";
 import CreateStudentMiddleware from '../api/modules/students/useCases/Student/Create/CreateStudentMiddleware'
-import ReadStudentController from "../api/modules/students/useCases/Student/Read/";
+import ReadStudentController from "../api/modules/students/useCases/Student/List";
 
 const studentRoutes = Router();
 
