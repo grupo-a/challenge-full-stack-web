@@ -5,7 +5,7 @@ import CreateStudentUseCase from "./CreateStudentUseCase";
 export default (): CreateStudentController => {
   const studentRepository = new StudentRepository();
   const createStudentUseCase = new CreateStudentUseCase(studentRepository);
-  const createStudentController = new CreateStudentController(createStudentUseCase)
+  const createStudentController = new CreateStudentController(createStudentUseCase);
 
   return createStudentController
 }
