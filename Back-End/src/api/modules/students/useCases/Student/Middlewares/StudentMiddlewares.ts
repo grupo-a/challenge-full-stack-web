@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export default class CreateStudentMiddleware {
+export default class StudentMiddlewares {
 
   static nameValidate(req: Request, res: Response, next: NextFunction): Response | void {
 
@@ -38,6 +38,20 @@ export default class CreateStudentMiddleware {
     }
     next();
   }
+
+  static raValidateParams(req: Request, res: Response, next: NextFunction): Response | void {
+
+    const { ra } = req.params;
+
+    if (ra === '' || !ra) {
+      return res.status(400).json({ message: 'You must provide a ra in params'});
+    }
+    if (ra.length !== 6) {
+      return res.status(400).json({ message: 'Your Ra must have 6 characters'});
+    }
+    next();
+  }
+  
 
   static cpfValidate(req: Request, res: Response, next: NextFunction): Response | void {
 
