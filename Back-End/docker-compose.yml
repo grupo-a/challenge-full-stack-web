@@ -1,0 +1,31 @@
+version:  "3.7"
+services:
+  db:
+    image: postgres
+    container_name: AED-db
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=AED-db
+    volumes:
+      - pgdata:/data/postgres
+
+  app:
+    build: .
+    container_name: AED
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/app
+    links:
+      - db
+    depends_on:
+      - db
+    
+
+volumes:
+  pgdata:
+    driver: local
