@@ -1,6 +1,6 @@
 import { Router } from "express";
 import CreateStudentController from "../api/modules/students/useCases/Student/Create/";
-import CreateStudentMiddleware from '../api/modules/students/useCases/Student/Create/CreateStudentMiddleware'
+import StudentMiddlewares from '../api/modules/students/useCases/Student/Middlewares/StudentMiddlewares'
 import ReadStudentController from "../api/modules/students/useCases/Student/List";
 import UpdateStudentController from "../api/modules/students/useCases/Student/Update/";
 
@@ -8,10 +8,10 @@ const studentRoutes = Router();
 
 studentRoutes.post(
   "/",
-  CreateStudentMiddleware.nameValidate,
-  CreateStudentMiddleware.emailValidate,
-  CreateStudentMiddleware.raValidate,
-  CreateStudentMiddleware.cpfValidate,
+  StudentMiddlewares.nameValidate,
+  StudentMiddlewares.emailValidate,
+  StudentMiddlewares.raValidate,
+  StudentMiddlewares.cpfValidate,
   (req, res) => {
   return CreateStudentController().handle(req, res);
 });
@@ -24,9 +24,9 @@ studentRoutes.get(
 
 studentRoutes.put(
   "/:ra",
-  CreateStudentMiddleware.nameValidate,
-  CreateStudentMiddleware.emailValidate,
-  CreateStudentMiddleware.raValidateParams,
+  StudentMiddlewares.nameValidate,
+  StudentMiddlewares.emailValidate,
+  StudentMiddlewares.raValidateParams,
   (req, res) => {
     return UpdateStudentController().handle(req, res);
   }

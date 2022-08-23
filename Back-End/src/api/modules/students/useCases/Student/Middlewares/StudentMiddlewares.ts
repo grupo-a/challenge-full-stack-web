@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-export default class CreateStudentMiddleware {
+export default class StudentMiddlewares {
 
   static nameValidate(req: Request, res: Response, next: NextFunction): Response | void {
 
