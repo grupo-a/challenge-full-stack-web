@@ -29,6 +29,29 @@ export default class StudentRepository implements IStudentRepository {
     return students as Student[];
   }
 
+  async filter(name: string, email: string, ra: string, cpf: string ): Promise<Student[]> {
+    const students = await prismaClient.student.findMany({
+      where: {
+        OR: [
+          {
+            name
+          },
+          {
+            email
+          },
+          {
+            ra
+          },
+          {
+            cpf
+          }
+        ]
+      }
+    });
+    return students as Student[];
+  }
+
+
   async update({ name, email, ra }: IStudentDTO): Promise<void> {
     await prismaClient.student.update({
       where: {

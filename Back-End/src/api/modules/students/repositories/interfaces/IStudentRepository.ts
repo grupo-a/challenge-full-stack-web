@@ -5,6 +5,7 @@ export default interface IStudentRepository {
   create({ name, email, ra, cpf }: IStudentDTO): Promise<void>;
   findByRa(ra: string): Promise<Student>;
   list(): Promise<Student[]>;
+  filter(name: string, email: string, ra: string, cpf: string ): Promise<Student[]>;
   update({ name, email, ra }: IStudentDTO): Promise<void>;
   destroy({ ra }: IStudentDTO): Promise<void>;
 }
