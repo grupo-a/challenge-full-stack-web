@@ -1,0 +1,9 @@
+version:  "3.7"
+services:
+  frontend:
+    build: .
+    container_name: AED-frontend
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/usr/frontend
