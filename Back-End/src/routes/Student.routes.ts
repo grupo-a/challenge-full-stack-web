@@ -1,6 +1,7 @@
 import { Router } from "express";
 import CreateStudentController from "../api/modules/students/useCases/Student/Create/";
 import CreateStudentMiddleware from '../api/modules/students/useCases/Student/Create/CreateStudentMiddleware'
+import ReadStudentController from "../api/modules/students/useCases/Student/Read/";
 
 const studentRoutes = Router();
 
@@ -12,6 +13,13 @@ studentRoutes.post(
   CreateStudentMiddleware.cpfValidate,
   (req, res) => {
   return CreateStudentController().handle(req, res);
-})
+});
+
+studentRoutes.get(
+  "/",
+  (req, res) => {
+    return ReadStudentController().handle(req, res);
+  }
+)
 
 export default studentRoutes;
