@@ -144,6 +144,9 @@
 </template>
 
 <script>
+
+  import Students from '../services/students'
+
   export default {
     data: () => ({
       dialog: false,
@@ -192,6 +195,10 @@
 
     created () {
       this.initialize()
+
+      Students.getStudents().then(response => {
+        console.log(response.data)
+      })
     },
 
     methods: {
