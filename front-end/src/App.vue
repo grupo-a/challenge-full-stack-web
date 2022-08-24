@@ -21,8 +21,9 @@
 
       <v-list>
         <v-list-item
-          v-for="[icon, text] in links"
+          v-for="[icon, text, to] in links"
           :key="icon"
+          :to="to"
           link
         >
           <v-list-item-icon>
@@ -89,7 +90,7 @@
       cards: ['Consulta de Alunos'],
       drawer: null,
       links: [
-        ['mdi-inbox-arrow-down', 'Alunos'],
+        ['mdi-inbox-arrow-down', 'Alunos', '/'],
       ],
     }),
   }
