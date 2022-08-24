@@ -46,7 +46,7 @@
                   >
                     <v-text-field
                       v-model="editedItem.name"
-                      label="Dessert name"
+                      label="Nome"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -55,8 +55,8 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.calories"
-                      label="Calories"
+                      v-model="editedItem.email"
+                      label="Email"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -65,8 +65,9 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.fat"
-                      label="Fat (g)"
+                      v-model="editedItem.ra"
+                      label="Registro Acadêmico"
+                      :disabled="isEditing"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -75,18 +76,9 @@
                     md="4"
                   >
                     <v-text-field
-                      v-model="editedItem.carbs"
-                      label="Carbs (g)"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.protein"
-                      label="Protein (g)"
+                      v-model="editedItem.cpf"
+                      label="CPF"
+                      :disabled="isEditing"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -100,14 +92,14 @@
                 text
                 @click="close"
               >
-                Cancel
+                Cancelar
               </v-btn>
               <v-btn
                 color="blue darken-1"
                 text
                 @click="save"
               >
-                Save
+                Salvar
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -145,33 +137,11 @@
         color="primary"
         @click="initialize"
       >
-        Reset
+        Resetar
       </v-btn>
     </template>
   </v-data-table>
 </template>
-
-// <script>
-//   export default {
-//     name: 'StudentsComponent',
-
-//     data: () => ({
-      // headers: [
-      //   { text: 'Registro Acadêmico', align: 'start', sortable: true, value: 'ra' },
-      //   { text: 'Nome', align: 'start', sortable: true, value: 'name' },
-      //   { text: 'CPF', align: 'start', sortable: true, value: 'cpf'  },
-      //   { text: 'Ações', align: 'start', sortable: true, value: 'actions'  },
-      // ],
-//       students: [
-//         { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-//         { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-//         { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-//         { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-//         { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-//       ]
-//     }),
-//   }
-// </script>
 
 <script>
   export default {
@@ -180,31 +150,34 @@
       dialogDelete: false,
       headers: [
         { text: 'Registro Acadêmico', align: 'start', sortable: true, value: 'ra' },
-        { text: 'Nome', align: 'start', sortable: true, value: 'name' },
-        { text: 'CPF', align: 'start', sortable: true, value: 'cpf'  },
-        { text: 'Ações', align: 'start', sortable: true, value: 'actions'  },
+        { text: 'Nome', sortable: true, value: 'name' },
+        { text: 'E-mail', sortable: true, value: 'email'  },
+        { text: 'CPF', sortable: true, value: 'cpf'  },
+        { text: 'Ações', sortable: true, value: 'actions'  },
       ],
       students: [],
       editedIndex: -1,
       editedItem: {
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        email: '',
+        ra: '',
+        cpf: '',
       },
       defaultItem: {
         name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0,
+        email: '',
+        ra: '',
+        cpf: '',
       },
     }),
 
     computed: {
       formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return this.editedIndex === -1 ? 'Cadastrar Aluno' : 'Editar Aluno'
+      },
+
+      isEditing () {
+        return this.editedIndex > -1
       },
     },
 
@@ -224,11 +197,11 @@
     methods: {
       initialize () {
         this.students = [
-          { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', cpf: '12312312312', actions: 'edit / delete' },
+          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
+          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
+          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
+          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
+          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
         ]
       },
 
