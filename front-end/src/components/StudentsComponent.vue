@@ -195,21 +195,13 @@
 
     created () {
       this.initialize()
-
-      Students.getStudents().then(response => {
-        console.log(response.data)
-      })
     },
 
     methods: {
       initialize () {
-        this.students = [
-          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
-          { ra: 'teste1', name: 'nome aleatorio', email:"teste@teste.com", cpf: '12312312312', actions: 'edit / delete' },
-        ]
+        Students.getStudents().then(response => {
+          this.students = response.data
+        })
       },
 
       editItem (item) {
