@@ -13,6 +13,7 @@
             <td>Registro acadêmico</td>
             <td>Nome</td>
             <td>CPF</td>
+            <td>E-mail</td>
             <td>Ações</td>
           </tr>
           <!-- Dinamico nessa parte -->
@@ -66,7 +67,6 @@ export default {
         this.listStudents = filtro;
         this.txtSearch = '';
       } else {
-        console.log('fiudshfuisd');
         api.get('/').then((response) => {
           this.listStudents = response.data;
         });
@@ -83,7 +83,7 @@ export default {
 
 <style scoped>
 .container {
-  max-width: 650px;
+  max-width: 850px;
   margin: auto;
   margin-top: 20px;
   box-shadow: 4px 8px 8px 8px rgba(0, 0, 0, 0.4);
@@ -130,5 +130,4 @@ input {
 .txt-search {
   text-align: center;
 }
-
 </style>

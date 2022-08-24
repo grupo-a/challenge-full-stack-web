@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <h1 class="txt-cadastro">Cadastro de aluno</h1>
+  <h1 class="txt-cadastro">Cadastrar novo aluno</h1>
   <form @submit="enviarForm">
     <div class="input">
       <label for="ra" class="label">
@@ -43,7 +43,6 @@
       </button>
       <button
         type="submit"
-        :disabled="!(isValidEmail(email))"
       >
       Salvar
     </button>
@@ -53,7 +52,7 @@
     </div>
 
   </form>
-  <p v-if="error">Por Favor corrigir informações</p>
+  <p v-if="error">Preencher corretamente os campos</p>
 </div>
 </template>
 
@@ -77,7 +76,7 @@ export default {
   },
   methods: {
     validationRa(ra) {
-      return !Number.isNaN(ra);
+      return !Number.isNaN(Number(ra));
     },
 
     isValidEmail(email) {
@@ -98,13 +97,15 @@ export default {
       e.preventDefault();
       if (!this.nome || !this.cpf || !this.ra || !this.email) {
         this.error = true;
+      }
+
+      if (this.validationRa() && this.cpf.length !== 11) {
+        this.error = true;
       } else {
         this.error = false;
       }
 
       if (!this.error) {
-        this.error = false;
-
         api.post('/', {
           ra: this.ra, name: this.nome, cpf: this.cpf, email: this.email,
         });
@@ -138,6 +139,8 @@ input {
   width: 90%;
   height: 25px;
   border-radius: 5px;
+  border: 1px solid rgb(181, 173, 173);
+  box-shadow: 5px 5px 5px rgb(138, 135, 135);
 }
 label {
   padding: 4px;
