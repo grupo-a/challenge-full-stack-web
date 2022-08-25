@@ -205,7 +205,6 @@
       },
 
       editItem (item) {
-        console.log(item);
         this.editedIndex = this.students.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialog = true
@@ -240,7 +239,11 @@
 
       save () {
         if (this.editedIndex > -1) {
-          Object.assign(this.students[this.editedIndex], this.editedItem)
+          const student = this.students[this.editedIndex]
+          const where = this.editedItem;
+          Students.putStudent(this.editedItem, this.editedItem.ra).then(() => {
+            Object.assign(student, where);
+          });
         } else {
           Students.postStudent(this.editedItem).then(response => {
             this.students.push(response.data)

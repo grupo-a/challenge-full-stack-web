@@ -10,7 +10,7 @@ export default {
     return api.post('/students', student);
   },
 
-  putStudent(student) {
-    return api.put(`/students/${student.ra}`, student);
+  putStudent(student, ra) {
+    return api.put(`/students/${ra}`, student);
   }
 };
