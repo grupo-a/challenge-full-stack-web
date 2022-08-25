@@ -4,6 +4,8 @@
     :items="students"
     sort-by="ra"
     class="elevation-1"
+    item-key="name"
+    :search="search"
   >
     <template v-slot:top>
       <v-toolbar
@@ -116,6 +118,11 @@
           </v-card>
         </v-dialog>
       </v-toolbar>
+      <v-text-field
+          v-model="search"
+          label="Digite sua busca"
+          class="mx-4"
+      ></v-text-field>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon
@@ -149,6 +156,7 @@
 
   export default {
     data: () => ({
+      search: '',
       dialog: false,
       dialogDelete: false,
       headers: [
