@@ -272,14 +272,13 @@
         if (this.editedIndex > -1) {
           const student = this.students[this.editedIndex]
           const where = this.editedItem;
-          Students.putStudent(this.editedItem, this.editedItem.ra).then(() => {
+          Students.putStudent(where, where.ra).then(() => {
             Object.assign(student, where);
           });
         } else {
           const editedItem = this.editedItem;
-          Students.postStudent(this.editedItem).then(() => {
+          Students.postStudent(editedItem).then(() => {
             this.students.push(editedItem);
-            console.log(editedItem);
           });
         }
         this.close()
