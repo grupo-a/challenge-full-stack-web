@@ -8,5 +8,9 @@ export default {
 
   postStudent(student) {
     return api.post('/students', student);
+  },
+
+  putStudent(student) {
+    return api.put(`/students/${student.ra}`, student);
   }
 };
