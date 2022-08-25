@@ -241,7 +241,8 @@
         if (this.editedIndex > -1) {
           Object.assign(this.students[this.editedIndex], this.editedItem)
         } else {
-          this.students.push(this.editedItem)
+          Students.postStudent(this.editedItem);
+          this.students.push(this.editedItem);
         }
         this.close()
       },

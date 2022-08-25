@@ -5,4 +5,8 @@ export default {
   getStudents() {
     return api.get('/students');
   },
+
+  postStudent(student) {
+    return api.post('/students', student);
+  }
 };
