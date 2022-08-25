@@ -217,8 +217,10 @@
       },
 
       deleteItemConfirm () {
-        this.students.splice(this.editedIndex, 1)
-        this.closeDelete()
+        Students.deleteStudent(this.editedItem.ra).then(() => {
+          this.students.splice(this.editedIndex, 1)
+          this.closeDelete()
+        });
       },
 
       close () {

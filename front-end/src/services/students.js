@@ -12,5 +12,9 @@ export default {
 
   putStudent(student, ra) {
     return api.put(`/students/${ra}`, student);
+  },
+
+  deleteStudent(ra) {
+    return api.delete(`/students/${ra}`);
   }
 };
