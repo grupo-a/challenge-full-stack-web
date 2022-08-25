@@ -4,7 +4,6 @@
     :items="students"
     sort-by="ra"
     class="elevation-1"
-    item-key="name"
     :search="search"
   >
     <template v-slot:top>
@@ -49,6 +48,7 @@
                     <v-text-field
                       v-model="editedItem.name"
                       label="Nome"
+                      :rules="nameRules"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -59,6 +59,7 @@
                     <v-text-field
                       v-model="editedItem.email"
                       label="Email"
+                      :rules="emailRules"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -70,6 +71,7 @@
                       v-model="editedItem.ra"
                       label="Registro Acadêmico"
                       :disabled="isEditing"
+                      :rules="raRules"
                     ></v-text-field>
                   </v-col>
                   <v-col
@@ -81,6 +83,7 @@
                       v-model="editedItem.cpf"
                       label="CPF"
                       :disabled="isEditing"
+                      :rules="cpfRules"
                     ></v-text-field>
                   </v-col>
                 </v-row>
@@ -180,6 +183,24 @@
         ra: '',
         cpf: '',
       },
+      nameRules: [
+        v => !!v || 'Nome é obrigatório',
+        v => /^[a-zA-Z ]+$/.test(v) || 'Nome deve conter apenas letras',
+      ],
+      emailRules: [
+        v => !!v || 'E-mail é obrigatório',
+        v => /.+@.+\..+/.test(v) || 'E-mail deve ser válido',
+      ],
+      raRules: [
+        v => /^\d+$/.test(v) || 'RA deve conter apenas números',
+        v => !!v || 'RA é obrigatório',
+        v => (v && v.length === 6) || 'RA deve ter 6 caracteres',
+      ],
+      cpfRules: [
+        v => /^\d+$/.test(v) || 'CPF deve conter apenas números',
+        v => !!v || 'CPF é obrigatório',
+        v => (v && v.length === 11) || 'CPF deve ter 11 caracteres',
+      ],
     }),
 
     computed: {
@@ -255,8 +276,10 @@
             Object.assign(student, where);
           });
         } else {
-          Students.postStudent(this.editedItem).then(response => {
-            this.students.push(response.data)
+          const editedItem = this.editedItem;
+          Students.postStudent(this.editedItem).then(() => {
+            this.students.push(editedItem);
+            console.log(editedItem);
           });
         }
         this.close()
