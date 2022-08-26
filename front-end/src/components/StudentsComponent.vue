@@ -39,54 +39,60 @@
 
             <v-card-text>
               <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="Nome"
-                      :rules="nameRules"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.email"
-                      label="Email"
-                      :rules="emailRules"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.ra"
-                      label="Registro Acadêmico"
-                      :disabled="isEditing"
-                      :rules="raRules"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.cpf"
-                      label="CPF"
-                      :disabled="isEditing"
-                      :rules="cpfRules"
-                    ></v-text-field>
-                  </v-col>
-                </v-row>
+                <v-form
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                >
+                  <v-row>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.name"
+                        label="Nome"
+                        :rules="nameRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.email"
+                        label="Email"
+                        :rules="emailRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.ra"
+                        label="Registro Acadêmico"
+                        :disabled="isEditing"
+                        :rules="raRules"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="6"
+                      md="4"
+                    >
+                      <v-text-field
+                        v-model="editedItem.cpf"
+                        label="CPF"
+                        :disabled="isEditing"
+                        :rules="cpfRules"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-form>
               </v-container>
             </v-card-text>
 
@@ -103,6 +109,7 @@
                 color="blue darken-1"
                 text
                 @click="save"
+                :disabled="!valid"
               >
                 Salvar
               </v-btn>
@@ -162,6 +169,7 @@
       search: '',
       dialog: false,
       dialogDelete: false,
+      valid: true,
       headers: [
         { text: 'Registro Acadêmico', align: 'start', sortable: true, value: 'ra' },
         { text: 'Nome', sortable: true, value: 'name' },
@@ -227,6 +235,7 @@
     },
 
     methods: {
+
       initialize () {
         Students.getStudents().then(response => {
           this.students = response.data
@@ -269,19 +278,29 @@
       },
 
       save () {
-        if (this.editedIndex > -1) {
-          const student = this.students[this.editedIndex]
-          const where = this.editedItem;
-          Students.putStudent(where, where.ra).then(() => {
-            Object.assign(student, where);
-          });
-        } else {
-          const editedItem = this.editedItem;
-          Students.postStudent(editedItem).then(() => {
-            this.students.push(editedItem);
-          });
+        if (this.$refs.form.validate()) {
+          if (this.editedIndex > -1) {
+            const student = this.students[this.editedIndex]
+            const where = this.editedItem;
+            Students.putStudent(where, where.ra).then(() => {
+              Object.assign(student, where);
+              this.close();
+            });
+          } else {
+            const editedItem = this.editedItem;
+            // this.checkRaExistance(editedItem.ra)
+            const checkRaExistance = this.students.find(student => student.ra === this.editedItem.ra)
+            if (checkRaExistance) {
+              this.valid = false
+              console.log('RA já cadastrado')
+            } else {
+              Students.postStudent(editedItem).then(() => {
+                this.students.push(editedItem);
+                this.close()
+             });
+            }
+          }
         }
-        this.close()
       },
     },
   }
