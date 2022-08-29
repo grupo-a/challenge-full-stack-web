@@ -8,6 +8,10 @@ const getAll = async () => {
 };
 
 const registerStudent = async (ra, name, cpf, email) => {
+  if (Number.isNaN(Number(ra))) {
+    return { error: 400, message: 'ra invalido' };
+  }
+
   const valid = validationStudent(ra, name, cpf, email);
   if (valid.error) return valid;
 
