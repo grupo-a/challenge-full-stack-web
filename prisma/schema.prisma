@@ -16,3 +16,13 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model Student {
+  id         Int      @id @default(autoincrement())
+  nome       String
+  email      String
+  ra         String   @unique
+  cpf        String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
