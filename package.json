@@ -1,0 +1,32 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "description": "+A Educação - Full Stack Web Developer ===================",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/Server.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernanesa/challenge-full-stack-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ernanesa/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/ernanesa/challenge-full-stack-web#readme",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/node": "^18.7.6",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  }
+}
