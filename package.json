@@ -2,7 +2,10 @@
   "name": "challenge-full-stack-web",
   "version": "1.0.0",
   "description": "+A Educação - Full Stack Web Developer ===================",
-  "main": "src/Server.js",  
+  "main": "src/Server.js",
+  "prisma": {
+      "seed": "ts-node-dev prisma/seed.ts"
+  },
   "scripts": {
     "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/Server.ts",
     "test": "jest"
