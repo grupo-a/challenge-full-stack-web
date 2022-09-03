@@ -1,3 +1,4 @@
-export * as meController from "./meController"
-export * as loginController from "./auth/loginController"
-export * as userPasswordController from "./userPasswordController"
+export * from "./auth/LoginController"
+export * from "./MeController"
+export * from "./UserPasswordController"
+export * from "./StudentController"
