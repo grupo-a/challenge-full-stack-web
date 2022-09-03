@@ -32,9 +32,6 @@ export class CreateLoginService {
 			},
 		)
 
-		const expiresIn = new Date()
-		expiresIn.setTime(expiresIn.getTime() + 24 * 60 * 60 * 1000)
-
-		return { token, expiresIn: expiresIn.toISOString() }
+		return { accessToken: token }
 	}
 }
