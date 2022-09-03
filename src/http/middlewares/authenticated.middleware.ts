@@ -8,7 +8,7 @@ interface TokenPayload {
 	iat: number
 	exp: number
 	sub: string
-	email: string
+	isAdmin: boolean
 }
 
 export const authenticatedMiddleware =
@@ -24,11 +24,11 @@ export const authenticatedMiddleware =
 		try {
 			const decoded = verify(token, env.JWT_SECRET)
 
-			const { sub, email } = decoded as TokenPayload
+			const { sub, isAdmin } = decoded as TokenPayload
 
 			req.user = {
 				id: sub,
-				email,
+				isAdmin,
 			}
 
 			logger.debug(

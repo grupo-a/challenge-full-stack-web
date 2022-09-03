@@ -9,6 +9,7 @@ import {
 	StudentController,
 	UserPasswordController,
 } from "../controllers"
+import { authorizationMiddleware } from "../middlewares"
 
 export default () => {
 	const router = Router()
@@ -21,11 +22,13 @@ export default () => {
 		UserPasswordController.update,
 	)
 
-	router.get("/students", StudentController.find)
-	router.get("/students/:id", StudentController.findOne)
-	router.post("/students", createStudent, StudentController.create)
-	router.put("/students/:id", updateStudent, StudentController.update)
-	router.delete("/students/:id", StudentController.delete)
+	const student = Router()
+	student.get("/", StudentController.find)
+	student.get("/:id", StudentController.findOne)
+	student.post("/", createStudent, StudentController.create)
+	student.put("/:id", updateStudent, StudentController.update)
+	student.delete("/:id", StudentController.delete)
 
+	router.use("/students", authorizationMiddleware(true), student)
 	return router
 }

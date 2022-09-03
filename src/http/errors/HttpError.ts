@@ -22,6 +22,10 @@ class HttpError extends Error {
 		return new HttpError(HttpStatusCode.NOT_FOUND, message || "Not Found")
 	}
 
+	static forbidden(message: string) {
+		return new HttpError(HttpStatusCode.FORBIDDEN, message || "Forbidden")
+	}
+
 	static unauthorized(message?: string) {
 		return new HttpError(
 			HttpStatusCode.UNAUTHORIZED,

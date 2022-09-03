@@ -25,7 +25,7 @@ export class CreateLoginService {
 			throw HttpError.unauthorized("Email or password is invalid.")
 
 		const token = jwt.sign(
-			{ sub: user.id, email: user.email },
+			{ sub: user.id, isAdmin: user.isAdmin },
 			env.JWT_SECRET,
 			{
 				expiresIn: "12h",
