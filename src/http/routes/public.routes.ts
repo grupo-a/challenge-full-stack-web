@@ -1,11 +1,11 @@
 import { Router } from "express"
 import { login } from "../middlewares/validations"
-import { loginController } from "../controllers/"
+import { LoginController } from "../controllers/"
 
 export default () => {
 	const router = Router()
 
-	router.post("/login", login, loginController.create)
+	router.post("/login", login, LoginController.create)
 
 	return router
 }
