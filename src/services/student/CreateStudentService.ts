@@ -1,5 +1,5 @@
 import prisma from "@config/prisma"
-import HttpError from "../../http/errors/HttpError"
+import HttpError from "@errors/HttpError"
 
 interface CreateStudentServiceDTO {
 	name: string
@@ -23,8 +23,10 @@ export class CreateStudentService {
 		if (studentAlreadyExists)
 			throw HttpError.badRequest("Student already exists")
 
-		await prisma.student.create({
+		const { id } = await prisma.student.create({
 			data: studentDTO,
 		})
+
+		return { studentId: id }
 	}
 }

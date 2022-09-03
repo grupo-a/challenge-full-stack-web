@@ -35,5 +35,13 @@
 				"extensions": [".js", ".jsx", ".ts", ".tsx"]
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"files": ["**/?(*.)+(spec|test).[tj]s?(x)"],
+			"env": {
+				"jest": true
+			}
+		}
+	]
 }

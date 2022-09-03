@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express"
-import HttpError from "../errors/HttpError"
+import HttpError from "@errors/HttpError"
 
 export const authorizationMiddleware =
 	(isAdmin: boolean) =>

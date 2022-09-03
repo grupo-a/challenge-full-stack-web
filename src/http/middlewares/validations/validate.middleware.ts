@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express"
 import { AnySchema } from "joi"
-import HttpError from "../../errors/HttpError"
+import HttpError from "@errors/HttpError"
 
 export default <TSchema>(schema: AnySchema<TSchema>) =>
 	(req: Request, res: Response, next: NextFunction) => {

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken"
 import prisma from "@config/prisma"
-import HttpError from "../../http/errors/HttpError"
+import HttpError from "@errors/HttpError"
 import { HashProvider } from "@providers/HashProvider"
 import { env } from "@config/app"
 
@@ -14,8 +14,7 @@ export class CreateLoginService {
 		const user = await prisma.user.findFirst({
 			where: { email },
 		})
-		if (!user || !user.password)
-			throw HttpError.unauthorized("Email or password is invalid.")
+		if (!user) throw HttpError.unauthorized("Email or password is invalid.")
 
 		const compareHash = await HashProvider.compareHash(
 			password,

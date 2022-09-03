@@ -1,5 +1,5 @@
 import prisma from "@config/prisma"
-import HttpError from "../../http/errors/HttpError"
+import HttpError from "@errors/HttpError"
 
 export class FindOneUserService {
 	public static async execute(userId: string) {

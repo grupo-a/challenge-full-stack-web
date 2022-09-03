@@ -1,21 +1,23 @@
 import prisma from "@config/prisma"
-import HttpError from "../../http/errors/HttpError"
+import HttpError from "@errors/HttpError"
 import { HashProvider } from "@providers/HashProvider"
 
 interface UpdatePasswordServiceDTO {
+	userId: string
 	oldPassword: string
 	newPassword: string
 }
 
 export class UpdatePasswordService {
-	public static async execute(
-		userId: string,
-		{ oldPassword, newPassword }: UpdatePasswordServiceDTO,
-	) {
+	public static async execute({
+		userId,
+		oldPassword,
+		newPassword,
+	}: UpdatePasswordServiceDTO) {
 		const user = await prisma.user.findUnique({
 			where: { id: userId as any },
 		})
-		if (!user) throw HttpError.badRequest("User not found")
+		if (!user) throw HttpError.notFound("User not found")
 
 		const comparePassword = await HashProvider.compareHash(
 			oldPassword,

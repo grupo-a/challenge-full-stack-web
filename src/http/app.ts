@@ -4,7 +4,7 @@ import express, { Request, Response, NextFunction } from "express"
 import logger from "@config/logger"
 
 import routes from "./routes"
-import HttpError from "./errors/HttpError"
+import HttpError from "@errors/HttpError"
 import { HttpStatusCode } from "@helpers/httpStatusCode"
 
 export default () => {

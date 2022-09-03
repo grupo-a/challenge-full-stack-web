@@ -12,10 +12,12 @@
 		"baseUrl": "./src",
 		"paths": {
 			"@config/*": ["config/*"],
+			"@tests/*": ["tests/*"],
+			"@errors/*": ["errors/*"],
 			"@helpers/*": ["helpers/*"],
 			"@providers/*": ["providers/*"],
 			"@services/*": ["services/*"]
 		}
 	},
-	"exclude": ["./dist", "**/*.spec.ts"]
+	"exclude": ["./dist"]
 }

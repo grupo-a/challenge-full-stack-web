@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express"
 import { verify } from "jsonwebtoken"
 import { env } from "@config/app"
 import logger from "@config/logger"
-import HttpError from "../errors/HttpError"
+import HttpError from "@errors/HttpError"
 
 interface TokenPayload {
 	iat: number
