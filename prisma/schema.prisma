@@ -22,8 +22,8 @@ model Student {
   id         Int      @id @default(autoincrement())
   nome       String
   email      String
-  ra         String   @unique
-  cpf        String   @unique
+  ra         BigInt   @unique
+  cpf        BigInt   @unique
   isActive   Boolean
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
