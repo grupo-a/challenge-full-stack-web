@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "es2021",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"strict": true,
+		"outDir": "./dist",
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"skipLibCheck": true,
+		"strictPropertyInitialization": false,
+		"baseUrl": "./src",
+		"paths": {
+			"@config/*": ["config/*"],
+			"@helpers/*": ["helpers/*"],
+			"@providers/*": ["providers/*"],
+			"@services/*": ["services/*"]
+		}
+	},
+	"exclude": ["./dist", "**/*.spec.ts"]
+}
