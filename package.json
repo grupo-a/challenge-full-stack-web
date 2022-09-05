@@ -1,0 +1,42 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "description": "+A Educação - Full Stack Web Developer ===================",
+  "main": "src/Server.js",
+  "prisma": {
+      "seed": "ts-node-dev prisma/seed.ts"
+  },
+  "scripts": {
+    "dev": "ts-node-dev --exit-child --transpile-only --ignore-watch node_modules src/Server.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ernanesa/challenge-full-stack-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ernanesa/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/ernanesa/challenge-full-stack-web#readme",
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^28.1.7",
+    "@types/node": "^18.7.6",
+    "@types/supertest": "^2.0.12",
+    "jest": "^28.1.3",
+    "supertest": "^6.2.4",
+    "ts-jest": "^28.0.8",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.3.1",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "prisma": "^4.3.1"
+  }
+}
