@@ -11,6 +11,7 @@ model User {
   id         Int      @id @default(autoincrement())
   nome       String
   email      String   @unique
+  password   String
   isAdmin    Boolean
   isActive   Boolean
   created_at DateTime @default(now())
@@ -21,8 +22,9 @@ model Student {
   id         Int      @id @default(autoincrement())
   nome       String
   email      String
-  ra         String   @unique
+  ra         Int      @unique
   cpf        String   @unique
+  isActive   Boolean
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
