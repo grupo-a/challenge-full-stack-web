@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { container } from 'tsyringe'
 import { StudentService } from '../src/application/service/StudentService'
 import { StudentRepository } from '../src/domain/infraestructure/StudentRepository'
