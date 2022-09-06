@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 import { tokens } from '../../../di/Tokens'
 import { IStudentService } from '../../application/service/interfaces/IStudentService'
@@ -6,7 +7,7 @@ import { IController } from '../protocols/IController'
 import { HttpRequest, HttpResponse } from '../protocols/IHttp'
 
 @injectable()
-export class GetStudentController implements IController {
+export class GetStudentByRaController implements IController {
   constructor(
     @inject(tokens.StudentService)
     private readonly studentService: IStudentService,

@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 import { tokens } from '../../../di/Tokens'
 import { IStudentService } from '../../application/service/interfaces/IStudentService'
