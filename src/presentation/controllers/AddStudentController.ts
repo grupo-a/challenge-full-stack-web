@@ -1,6 +1,7 @@
+import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 import { tokens } from '../../../di/Tokens'
-import { StudentService } from '../../application/service/StudentService'
+import { IStudentService } from '../../application/service/interfaces/IStudentService'
 import { MissingParamError } from '../errors/MissingParamError'
 import { badRequest, created, serverError } from '../helpers/HttpHelper'
 import { IController } from '../protocols/IController'
@@ -10,7 +11,7 @@ import { HttpRequest, HttpResponse } from '../protocols/IHttp'
 export class AddStudentController implements IController {
   constructor(
     @inject(tokens.StudentService)
-    private readonly studentService: StudentService,
+    private readonly studentService: IStudentService,
   ) {}
 
   async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
