@@ -1,7 +1,7 @@
 import express from 'express'
 import { Routes } from './http/Routes'
-import { tokens } from '../../di/Tokens'
-import { container } from '../../di/Container'
+import { tokens } from '../di/Tokens'
+import { container } from '../di/Container'
 
 const app = express()
 

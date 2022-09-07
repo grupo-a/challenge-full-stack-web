@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { inject } from 'tsyringe'
-import { tokens } from '../../../di/Tokens'
+import { tokens } from '../../di/Tokens'
 import { IStudent } from '../../domain/infraestructure/interfaces/IStudent'
 import { IStudentRepository } from '../../domain/infraestructure/interfaces/IStudentRepository'
 import { IStudentService } from './interfaces/IStudentService'

@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
-import { tokens } from '../../../../di/Tokens'
+import { tokens } from '../../../di/Tokens'
 import { IStudentService } from '../../../application/service/interfaces/IStudentService'
 import { ok, serverError } from '../../helpers/HttpHelper'
 import { IController } from '../../protocols/IController'
