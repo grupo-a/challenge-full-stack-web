@@ -1,9 +1,9 @@
-import { StudentServiceMock } from '../../../application/service/mocks/StudentServiceMock'
-import { studentMock } from '../../../domain/infraestructure/mocks/studentMock'
-import { ServerError } from '../../errors/ServerError'
-import { serverError } from '../../helpers/HttpHelper'
-import { HttpRequest } from '../../protocols/IHttp'
-import { DeleteStudentController } from '../DeleteStudentController'
+import { StudentServiceMock } from '../../../../application/service/mocks/StudentServiceMock'
+import { studentMock } from '../../../../domain/infraestructure/mocks/studentMock'
+import { ServerError } from '../../../errors/ServerError'
+import { serverError } from '../../../helpers/HttpHelper'
+import { HttpRequest } from '../../../protocols/IHttp'
+import { DeleteStudentController } from '../../student/DeleteStudentController'
 
 const mockRequest = (): HttpRequest => ({
   params: studentMock.ra,

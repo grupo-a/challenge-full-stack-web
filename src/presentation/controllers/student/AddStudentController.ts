@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import { inject, injectable } from 'tsyringe'
 import { tokens } from '../../../di/Tokens'
-import { IStudentService } from '../../application/service/interfaces/IStudentService'
-import { MissingParamError } from '../errors/MissingParamError'
-import { badRequest, created, serverError } from '../helpers/HttpHelper'
-import { IController } from '../protocols/IController'
-import { HttpRequest, HttpResponse } from '../protocols/IHttp'
+import { IStudentService } from '../../../application/service/interfaces/IStudentService'
+import { MissingParamError } from '../../errors/MissingParamError'
+import { badRequest, created, serverError } from '../../helpers/HttpHelper'
+import { IController } from '../../protocols/IController'
+import { HttpRequest, HttpResponse } from '../../protocols/IHttp'
 
 @injectable()
 export class AddStudentController implements IController {
