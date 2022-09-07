@@ -7,7 +7,6 @@ export class LoginRepository implements ILoginRepository {
     return await prisma.user.findFirst({
       where: {
         email: user.email,
-        password: user.password,
       },
     })
   }
