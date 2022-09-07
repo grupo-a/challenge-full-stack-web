@@ -14,6 +14,8 @@ import { LoginService } from '../../application/service/LoginService'
 import { LoginRepository } from '../../domain/infraestructure/LoginRepository'
 import { LoginController } from '../controllers/login/LoginController'
 import loginMiddleare from '../../middlewares/loginMiddleare'
+import { addStudentSchema, deleteStudentSchema, updateStudentSchema } from '../../schemas/Student.schema'
+import validator from '../../middlewares/SchemaValidatorMiddleware'
 
 @injectable()
 export class Routes {
@@ -43,18 +45,18 @@ export class Routes {
       return res.status(result.statusCode).json(result.body)
     })
 
-    router.post('/student', loginMiddleare, async (req, res) => {
+    router.post('/student', validator(addStudentSchema), loginMiddleare, async (req, res) => {
       const result = await new AddStudentController(studentService).handle(req)
 
       return res.status(result.statusCode).json(result.body)
     })
 
-    router.patch('/student', loginMiddleare, async (req, res) => {
+    router.patch('/student', validator(updateStudentSchema), loginMiddleare, async (req, res) => {
       const result = await new UpdateStudentController(studentService).handle(req)
       return res.status(result.statusCode).json(result.body)
     })
 
-    router.delete('/student/ra/:ra', loginMiddleare, async (req, res) => {
+    router.delete('/student/ra/:ra', validator(deleteStudentSchema), loginMiddleare, async (req, res) => {
       const result = await new DeleteStudentController(studentService).handle(req)
       return res.status(result.statusCode).json(result.body)
     })
