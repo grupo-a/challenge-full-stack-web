@@ -1,9 +1,9 @@
-import { StudentServiceMock } from '../../../application/service/mocks/StudentServiceMock'
-import { studentMock } from '../../../domain/infraestructure/mocks/studentMock'
-import { ServerError } from '../../errors/ServerError'
-import { serverError } from '../../helpers/HttpHelper'
-import { HttpRequest } from '../../protocols/IHttp'
-import { GetStudentsByNameController } from '../GetStudentsByNameController'
+import { StudentServiceMock } from '../../../../application/service/mocks/StudentServiceMock'
+import { studentMock } from '../../../../domain/infraestructure/mocks/studentMock'
+import { ServerError } from '../../../errors/ServerError'
+import { serverError } from '../../../helpers/HttpHelper'
+import { HttpRequest } from '../../../protocols/IHttp'
+import { GetStudentsByNameController } from '../../student/GetStudentsByNameController'
 
 const mockRequest = (): HttpRequest => ({
   params: studentMock.nome,

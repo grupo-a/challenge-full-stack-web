@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import { container } from 'tsyringe'
 import { StudentService } from '../src/application/service/StudentService'
 import { StudentRepository } from '../src/domain/infraestructure/StudentRepository'
-import { AddStudentController } from '../src/presentation/controllers/AddStudentController'
+import { AddStudentController } from '../src/presentation/controllers/student/AddStudentController'
 import { Routes } from '../src/presentation/http/Routes'
 import { tokens } from './Tokens'
 

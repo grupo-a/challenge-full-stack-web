@@ -2,19 +2,17 @@
 import 'reflect-metadata'
 import { injectable } from 'tsyringe'
 import { Router } from 'express'
-import { AddStudentController } from '../controllers/AddStudentController'
+import { AddStudentController } from '../controllers/student/AddStudentController'
 import { StudentService } from '../../application/service/StudentService'
 import { StudentRepository } from '../../domain/infraestructure/StudentRepository'
-import { GetAllStudentsController } from '../controllers/GetAllStudentsController'
-import { GetStudentController } from '../controllers/GetStudentByRaController'
-import { GetStudentsByNameController } from '../controllers/GetStudentsByNameController'
-import { UpdateStudentController } from '../controllers/UpdateStudentController'
-import { DeleteStudentController } from '../controllers/DeleteStudentController'
+import { GetAllStudentsController } from '../controllers/student/GetAllStudentsController'
+import { GetStudentByRaController } from '../controllers/student/GetStudentByRaController'
+import { GetStudentsByNameController } from '../controllers/student/GetStudentsByNameController'
+import { UpdateStudentController } from '../controllers/student/UpdateStudentController'
+import { DeleteStudentController } from '../controllers/student/DeleteStudentController'
 
 @injectable()
 export class Routes {
-  // constructor() {} // private addStudentController: AddStudentController // @inject(tokens.AddStudentController)
-
   public setupRouter(router: Router): void {
     // FIXME: Corrigir a chamada ao método
     const studentService = new StudentService(new StudentRepository())
@@ -30,7 +28,7 @@ export class Routes {
     })
 
     router.get('/student/ra/:ra', async (req, res) => {
-      const result = await new GetStudentController(studentService).handle(req)
+      const result = await new GetStudentByRaController(studentService).handle(req)
       return res.status(result.statusCode).json(result.body)
     })
 
