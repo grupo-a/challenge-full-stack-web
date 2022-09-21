@@ -1,0 +1,19 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "description": "Challenge to +A Educação",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyanlucasx/challenge-full-stack-web.git"
+  },
+  "author": "Yan Lucas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xyanlucasx/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/xyanlucasx/challenge-full-stack-web#readme"
+}
