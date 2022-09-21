@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Challenge to +A Educação",
   "main": "index.js",
+  "type": "module",
   "lint-staged": {
     "*.js": [
       "eslint --fix",
@@ -10,7 +11,9 @@
     ]
   },
   "scripts": {
-    "test": "npx jest /test/ --coverage"
+    "test": "npx jest /test/ --coverage",
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -30,6 +33,11 @@
     "eslint-plugin-import": "^2.26.0",
     "husky": "^8.0.1",
     "jest": "^29.0.3",
-    "lint-staged": "^13.0.3"
+    "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.20"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
   }
 }
