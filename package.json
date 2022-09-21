@@ -3,6 +3,18 @@
   "version": "1.0.0",
   "description": "Challenge to +A Educação",
   "main": "index.js",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "CI=true npx test --bail --findRelatedTests --coverage",
+      "git add"
+    ]
+  },
   "scripts": {
     "test": "test"
   },

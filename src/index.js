@@ -1,0 +1,2 @@
+const initial = () => true;
+initial();
