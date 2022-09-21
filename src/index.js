@@ -1,2 +1,2 @@
 const initial = () => true;
-initial();
+initial('foo');

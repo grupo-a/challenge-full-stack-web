@@ -5,18 +5,19 @@
   "main": "index.js",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npx lint-staged",
+      "commit-msg": "npx --no -- commitlint --edit ${1}"
     }
   },
   "lint-staged": {
     "*.js": [
       "eslint --fix",
-      "CI=true npx test --bail --findRelatedTests --coverage",
+      "npm run test",
       "git add"
     ]
   },
   "scripts": {
-    "test": "test"
+    "test": "npx jest /test/ --coverage"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,8 @@
   },
   "homepage": "https://github.com/xyanlucasx/challenge-full-stack-web#readme",
   "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
     "eslint": "^8.23.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
