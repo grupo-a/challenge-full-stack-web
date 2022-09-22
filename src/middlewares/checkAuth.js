@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { responseUnauthorized } from '../utils/rest.response.js'
+import { responseUnauthorized } from '../utils/restResponse.js'
 import logger from '../config/logger.js'
 
 export default (...types) =>
