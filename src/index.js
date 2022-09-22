@@ -14,6 +14,8 @@ app.use(express.json())
 
 app.use(router)
 
+app.use(express.static('public'))
+
 app.listen(port, async () => {
   console.log(`Running on port ${port}`)
 })
