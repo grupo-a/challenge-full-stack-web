@@ -12,8 +12,8 @@
   },
   "scripts": {
     "test": "npx jest /test/ --coverage",
-    "start": "node src/index.js ",
-    "start:dev": "nodemon src/index.js"
+    "start": "node -r dotenv/config src/index.js ",
+    "start:dev": "nodemon -r dotenv/config src/index.js"
   },
   "repository": {
     "type": "git",
