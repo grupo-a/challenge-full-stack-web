@@ -16,13 +16,13 @@ export class Managers1663840566057 {
           {
             name: 'email',
             type: 'varchar',
-            isNullable: false
+            isNullable: false,
+            isUnique: true
           },
           {
             name: 'password',
             type: 'varchar',
-            isNullable: false,
-            isUnique: true
+            isNullable: false
           },
           {
             name: 'created_at',

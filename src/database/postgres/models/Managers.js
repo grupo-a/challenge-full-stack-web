@@ -11,7 +11,8 @@ const Managers = new EntitySchema({
     },
     email: {
       type: String,
-      nullable: false
+      nullable: false,
+      unique: true
     },
     password: {
       type: String,
