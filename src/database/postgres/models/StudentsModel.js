@@ -9,6 +9,10 @@ const Students = new EntitySchema({
       primary: true,
       generated: 'uuid'
     },
+    name: {
+      type: String,
+      nullable: false
+    },
     email: {
       type: String,
       nullable: false

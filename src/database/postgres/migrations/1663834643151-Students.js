@@ -14,6 +14,11 @@ export class Students1663834643151 {
             generationStrategy: 'uuid'
           },
           {
+            name: 'name',
+            type: 'varchar',
+            isNullable: false
+          },
+          {
             name: 'email',
             type: 'varchar',
             isNullable: false
