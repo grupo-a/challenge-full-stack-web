@@ -30,6 +30,7 @@ export default async (req, res) => {
     const payload = {
       email: user.email,
       id: user.id,
+      type: 'manager',
       exp: oneHourInMs * 24
     }
 
