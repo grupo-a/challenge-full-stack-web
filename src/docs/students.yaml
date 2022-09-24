@@ -1,0 +1,184 @@
+components:
+  schemas:
+    studentObjectRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+    studentObjectResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        id:
+          type: string
+          example: b09af8b9-f8ab-4c31-85ac-ff83869c778a
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'
+    listStudentsResponse:
+      type: object
+      properties:
+        skip:
+          type: number
+          example: 0
+        limit:
+          type: number
+          example: 1
+        count:
+          type: number
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/studentObjectResponse"
+    studentObjectDeleteResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'
+
+paths:
+  /v1/students:
+    post:
+      description: Create a new student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Student data to create, all fields are required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/studentObjectRequest'
+      responses:
+        200:
+          description: Student created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentObjectResponse'
+
+    get:
+      description: Get all students
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 10
+          description: max number of students to return
+        - in: query
+          name: skip
+          schema:
+            type: integer
+            example: 0
+          description: Limit of students to skip
+      responses:
+        200:
+          description: List of students
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listStudentsResponse'
+
+  /v1/students/{id}:
+    patch:
+      description: Update a student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Student ID
+      requestBody:
+        description: Student data to update, only email and name can be updated.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Yan Lucas
+                email:
+                  type: string
+                  example: yanlucas@email.com
+              
+      responses:
+        200:
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentObjectResponse'
+    
+    delete:
+      description: Delete a student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Student ID
+      responses:
+        200:
+          description: Student deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentObjectDeleteResponse'
