@@ -39,6 +39,30 @@ components:
         updatedAt:
           type: string
           example: '2022-09-23T13:01:02.772Z'
+    studentUpdateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yanlucas@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        id:
+          type: string
+          example: b09af8b9-f8ab-4c31-85ac-ff83869c778a
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'  
     listStudentsResponse:
       type: object
       properties:
@@ -98,6 +122,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/studentObjectResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestPost'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
 
     get:
       description: Get all students
@@ -110,7 +152,7 @@ paths:
           name: limit
           schema:
             type: integer
-            example: 10
+            example: 1
           description: max number of students to return
         - in: query
           name: skip
@@ -125,6 +167,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/listStudentsResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestList'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
+
 
   /v1/students/{id}:
     patch:
@@ -153,14 +214,37 @@ paths:
                 email:
                   type: string
                   example: yanlucas@email.com
-              
       responses:
         200:
           description: Student updated
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/studentObjectResponse'
+                $ref: '#/components/schemas/studentUpdateResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestPatch'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        404:
+          description: Student Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentNotFound'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
     
     delete:
       description: Delete a student
@@ -182,3 +266,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/studentObjectDeleteResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestDelete'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        404:
+          description: Student Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentNotFound'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
