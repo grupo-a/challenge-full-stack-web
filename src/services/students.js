@@ -2,6 +2,8 @@ export default (dbConnection, CustomError) => {
   return {
     createStudent: async (data) => {
       const repository = dbConnection.getRepository('Students')
+      data.createdAt = new Date()
+      data.updatedAt = new Date()
       const createdStudent = await repository.save(data)
       return createdStudent
     },
