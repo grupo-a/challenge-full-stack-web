@@ -12,7 +12,10 @@ export default class StudentsService {
     const repository = this.dbConnection.getRepository('Students')
     const students = await repository.find({
       take: limit,
-      skip
+      skip,
+      order: {
+        createdAt: 'DESC'
+      }
     })
     const count = await repository.count()
     return {
@@ -30,6 +33,7 @@ export default class StudentsService {
       }
     })
     if (!student) throw new Error('Student not found', 404)
+    student.updatedAt = new Date()
     const updatedStudent = await repository.save({ ...student, ...data })
     return updatedStudent
   }
