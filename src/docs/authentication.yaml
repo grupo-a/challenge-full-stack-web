@@ -1,0 +1,50 @@
+components:
+  schemas:
+    authenticationSuccessResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        payload:
+          type: object
+          properties:
+            email:
+              type: string
+              example: email@email.com
+            id:
+              type: string
+              example: 3b450ee7-b596-47f1-9636-fdfdf9a1bc86
+            type:
+              type: string
+              example: "manager"
+            exp:
+              type: number
+              example: 39933403008
+
+paths:
+  /v1/authentication:
+    post:
+      description: Authentication in API with manager account
+      tags:
+        - Authentication
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: email@email.com
+                password:
+                  type: string
+                  example: password
+      responses:
+        200:
+          description: Token JWT for manager account
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/authenticationSuccessResponse"
+              
