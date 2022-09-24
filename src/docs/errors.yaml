@@ -1,40 +1,6 @@
 components:
   schemas:
-    studentNotFound:
-      type: array
-      items:
-        type: object
-        properties: 
-          code: 
-            type: string
-            example: NotFound
-          path: 
-            type: array
-            items: 
-              type: string
-              example: id
-          message: 
-            type: string
-            example: Student not found
-
-    unauthorized:
-      type: array
-      items:
-        type: object
-        properties: 
-          code: 
-            type: string
-            example: JsonWebTokenError
-          path: 
-            type: array
-            items: 
-              type: string
-              example: token
-          message: 
-            type: string
-            example: invalid signature
-
-    badRequestPost:
+    badRequestStudentPost:
       type: array
       items:
         type: object
@@ -51,7 +17,7 @@ components:
             type: string
             example: "Invalid CPF: '03624283318'"
 
-    badRequestDelete:
+    badRequestStudentDelete:
       type: array
       items:
         type: object
@@ -68,7 +34,7 @@ components:
             type: string
             example: Invalid uuid
 
-    badRequestPatch:
+    badRequestStudentPatch:
       type: array
       items:
         type: object
@@ -85,7 +51,7 @@ components:
             type: string
             example: "Unrecognized key(s) in object: 'cpf'"
 
-    badRequestList:
+    badRequestStudentList:
       type: array
       items:
         type: object
@@ -118,7 +84,24 @@ components:
           message: 
             type: string
             example: required
-      
+
+    unauthorized:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: JsonWebTokenError
+          path: 
+            type: array
+            items: 
+              type: string
+              example: token
+          message: 
+            type: string
+            example: invalid signature
+
     forbidden:
       type: array
       items:
@@ -136,6 +119,22 @@ components:
             type: string
             example: Wrong password
 
+    studentNotFound:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: NotFound
+          path: 
+            type: array
+            items: 
+              type: string
+              example: id
+          message: 
+            type: string
+            example: Student not found
 
     internalServerError:
       type: array

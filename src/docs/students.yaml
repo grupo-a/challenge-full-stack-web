@@ -1,6 +1,6 @@
 components:
   schemas:
-    studentObjectRequest:
+    studentPostRequest:
       type: object
       properties:
         name:
@@ -15,7 +15,7 @@ components:
         cpf:
           type: string
           example: '12345678901'
-    studentObjectResponse:
+    studentPostResponse:
       type: object
       properties:
         name:
@@ -63,7 +63,7 @@ components:
         updatedAt:
           type: string
           example: '2022-09-23T13:01:02.772Z'  
-    listStudentsResponse:
+    studentsListResponse:
       type: object
       properties:
         skip:
@@ -78,8 +78,8 @@ components:
         data:
           type: array
           items:
-            $ref: "#/components/schemas/studentObjectResponse"
-    studentObjectDeleteResponse:
+            $ref: "#/components/schemas/studentPostResponse"
+    studentDeleteResponse:
       type: object
       properties:
         name:
@@ -114,20 +114,20 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/studentObjectRequest'
+              $ref: '#/components/schemas/studentPostRequest'
       responses:
         200:
           description: Student created
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/studentObjectResponse'
+                $ref: '#/components/schemas/studentPostResponse'
         400:
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/badRequestPost'
+                $ref: '#/components/schemas/badRequestStudentPost'
         401:
           description: Unauthorized
           content:
@@ -166,13 +166,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/listStudentsResponse'
+                $ref: '#/components/schemas/studentsListResponse'
         400:
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/badRequestList'
+                $ref: '#/components/schemas/badRequestStudentList'
         401:
           description: Unauthorized
           content:
@@ -226,7 +226,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/badRequestPatch'
+                $ref: '#/components/schemas/badRequestStudentPatch'
         401:
           description: Unauthorized
           content:
@@ -265,13 +265,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/studentObjectDeleteResponse'
+                $ref: '#/components/schemas/studentDeleteResponse'
         400:
           description: Bad request
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/badRequestDelete'
+                $ref: '#/components/schemas/badRequestStudentDelete'
         401:
           description: Unauthorized
           content:
