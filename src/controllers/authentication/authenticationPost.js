@@ -1,29 +1,24 @@
 import jwt from 'jsonwebtoken'
 import { compareHash } from '../../utils/hashBcrypt.js'
-import {
-  notFound,
-  responseForbidden,
-  responseOk,
-  responseInternalServerError
-} from '../../utils/restResponse.js'
+import { responseOk } from '../../utils/restResponse.js'
 import logger from '../../config/logger.js'
-import ManagerService from '../../services/Managers.js'
+import managerService from '../../services/managers.js'
 import postgresConnection from '../../config/database/postgres/postgres.js'
 import authenticationPostValidator from './validators/authenticationPostValidator.js'
+import { errorHandler, CustomError } from '../../utils/errorHandler.js'
 
 export default async (req, res) => {
   try {
     authenticationPostValidator.parse(req.body)
 
-    const managerService = new ManagerService(postgresConnection)
+    const managerRepo = managerService(postgresConnection, CustomError)
 
-    const user = await managerService.getManagerByEmail(req.body.email)
-
-    if (!user) return notFound(res, 'email not found')
+    const user = await managerRepo.getManagerByEmail(req.body.email)
 
     const correctPass = await compareHash(req.body.password, user.password)
 
-    if (!correctPass) return responseForbidden(res, 'invalid password')
+    if (!correctPass)
+      throw new CustomError('Forbidden', 'password', 'Wrong password')
 
     const oneHourInMs = Math.floor(Date.now() / 1000) + 60 * 60
 
@@ -41,6 +36,6 @@ export default async (req, res) => {
     responseOk(res, { token: jwtToken, payload })
   } catch (e) {
     logger.error(e)
-    return responseInternalServerError(res)
+    return errorHandler(e, res)
   }
 }

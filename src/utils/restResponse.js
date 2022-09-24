@@ -1,31 +1,23 @@
-//import errorHandler from './errorHandler'
-
 export const responseOk = (res, data) => {
   res.status(200).send(data)
 }
 
-export const responseCreated = (res, data) => {
-  res.status(201).send(data)
-}
-export const noContent = (res) => {
-  res.status(204).send()
-}
-export const notFound = (res, customError) => {
-  res.status(404).send({ message: customError ? customError : 'notFound' })
-}
-export const responseUnauthorized = (res, customError) => {
-  res.status(401).send({ message: customError ? customError : 'Unauthorized' })
-}
-export const responseForbidden = (res, customError) => {
-  res.status(403).send({ message: customError ? customError : 'Forbidden' })
+export const notFound = (error, res) => {
+  res.status(404).send(error)
 }
 
-export const responseBadRequest = (res, customError) => {
-  res.status(400).send({ message: customError ? customError : 'Bad request' })
+export const responseUnauthorized = (error, res) => {
+  res.status(401).send(error)
 }
 
-export const responseInternalServerError = (res, customError) => {
-  res
-    .status(500)
-    .send({ message: customError ? customError : 'Internal error' })
+export const responseForbidden = (error, res) => {
+  res.status(403).send(error)
+}
+
+export const responseBadRequest = (error, res) => {
+  res.status(400).send(error)
+}
+
+export const responseInternalServerError = (error, res) => {
+  res.status(500).send(error)
 }

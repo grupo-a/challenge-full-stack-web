@@ -1,19 +1,21 @@
 import jwt from 'jsonwebtoken'
-import { responseUnauthorized } from '../utils/restResponse.js'
 import logger from '../config/logger.js'
+import checkAuthHeadersValidator from './validators/checkAuthHeadersValidator.js'
+import { errorHandler, CustomError } from '../utils/errorHandler.js'
 
 export default (...types) =>
   async (req, res, next) => {
     try {
+      checkAuthHeadersValidator.parse(req.headers)
       const [, token] = req.headers.authorization.split(' ')
       const jwtSecret = process.env.JWT_SECRET
       const decodedToken = jwt.verify(token, jwtSecret)
       if (!types.find((type) => decodedToken.type == type))
-        throw new Error('invalid token for this requisiton')
+        throw new CustomError('Unauthorized', 'token', 'Invalid token')
       req.payload = decodedToken
       next()
     } catch (e) {
       logger.error(e)
-      responseUnauthorized(res, 'invalid token for this requisiton')
+      return errorHandler(e, res)
     }
   }

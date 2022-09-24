@@ -1,22 +1,20 @@
 import logger from '../../config/logger.js'
-import StudentService from '../../services/Students.js'
+import studentService from '../../services/students.js'
 import postgresConnection from '../../config/database/postgres/postgres.js'
-import {
-  responseOk,
-  responseInternalServerError
-} from '../../utils/restResponse.js'
+import { responseOk } from '../../utils/restResponse.js'
 import studentPostValidator from './validators/studentPostValidator.js'
+import { errorHandler } from '../../utils/errorHandler.js'
 
 export default async (req, res) => {
   try {
     studentPostValidator.parse(req.body)
-    const studentService = new StudentService(postgresConnection)
+    const studentRepo = studentService(postgresConnection)
 
-    const student = await studentService.createStudent(req.body)
+    const student = await studentRepo.createStudent(req.body)
 
     return responseOk(res, student)
   } catch (e) {
     logger.error(e)
-    return responseInternalServerError(res)
+    return errorHandler(e, res)
   }
 }
