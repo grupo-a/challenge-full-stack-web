@@ -1,7 +1,9 @@
-import { hashValue } from '../../../utils/hashBcrypt.js'
+import bcryptLib from 'bcrypt'
+import bcrypt from '../../../utils/hashBcrypt.js'
 
-const { FIRST_MANAGER_EMAIL: email, FIRST_MANAGER_PASSWORD: password } =
-  process.env
+const hashValue = bcrypt(bcryptLib).hashValue
+
+const { FIRST_MANAGER_EMAIL: email, FIRST_MANAGER_PASSWORD: password } = process.env
 
 const hashedPassword = await hashValue(password)
 

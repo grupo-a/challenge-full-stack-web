@@ -1,28 +1,22 @@
-import jwt from 'jsonwebtoken'
-import { compareHash } from '../../utils/hashBcrypt.js'
-import { responseOk } from '../../utils/restResponse.js'
-import logger from '../../config/logger.js'
-import managerService from '../../services/managers.js'
-import postgresConnection from '../../config/database/postgres/postgres.js'
-import authenticationPostValidator from './validators/authenticationPostValidator.js'
-import { errorHandler, CustomError } from '../../utils/errorHandler.js'
-
-export default async (req, res) => {
+export default (deps) => async (req, res) => {
+  const {
+    responseOk,
+    errorHandler,
+    logger,
+    databaseCall,
+    validator,
+    mountRequest,
+    compareHash,
+    createToken
+  } = deps
   try {
-    authenticationPostValidator.parse(req.body)
-
-    const managerRepo = managerService(postgresConnection, CustomError)
-
-    const user = await managerRepo.getManagerByEmail(req.body.email)
-
-    const correctPass = await compareHash(req.body.password, user.password)
-
-    if (!correctPass)
-      throw new CustomError('Forbidden', 'password', 'Wrong password')
+    const payload = mountRequest(req)
+    validator(payload)
+    const user = await databaseCall(payload.email)
+    await compareHash(payload.password, user.password)
 
     const oneHourInMs = Math.floor(Date.now() / 1000) + 60 * 60
-
-    const payload = {
+    const payloadToken = {
       email: user.email,
       id: user.id,
       type: 'manager',
@@ -30,12 +24,10 @@ export default async (req, res) => {
     }
 
     const jwtSecret = process.env.JWT_SECRET
-
-    const jwtToken = jwt.sign(payload, jwtSecret)
-
-    responseOk(res, { token: jwtToken, payload })
+    const jwtToken = createToken(payloadToken, jwtSecret)
+    responseOk(res, { token: jwtToken, payload: payloadToken })
   } catch (e) {
-    logger.error(e)
+    logger(e)
     return errorHandler(e, res)
   }
 }

@@ -1,14 +1,10 @@
-// logger.js
-import winston from 'winston'
-
-const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.errors({ stack: true }),
-    winston.format.json()
-  ),
-  transports: [
-    new winston.transports.Console({ format: winston.format.simple() })
-  ]
-})
-
-export default logger
+export default (loggerLib) => {
+  const logger = loggerLib.createLogger({
+    format: loggerLib.format.combine(
+      loggerLib.format.errors({ stack: true }),
+      loggerLib.format.json()
+    ),
+    transports: [new loggerLib.transports.Console({ format: loggerLib.format.simple() })]
+  })
+  return logger
+}

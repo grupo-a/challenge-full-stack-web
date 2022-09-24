@@ -1,21 +1,19 @@
-import jwt from 'jsonwebtoken'
-import logger from '../config/logger.js'
-import checkAuthHeadersValidator from './validators/checkAuthHeadersValidator.js'
-import { errorHandler, CustomError } from '../utils/errorHandler.js'
-
-export default (...types) =>
+export default (deps) =>
+  (...types) =>
   async (req, res, next) => {
+    const { logger, verifyToken, mountRequest, validator, errorHandler, CustomError } = deps
     try {
-      checkAuthHeadersValidator.parse(req.headers)
+      const payload = mountRequest(req)
+      validator(payload)
       const [, token] = req.headers.authorization.split(' ')
       const jwtSecret = process.env.JWT_SECRET
-      const decodedToken = jwt.verify(token, jwtSecret)
+      const decodedToken = verifyToken(token, jwtSecret)
       if (!types.find((type) => decodedToken.type == type))
         throw new CustomError('Unauthorized', 'token', 'Invalid token')
       req.payload = decodedToken
       next()
     } catch (e) {
-      logger.error(e)
+      logger(e)
       return errorHandler(e, res)
     }
   }

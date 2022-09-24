@@ -1,5 +1,4 @@
-import { strToBool } from '../../../utils/convertions.js'
-export default {
+export default (strToBool) => ({
   type: process.env.TYPEORM_CONNECTION || 'postgres',
   host: process.env.TYPEORM_HOST || 'localhost',
   port: process.env.TYPEORM_PORT || 5432,
@@ -15,4 +14,4 @@ export default {
     ? [process.env.TYPEORM_MIGRATIONS]
     : ['../../../database/postgres/migrations/*.js'],
   migrationsRun: true
-}
+})

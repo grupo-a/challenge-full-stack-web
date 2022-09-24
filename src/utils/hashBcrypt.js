@@ -1,12 +1,15 @@
-import bcrypt from 'bcrypt'
+export default (bcrypt, CustomError) => {
+  return {
+    hashValue: async (value) => {
+      const saltRounds = 13
+      const hashValue = await bcrypt.hash(value, saltRounds)
+      return hashValue
+    },
 
-export const hashValue = async (value) => {
-  const saltRounds = 13
-  const hashValue = await bcrypt.hash(value, saltRounds)
-  return hashValue
-}
-
-export const compareHash = async (value, hash) => {
-  const result = await bcrypt.compare(value, hash)
-  return result
+    compareHash: async (value, hash, field = 'password') => {
+      const result = await bcrypt.compare(value, hash)
+      if (!result) throw new CustomError('Forbidden', field, `Wrong ${field}`)
+      return result
+    }
+  }
 }

@@ -1,7 +1,5 @@
-import swaggerJSDoc from 'swagger-jsdoc'
-
-export default (req, res) => {
-  const doc = swaggerJSDoc({
+export default (swagger) => (req, res) => {
+  const doc = swagger({
     apis: ['src/docs/*.yaml'],
     definition: {
       openapi: '3.0.0',

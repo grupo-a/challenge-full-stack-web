@@ -5,7 +5,8 @@ export default (dbConnection, CustomError) => {
       const createdStudent = await repository.save(data)
       return createdStudent
     },
-    listStudents: async (limit = 10, skip = 0) => {
+    listStudents: async (query) => {
+      const { limit = 10, skip = 0 } = query
       const repository = dbConnection.getRepository('Students')
       const students = await repository.find({
         take: limit,
@@ -22,7 +23,8 @@ export default (dbConnection, CustomError) => {
         data: students
       }
     },
-    updateStudent: async (id, data) => {
+    updateStudent: async (data) => {
+      const { id, ...updatePayload } = data
       const repository = dbConnection.getRepository('Students')
       const student = await repository.findOne({
         where: {
@@ -31,15 +33,16 @@ export default (dbConnection, CustomError) => {
       })
       if (!student) throw new CustomError('NotFound', 'id', 'Student not found')
       student.updatedAt = new Date()
-      const updatedStudent = await repository.save({ ...student, ...data })
+      const updatedStudent = await repository.save({
+        ...student,
+        ...updatePayload
+      })
       return updatedStudent
     },
-    deleteStudent: async (id) => {
+    deleteStudent: async (params) => {
       const repository = dbConnection.getRepository('Students')
       const student = await repository.findOne({
-        where: {
-          id
-        }
+        where: params
       })
       if (!student) throw new CustomError('NotFound', 'id', 'Student not found')
       const deletedStudent = await repository.remove(student)

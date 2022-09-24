@@ -5,8 +5,7 @@ export default (dbConnection, CustomError) => {
       const manager = await repository.findOne({
         where: { email }
       })
-      if (!manager)
-        throw new CustomError('NotFound', 'email', 'Manager not found')
+      if (!manager) throw new CustomError('NotFound', 'email', 'Manager not found')
       return manager
     }
   }
