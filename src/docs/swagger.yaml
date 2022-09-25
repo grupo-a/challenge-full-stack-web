@@ -17,10 +17,8 @@ components:
               example: 1.0.0
         paths: 
           type: object
-          properties:  
         components: 
           type: object
-          properties:  
         tags: 
           type: array
           items:
