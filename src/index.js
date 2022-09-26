@@ -125,6 +125,11 @@ const authenticationPostDep = {
   createToken: jwt.sign
 }
 
+const swaggerGetDep = {
+  swagger: swaggerJSDoc,
+  responseOk
+}
+
 //Mid level dependencies (middlewares)
 const checkAuthDep = {
   logger: loggerDep.error,
@@ -141,7 +146,7 @@ const studentPatchController = studentGeneric(studentPatchDep)
 const studentGetListController = studentGeneric(studentGetListDep)
 const studentDeleteController = studentGeneric(studentDeleteDep)
 const authenticationPostController = authenticationPost(authenticationPostDep)
-const swaggerGetController = swaggerGet(swaggerJSDoc)
+const swaggerGetController = swaggerGet(swaggerGetDep)
 
 // Middlewares
 const checkAuthMiddleware = checkAuth(checkAuthDep)

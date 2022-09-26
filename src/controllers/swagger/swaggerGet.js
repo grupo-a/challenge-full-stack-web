@@ -1,4 +1,5 @@
-export default (swagger) => (req, res) => {
+export default (dep) => (req, res) => {
+  const { swagger, responseOk } = dep
   const doc = swagger({
     apis: ['src/docs/*.yaml'],
     definition: {
@@ -10,6 +11,5 @@ export default (swagger) => (req, res) => {
     }
   })
 
-  res.writeHead(200, { 'Content-Type': 'application/json' })
-  res.end(JSON.stringify(doc))
+  responseOk(res, doc)
 }

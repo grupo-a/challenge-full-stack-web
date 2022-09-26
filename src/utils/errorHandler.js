@@ -7,6 +7,13 @@ export class CustomError extends Error {
 }
 
 export const errorHandler = (restResponses) => {
+  const {
+    responseForbidden,
+    responseBadRequest,
+    notFound,
+    responseUnauthorized,
+    responseInternalServerError
+  } = restResponses
   const QueryFailedError = (e, res) => {
     const path = e.detail.match(/Key \((\w+)\)=/)[1]
     const error = [
@@ -16,7 +23,7 @@ export const errorHandler = (restResponses) => {
         message: e.detail
       }
     ]
-    return restResponses.responseForbidden(error, res)
+    return responseForbidden(error, res)
   }
 
   const ZodError = (e, res) => {
@@ -27,7 +34,7 @@ export const errorHandler = (restResponses) => {
         message: err.message
       }
     })
-    return restResponses.responseBadRequest(error, res)
+    return responseBadRequest(error, res)
   }
 
   const NotFound = (e, res) => {
@@ -38,7 +45,7 @@ export const errorHandler = (restResponses) => {
         message: e.message
       }
     ]
-    return restResponses.notFound(error, res)
+    return notFound(error, res)
   }
 
   const Forbidden = (e, res) => {
@@ -49,7 +56,7 @@ export const errorHandler = (restResponses) => {
         message: e.message
       }
     ]
-    return restResponses.responseForbidden(error, res)
+    return responseForbidden(error, res)
   }
 
   const Unauthorized = (e, res) => {
@@ -60,7 +67,7 @@ export const errorHandler = (restResponses) => {
         message: e.message
       }
     ]
-    return restResponses.responseUnauthorized(error, res)
+    return responseUnauthorized(error, res)
   }
 
   const NotImplementedError = (e, res) => {
@@ -71,7 +78,7 @@ export const errorHandler = (restResponses) => {
         message: e.message
       }
     ]
-    return restResponses.responseInternalServerError(error, res)
+    return responseInternalServerError(error, res)
   }
 
   const errors = {

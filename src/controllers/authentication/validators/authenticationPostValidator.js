@@ -1,10 +1,7 @@
 export default (zod) =>
-  zod.object(
-    {
+  zod
+    .object({
       email: zod.string().email(),
       password: zod.string()
-    },
-    {
-      message: 'Invalid email or password'
-    }
-  )
+    })
+    .strict()

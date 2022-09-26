@@ -1,17 +1,13 @@
 export default (strToBool) => ({
-  type: process.env.TYPEORM_CONNECTION || 'postgres',
-  host: process.env.TYPEORM_HOST || 'localhost',
-  port: process.env.TYPEORM_PORT || 5432,
-  username: process.env.TYPEORM_USERNAME || 'postgres',
-  password: process.env.TYPEORM_PASSWORD || 'postgres',
-  database: process.env.TYPEORM_DATABASE || 'educacao',
-  synchronize: strToBool(process.env.TYPEORM_SYNCHRONIZE) || false,
-  logging: strToBool(process.env.TYPEORM_LOGGING) || true,
-  entities: process.env.TYPEORM_ENTITIES
-    ? [process.env.TYPEORM_ENTITIES]
-    : ['../../../database/postgres/models/*.js'],
-  migrations: process.env.TYPEORM_MIGRATIONS
-    ? [process.env.TYPEORM_MIGRATIONS]
-    : ['../../../database/postgres/migrations/*.js'],
+  type: process.env.TYPEORM_TYPE,
+  host: process.env.TYPEORM_HOST,
+  port: process.env.TYPEORM_PORT,
+  username: process.env.TYPEORM_USERNAME,
+  password: process.env.TYPEORM_PASSWORD,
+  database: process.env.TYPEORM_DATABASE,
+  synchronize: strToBool(process.env.TYPEORM_SYNCHRONIZE),
+  logging: strToBool(process.env.TYPEORM_LOGGING),
+  entities: [process.env.TYPEORM_ENTITIES],
+  migrations: [process.env.TYPEORM_MIGRATIONS],
   migrationsRun: true
 })

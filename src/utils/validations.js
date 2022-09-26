@@ -1,21 +1,11 @@
-export const isValidCPF = (cpfValue) => {
-  const cpf = cpfValue.replace(/[^\d]+/g, '')
-  let sum = 0
-  let rest
-
-  if (cpf === '00000000000') return false
-
-  for (let i = 1; i <= 9; i++) sum = sum + parseInt(cpf.substring(i - 1, i)) * (11 - i)
-  rest = (sum * 10) % 11
-
-  if (rest === 10 || rest === 11) rest = 0
-  if (rest !== parseInt(cpf.substring(9, 10))) return false
-
-  sum = 0
-  for (let i = 1; i <= 10; i++) sum = sum + parseInt(cpf.substring(i - 1, i)) * (12 - i)
-  rest = (sum * 10) % 11
-
-  if (rest === 10 || rest === 11) rest = 0
-  if (rest !== parseInt(cpf.substring(10, 11))) return false
-  return true
+export const isValidCPF = (cpf) => {
+  if (typeof cpf !== 'string') return false
+  cpf = cpf.replace(/[^\d]+/g, '')
+  if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false
+  cpf = cpf.split('').map((el) => +el)
+  const rest = (count) =>
+    ((cpf.slice(0, count - 12).reduce((soma, el, index) => soma + el * (count - index), 0) * 10) %
+      11) %
+    10
+  return rest(10) === cpf[9] && rest(11) === cpf[10]
 }
