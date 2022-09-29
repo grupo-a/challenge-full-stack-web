@@ -10,18 +10,54 @@ describe('PermissionsService', function () {
 
   afterEach(() => jest.restoreAllMocks());
 
-  it('should be sucess', async function () {
-    jest.spyOn(repository, 'create').mockResolvedValue(MOCK_ID);
-    const sut = await service.create(MOCK_ID, PERMISSIONS_LIST);
-    expect(sut).toBe(MOCK_ID);
+  describe('create', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(repository, 'create').mockResolvedValue(MOCK_ID);
+      const sut = await service.create(MOCK_ID, PERMISSIONS_LIST);
+      expect(sut).toBe(MOCK_ID);
+    });
+
+    it('should be error', async function () {
+      jest
+        .spyOn(repository, 'create')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
+      await expect(service.create(MOCK_ID, PERMISSIONS_LIST)).rejects.toThrow(
+        ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
+      );
+    });
   });
 
-  it('should be error', async function () {
-    jest
-      .spyOn(repository, 'create')
-      .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
-    await expect(service.create(MOCK_ID, PERMISSIONS_LIST)).rejects.toThrow(
-      ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
-    );
+  describe('update', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(repository, 'update').mockResolvedValue(1);
+      const sut = await service.update(MOCK_ID, PERMISSIONS_LIST);
+      expect(sut).toBe(1);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(repository, 'update')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(service.update(MOCK_ID, PERMISSIONS_LIST)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
+  });
+
+  describe('delete', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(repository, 'delete').mockResolvedValue(1);
+      const sut = await service.delete(MOCK_ID);
+      expect(sut).toBe(1);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(repository, 'delete')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(service.delete(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
   });
 });
