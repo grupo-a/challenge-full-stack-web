@@ -5,12 +5,15 @@ name: Node.js CI
 
 on:
   pull_request:
-    branches: [ "develop" ]
-
+    branches: ["develop"]
+    paths:
+      - backend/**
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
 
     strategy:
       matrix:
@@ -18,14 +21,8 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - run: cd ./backend
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm lint
-    - run: npm test
+      - uses: actions/checkout@v3
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run lint
+      - run: npm run test:cov
