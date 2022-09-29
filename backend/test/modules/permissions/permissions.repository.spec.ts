@@ -10,18 +10,54 @@ describe('PermissionsRepository', function () {
 
   afterEach(() => jest.restoreAllMocks());
 
-  it('should be sucess', async function () {
-    jest.spyOn(dao, 'save').mockResolvedValue(MOCK_ID);
-    const sut = await repository.create(PERMISSIONS);
-    expect(sut).toBe(MOCK_ID);
+  describe('create', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'save').mockResolvedValue(MOCK_ID);
+      const sut = await repository.create(PERMISSIONS);
+      expect(sut).toBe(MOCK_ID);
+    });
+
+    it('should be error', async function () {
+      jest
+        .spyOn(dao, 'save')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
+      await expect(repository.create(PERMISSIONS)).rejects.toThrow(
+        ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
+      );
+    });
   });
 
-  it('should be error', async function () {
-    jest
-      .spyOn(dao, 'save')
-      .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
-    await expect(repository.create(PERMISSIONS)).rejects.toThrow(
-      ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
-    );
+  describe('update', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'update').mockResolvedValue(1);
+      const sut = await repository.update(MOCK_ID, PERMISSIONS);
+      expect(sut).toBe(1);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(dao, 'update')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(repository.update(MOCK_ID, PERMISSIONS)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
+  });
+
+  describe('delete', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'delete').mockResolvedValue(1);
+      const sut = await repository.delete(MOCK_ID);
+      expect(sut).toBe(1);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(dao, 'delete')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(repository.delete(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
   });
 });

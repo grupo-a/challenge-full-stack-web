@@ -14,17 +14,20 @@ import { PermissionsModule } from '../permissions/permissions.module';
   providers: [
     {
       provide: EmployeesService,
-      useFactory: (repository: EmployeesRepository) => {
-        return new EmployeesService(repository);
+      useFactory: (
+        repository: EmployeesRepository,
+        permissions: PermissionsService,
+      ) => {
+        return new EmployeesService(repository, permissions);
       },
-      inject: [EmployeesRepository],
+      inject: [EmployeesRepository, PermissionsService],
     },
     {
       provide: EmployeesRepository,
-      useFactory: (dao: BaseSqlInterface, permissions: PermissionsService) => {
-        return new EmployeesRepository(dao, permissions);
+      useFactory: (dao: BaseSqlInterface) => {
+        return new EmployeesRepository(dao);
       },
-      inject: [EmployeesDao, PermissionsService],
+      inject: [EmployeesDao],
     },
   ],
 })

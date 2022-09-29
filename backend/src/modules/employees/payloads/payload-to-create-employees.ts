@@ -28,7 +28,6 @@ export class PayloadToCreateEmployees implements CreateEmployees {
 
   @ApiProperty({ example: ['READ', 'UPDATE', 'DELETE', 'CREATE'] })
   @IsIn(['READ', 'UPDATE', 'DELETE', 'CREATE'], { each: true })
-  // @ValidateNested({ each: true })
   @IsNotEmpty()
   permissions: string[];
 }

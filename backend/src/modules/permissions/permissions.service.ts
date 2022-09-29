@@ -1,5 +1,5 @@
 import { PermissionsRepository } from './permissions.repository';
-import { CreatePermissions } from './interfaces/permissions';
+import { Permissions } from './interfaces/permissions';
 
 export class PermissionsService {
   constructor(private readonly repository: PermissionsRepository) {}
@@ -9,7 +9,12 @@ export class PermissionsService {
     return this.repository.create(permissions);
   }
 
-  buildPermissions(employeeId: string, args: string[]): CreatePermissions {
+  async update(employeeId: string, args: string[]): Promise<number> {
+    const permissions = this.buildPermissions(employeeId, args);
+    return this.repository.update(employeeId, permissions);
+  }
+
+  protected buildPermissions(employeeId: string, args: string[]): Permissions {
     return {
       employeeId,
       read: args.includes('READ'),
@@ -17,5 +22,9 @@ export class PermissionsService {
       update: args.includes('UPDATE'),
       delete: args.includes('DELETE'),
     };
+  }
+
+  async delete(employeeId: string): Promise<number> {
+    return this.repository.delete(employeeId);
   }
 }

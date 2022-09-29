@@ -25,32 +25,22 @@ export abstract class BaseSql<T> implements BaseSqlInterface {
   }
 
   async list(options: FindManyOptions<T>): Promise<T[]> {
-    return this.typeorm.find(options).catch(() => {
+    return await this.typeorm.find(options).catch(() => {
       throw new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR);
     });
   }
 
   async update(id: string, args: QueryDeepPartialEntity<T>): Promise<number> {
-    return await this.typeorm
-      .update(id, args)
-      .then((result) => {
-        if (result.affected <= 0) throw new Error(ERRORS_DESCRIPTION.NOT_FOUND);
-        return result.affected;
-      })
-      .catch(() => {
-        throw new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR);
-      });
+    return await this.typeorm.update(id, args).then((result) => {
+      if (result.affected <= 0) throw new Error(ERRORS_DESCRIPTION.NOT_FOUND);
+      return result.affected;
+    });
   }
 
   async delete(id: string): Promise<number> {
-    return await this.typeorm
-      .delete(id)
-      .then((result) => {
-        if (result.affected <= 0) throw new Error(ERRORS_DESCRIPTION.NOT_FOUND);
-        return result.affected;
-      })
-      .catch(() => {
-        throw new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR);
-      });
+    return await this.typeorm.delete(id).then((result) => {
+      if (result.affected <= 0) throw new Error(ERRORS_DESCRIPTION.NOT_FOUND);
+      return result.affected;
+    });
   }
 }
