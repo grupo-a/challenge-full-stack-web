@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { StudantsModule } from './modules/students/studants.module';
+import { StudentsModule } from './modules/students/students.module';
 import { ConfigModule } from '@nestjs/config';
 import { EmployeesModule } from './modules/employees/employees.module';
 
@@ -8,7 +8,7 @@ import { EmployeesModule } from './modules/employees/employees.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    StudantsModule,
+    StudentsModule,
     EmployeesModule,
   ],
 })

@@ -11,15 +11,15 @@ import {
   Query,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
-import { StudantsService } from './studants.service';
+import { StudentsService } from './students.service';
 import { PayloadToCreateStudents } from './payloads/payload-to-create-students';
 import { ListStudents } from './interfaces/students';
 import { PayloadToUpdateStudents } from './payloads/payload-to-update-students';
 
-@ApiTags('Studants')
-@Controller('studants')
-export class StudantsController {
-  constructor(private readonly service: StudantsService) {}
+@ApiTags('Students')
+@Controller('students')
+export class StudentsController {
+  constructor(private readonly service: StudentsService) {}
 
   @Post()
   @HttpCode(HttpStatus.CREATED)

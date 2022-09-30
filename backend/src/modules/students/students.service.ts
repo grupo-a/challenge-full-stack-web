@@ -1,12 +1,12 @@
-import { StudantsRepository } from './studants.repository';
+import { StudentsRepository } from './students.repository';
 import {
   CreateStudents,
   ListStudents,
   UpdateStudents,
 } from './interfaces/students';
 
-export class StudantsService {
-  constructor(private readonly repository: StudantsRepository) {}
+export class StudentsService {
+  constructor(private readonly repository: StudentsRepository) {}
 
   async create(args: CreateStudents): Promise<string> {
     return this.repository.create(args);

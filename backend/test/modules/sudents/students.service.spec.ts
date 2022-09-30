@@ -1,12 +1,12 @@
-import { StudantsService } from '../../../src/modules/students/studants.service';
-import { StudantsRepository } from '../../../src/modules/students/studants.repository';
+import { StudentsService } from '../../../src/modules/students/students.service';
+import { StudentsRepository } from '../../../src/modules/students/students.repository';
 import { ERRORS_DESCRIPTION } from '../../../src/common/errors/errors.enum';
 import { STUDENTS, STUDENTS_RETURN_DB } from '../../mocks/students';
 import { MOCK_ID, MOCK_INJECTION } from '../../mocks/base-mock';
 
-describe('StudantsService', function () {
-  const repository = new StudantsRepository(MOCK_INJECTION);
-  const service = new StudantsService(repository);
+describe('StudentsService', function () {
+  const repository = new StudentsRepository(MOCK_INJECTION);
+  const service = new StudentsService(repository);
 
   afterEach(() => jest.restoreAllMocks());
 
