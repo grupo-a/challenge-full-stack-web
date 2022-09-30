@@ -91,7 +91,7 @@
         "statements": -10
       }
     },
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "clearMocks": true,
     "testEnvironment": "node",
     "roots": [

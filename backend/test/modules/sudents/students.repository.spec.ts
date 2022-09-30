@@ -1,12 +1,12 @@
-import { StudantsRepository } from '../../../src/modules/students/studants.repository';
+import { StudentsRepository } from '../../../src/modules/students/students.repository';
 import { MOCK_ID, MOCK_INJECTION } from '../../mocks/base-mock';
 import { StudentsDao } from '../../../src/providers/database/impl/students.dao';
 import { STUDENTS, STUDENTS_RETURN_DB } from '../../mocks/students';
 import { ERRORS_DESCRIPTION } from '../../../src/common/errors/errors.enum';
 
-describe('StudantsRepository', function () {
+describe('StudentsRepository', function () {
   const dao = new StudentsDao(MOCK_INJECTION);
-  const repository = new StudantsRepository(dao);
+  const repository = new StudentsRepository(dao);
 
   afterEach(() => jest.restoreAllMocks());
 

@@ -35,6 +35,6 @@ import { ERRORS_DESCRIPTION } from './common/errors/errors.enum';
       .enableVersioning({ type: VersioningType.URI, defaultVersion: '1' });
 
     await createSwaggerDoc(app);
-    await app.listen(8080);
+    await app.listen(3000);
   });
 })();

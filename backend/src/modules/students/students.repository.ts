@@ -5,7 +5,7 @@ import {
 } from './interfaces/students';
 import { BaseSqlInterface } from '../../providers/database/base/interfaces/base.sql.interface';
 
-export class StudantsRepository {
+export class StudentsRepository {
   constructor(private readonly dao: BaseSqlInterface) {}
 
   async create(args: CreateStudents): Promise<string> {
