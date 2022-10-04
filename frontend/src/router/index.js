@@ -1,37 +1,49 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ListStudents from '../views/ListStudents.vue';
-import RegisterStudent from '../views/RegisterStudent.vue';
-import EditStudent from '../views/EditStudent.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import ListStudents from "../views/ListStudents.vue";
+import RegisterStudent from "../views/RegisterStudent.vue";
+import EditStudent from "../views/EditStudent.vue";
+import LoginView from "../views/Login.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "*",
+    redirect: "/login",
   },
   {
-    path: '/students',
-    name: 'students',
-    component: ListStudents
+    path: "/",
+    redirect: "/login",
   },
   {
-    path: '/students/create',
-    name: 'createStudent',
-    component: RegisterStudent
+    path: "/students",
+    name: "students",
+    component: ListStudents,
   },
   {
-    path: '/students/:id/edit',
-    name: 'editStudent',
-    component: EditStudent
-  }
-]
+    path: "/students/create",
+    name: "createStudent",
+    component: RegisterStudent,
+  },
+  {
+    path: "/students/:id/edit",
+    name: "editStudent",
+    component: EditStudent,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+// router.beforeEach((to, from, next) => {
+//   next("/login");
+// });
+
+export default router;

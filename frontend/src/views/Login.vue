@@ -1,28 +1,25 @@
 <script>
-import api from "../data/api";
 import Button from "@/components/Button";
-import BaseView from "@/components/Base";
+import api from "@/data/api";
 
 export default {
-  name: "RegisterStudent",
-  components: { Button, BaseView },
+  name: "LoginView",
+  components: { Button },
   data: () => ({
-    buttons: ["Cancelar", "Salvar"],
-    fields: ["name", "email", "cpf"],
+    buttons: ["Login"],
+    fields: ["email", "password"],
     model: {
-      name: "",
       email: "",
-      cpf: "",
+      password: "",
     },
     rules: {
-      name: [(v) => !!v || "Nome é obrigatório"],
       email: [
         (v) => !!v || "E-mail é obrigatório",
         (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
       ],
-      cpf: [
-        (v) => !!v || "CPF é obrigatório",
-        (v) => v.split('').length === 11 || "CPF inválido",
+      password: [
+        (v) => !!v || "Password é obrigatório",
+        (v) => v.split("").length === 11 || "CPF inválido",
       ],
     },
     valid: false,
@@ -36,16 +33,14 @@ export default {
       this.$refs.form.validate();
     },
     resetForm() {
-      this.model.name = "";
       this.model.email = "";
-      this.model.cpf = "";
+      this.model.password = "";
       this.$refs.form.resetValidation();
     },
     getFormData() {
       return {
-        name: this.model.name,
         email: this.model.email,
-        cpf: this.model.cpf,
+        password: this.model.password,
       };
     },
     submitForm() {
@@ -77,10 +72,6 @@ export default {
 
 <template>
   <div>
-    <v-app-bar app>
-      <div>Cadastrar aluno</div>
-    </v-app-bar>
-    <BaseView />
     <v-main>
       <v-container class="mt-3">
         <v-col class="col-6 mx-auto">
@@ -93,8 +84,6 @@ export default {
                   :rules="rules[field]"
                   outlined
                   required
-                  :hide-spin-buttons="field === 'cpf'"
-                  :type="field === 'cpf' ? 'number' : undefined"
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -102,12 +91,10 @@ export default {
               <v-col class="col-auto" v-for="button in buttons" :key="button">
                 <Button
                   :context_botton="button.toUpperCase()"
-                  :color_botton="button === 'Salvar' ? 'green' : 'red'"
+                  color_botton="green"
                   class_botton="white--text"
-                  :redirect_botton="
-                    button === 'Cancelar' ? '/students' : undefined
-                  "
-                  :action_click="button === 'Salvar' ? submitForm : undefined"
+                  redirect_botton="/students"
+                  :action_click="submitForm"
                 />
               </v-col>
             </v-row>

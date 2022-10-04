@@ -16,6 +16,10 @@ export class StudentsRepository {
     return this.dao.list({ take: limit, skip: (page - 1) * limit });
   }
 
+  async getById(id: string): Promise<ListStudents> {
+    return this.dao.getById(id);
+  }
+
   async update(id: string, args: UpdateStudents): Promise<number> {
     return this.dao.update(id, args);
   }
