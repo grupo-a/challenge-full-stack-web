@@ -4,6 +4,7 @@ import {
   IsIn,
   IsNotEmpty,
   IsNumberString,
+  IsOptional,
   IsString,
   Length,
 } from 'class-validator';
@@ -26,8 +27,19 @@ export class PayloadToCreateEmployees implements CreateEmployees {
   @IsNotEmpty()
   cpf!: string;
 
+  @ApiProperty({ example: '01GEJBFFA537B5YMW2P04BCFQH' })
+  @IsString()
+  @IsOptional()
+  enrolment!: string;
+
   @ApiProperty({ example: ['READ', 'UPDATE', 'DELETE', 'CREATE'] })
   @IsIn(['READ', 'UPDATE', 'DELETE', 'CREATE'], { each: true })
   @IsNotEmpty()
   permissions: string[];
+
+  @ApiProperty({ example: '49480347890' })
+  @IsNumberString()
+  @Length(11, 11)
+  @IsNotEmpty()
+  password!: string;
 }

@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { EmployeesInterface } from '../../../models/interfaces/employees.interface';
-import { randomUUID } from 'crypto';
+import { ulid } from '../../../common/utils/ulid';
 
 @Entity({ name: 'employees', orderBy: { name: 'ASC' } })
 export class EmployeesEntity
@@ -16,11 +16,12 @@ export class EmployeesEntity
   @Column('varchar', { length: 11, unique: true }) cpf: string;
   @Column('varchar') email: string;
   @Column('varchar') name: string;
-  @Column('uuid', { unique: true }) enrolment: string;
+  @Column('varchar', { unique: true }) enrolment: string;
+  @Column('varchar') password: string;
   @CreateDateColumn({ name: 'created_at' }) createdAt: Date;
   @UpdateDateColumn({ name: 'updated_at' }) updatedAt: Date;
 
   constructor() {
-    this.enrolment = randomUUID();
+    if (!this.enrolment) this.enrolment = ulid();
   }
 }

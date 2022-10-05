@@ -5,4 +5,5 @@ export interface EmployeesInterface {
   cpf: string;
   enrolment: string;
   permissions: string[];
+  password: string;
 }

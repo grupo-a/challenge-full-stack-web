@@ -37,6 +37,13 @@ export class StudentsController {
     return await this.service.list(query);
   }
 
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Obtém o cadastro de um aluno' })
+  async getById(@Param('id') id: string): Promise<ListStudents> {
+    return await this.service.getById(id);
+  }
+
   @Put(':id')
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Editar cadastro de aluno' })

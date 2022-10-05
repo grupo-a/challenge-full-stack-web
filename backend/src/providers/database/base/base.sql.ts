@@ -4,6 +4,7 @@ import { ERRORS_DESCRIPTION } from '../../../common/errors/errors.enum';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 import { FindManyOptions } from 'typeorm/find-options/FindManyOptions';
 import { BaseSqlInterface } from './interfaces/base.sql.interface';
+import { FindOptionsWhere } from 'typeorm/find-options/FindOptionsWhere';
 
 export abstract class BaseSql<T> implements BaseSqlInterface {
   private static CONFLICT_ERROR = 'duplicate key';
@@ -28,6 +29,14 @@ export abstract class BaseSql<T> implements BaseSqlInterface {
     return await this.typeorm.find(options).catch(() => {
       throw new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR);
     });
+  }
+
+  async getById(id: string): Promise<T> {
+    return await this.typeorm
+      .findOneOrFail({ where: { id } as unknown as FindOptionsWhere<T> })
+      .catch(() => {
+        throw new Error(ERRORS_DESCRIPTION.NOT_FOUND);
+      });
   }
 
   async update(id: string, args: QueryDeepPartialEntity<T>): Promise<number> {

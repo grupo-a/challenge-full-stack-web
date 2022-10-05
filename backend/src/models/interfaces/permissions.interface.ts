@@ -1,6 +1,6 @@
 export interface PermissionsInterface {
   readonly id: string;
-  readonly employeeId: string;
+  readonly employeeId: any;
   read: boolean;
   create: boolean;
   update: boolean;

@@ -16,6 +16,10 @@ export class StudentsService {
     return this.repository.list(query);
   }
 
+  async getById(id: string): Promise<ListStudents> {
+    return this.repository.getById(id);
+  }
+
   async update(id: string, args: UpdateStudents): Promise<number> {
     return this.repository.update(id, args);
   }

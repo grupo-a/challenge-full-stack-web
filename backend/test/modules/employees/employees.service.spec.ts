@@ -52,6 +52,23 @@ describe('EmployeesService', function () {
     });
   });
 
+  describe('getById', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(repository, 'getById').mockResolvedValue(EMPLOYEES_RETURN_DB);
+      const sut = await service.getById(MOCK_ID);
+      expect(sut).toBe(EMPLOYEES_RETURN_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(repository, 'getById')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(service.getById(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
+  });
+
   describe('update', function () {
     it('should be sucess', async function () {
       jest.spyOn(repository, 'update').mockResolvedValue(1);

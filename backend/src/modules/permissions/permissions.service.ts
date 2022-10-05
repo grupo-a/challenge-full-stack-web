@@ -1,8 +1,12 @@
 import { PermissionsRepository } from './permissions.repository';
-import { Permissions } from './interfaces/permissions';
+import { ListPermissions, Permissions } from './interfaces/permissions';
 
 export class PermissionsService {
   constructor(private readonly repository: PermissionsRepository) {}
+
+  async getByEmployeeId(employeeId: string): Promise<ListPermissions> {
+    return this.repository.getByEmployeeId(employeeId);
+  }
 
   async create(employeeId: string, args: string[]): Promise<string> {
     const permissions = this.buildPermissions(employeeId, args);

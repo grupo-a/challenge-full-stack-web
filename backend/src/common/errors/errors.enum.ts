@@ -3,6 +3,7 @@ export enum ERRORS_DESCRIPTION {
   INTERNAL_SERVER_ERROR = 'Internal server error',
   NOT_FOUND = 'Not found',
   PAYLOAD_INVALID = 'Payload invalid',
+  UNAUTHORIZED = 'Unauthorized',
 }
 
 export enum ERRORS_STATUS {

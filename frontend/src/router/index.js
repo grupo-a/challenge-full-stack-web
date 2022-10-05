@@ -1,37 +1,55 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ListStudents from '../views/ListStudents.vue';
-import RegisterStudent from '../views/RegisterStudent.vue';
-import EditStudent from '../views/EditStudent.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import ListStudents from "../views/ListStudents.vue";
+import RegisterStudent from "../views/RegisterStudent.vue";
+import EditStudent from "../views/EditStudent.vue";
+import LoginView from "../views/Login.vue";
+import { getValue } from "@/data/local-storage";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
+
+const beforeEnter = (to, from, next) => {
+  console.log("PEGUEI??", getValue("token"));
+  if (getValue("token") === null) next("/login");
+  next();
+};
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: "*",
+    redirect: "/login",
   },
   {
-    path: '/students',
-    name: 'students',
-    component: ListStudents
+    path: "/",
+    redirect: "/login",
   },
   {
-    path: '/students/create',
-    name: 'createStudent',
-    component: RegisterStudent
+    path: "/students",
+    name: "students",
+    component: ListStudents,
+    beforeEnter,
   },
   {
-    path: '/students/:id/edit',
-    name: 'editStudent',
-    component: EditStudent
-  }
-]
+    path: "/students/create",
+    name: "createStudent",
+    component: RegisterStudent,
+    beforeEnter,
+  },
+  {
+    path: "/students/:id/edit",
+    name: "editStudent",
+    component: EditStudent,
+    beforeEnter,
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: LoginView,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

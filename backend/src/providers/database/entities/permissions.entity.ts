@@ -15,7 +15,7 @@ export class PermissionsEntity implements PermissionsInterface {
   @PrimaryGeneratedColumn('uuid') id: string;
   @OneToOne(() => EmployeesEntity)
   @JoinColumn({ name: 'employeeId' })
-  employeeId: string;
+  employeeId: EmployeesEntity | string;
   @Column('boolean', { default: true }) read: boolean;
   @Column('boolean', { default: false }) create: boolean;
   @Column('boolean', { default: false }) update: boolean;
