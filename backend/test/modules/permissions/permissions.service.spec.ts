@@ -2,7 +2,7 @@ import { ERRORS_DESCRIPTION } from '../../../src/common/errors/errors.enum';
 import { MOCK_ID, MOCK_INJECTION } from '../../mocks/base-mock';
 import { PermissionsService } from '../../../src/modules/permissions/permissions.service';
 import { PermissionsRepository } from '../../../src/modules/permissions/permissions.repository';
-import { PERMISSIONS_LIST } from '../../mocks/permissions';
+import { PERMISSIONS_DB, PERMISSIONS_LIST } from '../../mocks/permissions';
 
 describe('PermissionsService', function () {
   const repository = new PermissionsRepository(MOCK_INJECTION);
@@ -23,6 +23,25 @@ describe('PermissionsService', function () {
         .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
       await expect(service.create(MOCK_ID, PERMISSIONS_LIST)).rejects.toThrow(
         ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
+      );
+    });
+  });
+
+  describe('getByEmployeeId', function () {
+    it('should be sucess', async function () {
+      jest
+        .spyOn(repository, 'getByEmployeeId')
+        .mockResolvedValue(PERMISSIONS_DB);
+      const sut = await service.getByEmployeeId(MOCK_ID);
+      expect(sut).toEqual(PERMISSIONS_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(repository, 'getByEmployeeId')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(service.getByEmployeeId(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
       );
     });
   });

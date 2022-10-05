@@ -11,6 +11,8 @@ export const EMPLOYEES: CreateEmployees = {
   cpf: faker.random.numeric(11),
   email: faker.internet.email(),
   permissions: PERMISSIONS_LIST,
+  password: faker.internet.password(),
+  enrolment: faker.datatype.uuid(),
 };
 
 export const EMPLOYEES_RETURN_DB: ListEmployees = {

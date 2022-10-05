@@ -17,10 +17,11 @@ export class EmployeesEntity
   @Column('varchar') email: string;
   @Column('varchar') name: string;
   @Column('varchar', { unique: true }) enrolment: string;
+  @Column('varchar') password: string;
   @CreateDateColumn({ name: 'created_at' }) createdAt: Date;
   @UpdateDateColumn({ name: 'updated_at' }) updatedAt: Date;
 
   constructor() {
-    this.enrolment = ulid();
+    if (!this.enrolment) this.enrolment = ulid();
   }
 }

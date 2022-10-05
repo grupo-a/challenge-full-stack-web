@@ -9,7 +9,7 @@ export default {
     <v-list>
       <v-list-item class="px-2">
         <v-list-item-avatar class="white">
-          <v-img src="../assets/logo.png"></v-img>
+          <v-img width="64" height="30" src="../assets/logo.svg"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-title>Módulo Acadêmico</v-list-item-title>

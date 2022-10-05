@@ -2,7 +2,7 @@ import { ERRORS_DESCRIPTION } from '../../../src/common/errors/errors.enum';
 import { MOCK_ID, MOCK_INJECTION } from '../../mocks/base-mock';
 import { PermissionsRepository } from '../../../src/modules/permissions/permissions.repository';
 import { PermissionsDao } from '../../../src/providers/database/impl/permissions.dao';
-import { PERMISSIONS } from '../../mocks/permissions';
+import { PERMISSIONS, PERMISSIONS_DB } from '../../mocks/permissions';
 
 describe('PermissionsRepository', function () {
   const dao = new PermissionsDao(MOCK_INJECTION);
@@ -23,6 +23,23 @@ describe('PermissionsRepository', function () {
         .mockRejectedValue(new Error(ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR));
       await expect(repository.create(PERMISSIONS)).rejects.toThrow(
         ERRORS_DESCRIPTION.INTERNAL_SERVER_ERROR,
+      );
+    });
+  });
+
+  describe('getByEmployeeId', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'getById').mockResolvedValue(PERMISSIONS_DB);
+      const sut = await repository.getByEmployeeId(MOCK_ID);
+      expect(sut).toEqual(PERMISSIONS_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(dao, 'getById')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(repository.getByEmployeeId(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
       );
     });
   });

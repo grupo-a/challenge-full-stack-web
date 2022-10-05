@@ -16,6 +16,10 @@ export class EmployeesRepository {
     return this.dao.list();
   }
 
+  async getById(id: string): Promise<ListEmployees> {
+    return this.dao.getById(id);
+  }
+
   async update(id: string, args: UpdateEmployees): Promise<number> {
     return this.dao.update(id, args);
   }

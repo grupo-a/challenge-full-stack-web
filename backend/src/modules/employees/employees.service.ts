@@ -30,6 +30,10 @@ export class EmployeesService {
     return this.repository.list();
   }
 
+  async getById(id: string): Promise<ListEmployees> {
+    return this.repository.getById(id);
+  }
+
   async update(id: string, args: UpdateEmployees): Promise<number> {
     return this.repository
       .update(id, { ...args, permissions: undefined })

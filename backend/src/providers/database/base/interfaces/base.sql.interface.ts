@@ -9,3 +9,7 @@ export interface BaseSqlInterface<T = any> {
   update(id: string, args: QueryDeepPartialEntity<T>): Promise<number>;
   delete(id: string): Promise<number>;
 }
+
+export interface EmployeesSqlInterface<T = any> extends BaseSqlInterface {
+  getByEnrolment(enrolment: string): Promise<T>;
+}

@@ -1,6 +1,6 @@
 import { EmployeesInterface } from '../../../models/interfaces/employees.interface';
 
-export type CreateEmployees = Omit<EmployeesInterface, 'id' | 'enrolment'>;
+export type CreateEmployees = Omit<EmployeesInterface, 'id'>;
 
 export type UpdateEmployees = Pick<
   Partial<EmployeesInterface>,

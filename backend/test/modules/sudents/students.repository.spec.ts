@@ -35,6 +35,23 @@ describe('StudentsRepository', function () {
     });
   });
 
+  describe('getById', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'getById').mockResolvedValue(STUDENTS_RETURN_DB);
+      const sut = await repository.getById(MOCK_ID);
+      expect(sut).toEqual(STUDENTS_RETURN_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(dao, 'getById')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(repository.getById(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
+  });
+
   describe('update', function () {
     it('should be sucess', async function () {
       jest.spyOn(dao, 'update').mockResolvedValue(1);

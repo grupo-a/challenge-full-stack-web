@@ -31,9 +31,16 @@ export class EmployeesController {
 
   @Get()
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ summary: 'Listar colaborador cadastrados' })
+  @ApiOperation({ summary: 'Listar colaboradores cadastrados' })
   async list(): Promise<ListEmployees[]> {
     return await this.service.list();
+  }
+
+  @Get(':id')
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Obtém o cadastro de um colaborador' })
+  async getById(@Param('id') id: string): Promise<ListEmployees> {
+    return await this.service.getById(id);
   }
 
   @Put(':id')

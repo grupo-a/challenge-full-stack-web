@@ -1,26 +1,21 @@
 <script>
 import Button from "@/components/Button";
 import api from "@/data/api";
+import {setValue} from "@/data/local-storage";
 
 export default {
   name: "LoginView",
   components: { Button },
   data: () => ({
     buttons: ["Login"],
-    fields: ["email", "password"],
+    fields: ["enrolment", "password"],
     model: {
-      email: "",
+      enrolment: "",
       password: "",
     },
     rules: {
-      email: [
-        (v) => !!v || "E-mail é obrigatório",
-        (v) => /.+@.+\..+/.test(v) || "E-mail inválido",
-      ],
-      password: [
-        (v) => !!v || "Password é obrigatório",
-        (v) => v.split("").length === 11 || "CPF inválido",
-      ],
+      enrolment: [(v) => !!v || "E-mail é obrigatório"],
+      password: [(v) => !!v || "Password é obrigatório"],
     },
     valid: false,
     showSnackbar: false,
@@ -33,33 +28,35 @@ export default {
       this.$refs.form.validate();
     },
     resetForm() {
-      this.model.email = "";
+      this.model.enrolment = "";
       this.model.password = "";
       this.$refs.form.resetValidation();
     },
     getFormData() {
       return {
-        email: this.model.email,
+        enrolment: this.model.enrolment,
         password: this.model.password,
       };
     },
-    submitForm() {
+    async submitForm() {
       this.validateForm();
       if (this.valid) {
         const formData = this.getFormData();
-        this.saveStudent(formData);
+        await this.signIn(formData);
       }
     },
-    async saveStudent(formData) {
+    async signIn(formData) {
       try {
-        const response = await api.post("/students", formData);
+        const response = await api.post("/signin", formData);
         this.callSnackBar(response.data.message);
+        setValue("token", response.data.token);
         this.resetForm();
+        await this.$router.push({ name: "students" });
       } catch (error) {
         this.callSnackBar(error.response.data.code, "error");
       }
     },
-    callSnackBar(text = "Registro realizado com sucesso!", status = "success") {
+    callSnackBar(text = "Login realizado com sucesso!", status = "success") {
       status === "error"
         ? (this.snackbarColor = "red accent-2")
         : (this.snackbarColor = "green");
@@ -75,6 +72,9 @@ export default {
     <v-main>
       <v-container class="mt-3">
         <v-col class="col-6 mx-auto">
+          <v-col class="col-auto center">
+            <v-img src="../assets/logo.svg"></v-img>
+          </v-col>
           <v-form ref="form" v-model="valid">
             <v-row v-for="field in fields" :key="field">
               <v-col>
@@ -93,7 +93,6 @@ export default {
                   :context_botton="button.toUpperCase()"
                   color_botton="green"
                   class_botton="white--text"
-                  redirect_botton="/students"
                   :action_click="submitForm"
                 />
               </v-col>

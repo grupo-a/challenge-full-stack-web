@@ -35,6 +35,23 @@ describe('StudentsService', function () {
     });
   });
 
+  describe('getById', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(repository, 'getById').mockResolvedValue(STUDENTS_RETURN_DB);
+      const sut = await service.getById(MOCK_ID);
+      expect(sut).toEqual(STUDENTS_RETURN_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(repository, 'getById')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(service.getById(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
+    });
+  });
+
   describe('update', function () {
     it('should be sucess', async function () {
       jest.spyOn(repository, 'update').mockResolvedValue(1);
@@ -45,9 +62,9 @@ describe('StudentsService', function () {
     it('should be an error if it not found', async function () {
       jest
         .spyOn(repository, 'update')
-        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.ALREADY_EXIST));
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
       await expect(service.update(MOCK_ID, STUDENTS)).rejects.toThrow(
-        ERRORS_DESCRIPTION.ALREADY_EXIST,
+        ERRORS_DESCRIPTION.NOT_FOUND,
       );
     });
   });
@@ -62,9 +79,9 @@ describe('StudentsService', function () {
     it('should be an error if it not found', async function () {
       jest
         .spyOn(repository, 'delete')
-        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.ALREADY_EXIST));
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
       await expect(service.delete(MOCK_ID)).rejects.toThrow(
-        ERRORS_DESCRIPTION.ALREADY_EXIST,
+        ERRORS_DESCRIPTION.NOT_FOUND,
       );
     });
   });

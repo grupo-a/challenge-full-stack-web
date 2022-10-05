@@ -2,6 +2,8 @@
 import api from "../data/api";
 import ButtonBase from "@/components/Button";
 import BaseView from "@/components/Base";
+import {configHeaders} from "@/data/config-headers";
+import {getValue} from "@/data/local-storage";
 
 export default {
   name: "ListStudents",
@@ -25,15 +27,22 @@ export default {
       cpf: "",
     },
     students: [],
+    showSnackbar: false,
+    snackbarTimeout: 5000,
+    snackbarText: "",
+    snackbarColor: "",
   }),
   methods: {
     async getStudents() {
       try {
-        const result = await api.get("/students");
+        const result = await api.get(
+          "/students",
+          configHeaders(getValue("token"))
+        );
         this.students = result.data;
         this.loading = false;
       } catch (error) {
-        console.error(error);
+        this.callSnackBar(error.response.data.code, "error");
       }
     },
     editStudent(item) {
@@ -49,12 +58,19 @@ export default {
     async deleteStudentConfirm() {
       const id = this.selectedStudent.id;
       try {
-        await api.delete(`/students/${id}`);
+        await api.delete(`/students/${id}`, configHeaders(getValue("token")));
         await this.getStudents();
         this.closeDialog();
       } catch (error) {
-        console.error(error);
+        this.callSnackBar(error.response.data.code, "error");
       }
+    },
+    callSnackBar(text, status = "success") {
+      status === "error"
+          ? (this.snackbarColor = "red accent-2")
+          : (this.snackbarColor = "green");
+      this.snackbarText = text;
+      this.showSnackbar = true;
     },
   },
   created() {
@@ -158,6 +174,12 @@ export default {
           </v-col>
         </v-row>
       </v-container>
+      <v-snackbar
+          v-model="showSnackbar"
+          :timeout="snackbarTimeout"
+          :color="snackbarColor"
+      >{{ snackbarText }}</v-snackbar
+      >
     </v-main>
   </div>
 </template>

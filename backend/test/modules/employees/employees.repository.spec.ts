@@ -2,7 +2,7 @@ import { ERRORS_DESCRIPTION } from '../../../src/common/errors/errors.enum';
 import { MOCK_ID, MOCK_INJECTION } from '../../mocks/base-mock';
 import { EmployeesRepository } from '../../../src/modules/employees/employees.repository';
 import { EmployeesDao } from '../../../src/providers/database/impl/employees.dao';
-import { EMPLOYEES } from '../../mocks/employees';
+import { EMPLOYEES, EMPLOYEES_RETURN_DB } from '../../mocks/employees';
 
 describe('EmployeesRepository', function () {
   const dao = new EmployeesDao(MOCK_INJECTION);
@@ -32,6 +32,23 @@ describe('EmployeesRepository', function () {
       jest.spyOn(dao, 'list').mockResolvedValue([]);
       const sut = await repository.list();
       expect(sut).toEqual([]);
+    });
+  });
+
+  describe('getById', function () {
+    it('should be sucess', async function () {
+      jest.spyOn(dao, 'getById').mockResolvedValue(EMPLOYEES_RETURN_DB);
+      const sut = await repository.getById(MOCK_ID);
+      expect(sut).toEqual(EMPLOYEES_RETURN_DB);
+    });
+
+    it('should be an error if it not found', async function () {
+      jest
+        .spyOn(dao, 'getById')
+        .mockRejectedValue(new Error(ERRORS_DESCRIPTION.NOT_FOUND));
+      await expect(repository.getById(MOCK_ID)).rejects.toThrow(
+        ERRORS_DESCRIPTION.NOT_FOUND,
+      );
     });
   });
 
