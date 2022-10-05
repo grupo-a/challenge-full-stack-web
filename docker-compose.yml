@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  front_local:
+    container_name: front_local
+    build:
+      context: ./frontend
+      target: development
+    depends_on:
+      - back_local
+    ports:
+      - "8080:8080"
+    networks:
+      - challenge
+
+  back_local:
+    container_name: back_local
+    build:
+      context: ./backend
+      target: development
+    depends_on:
+      - postgre_local
+    ports:
+      - "3000:3000"
+    networks:
+      - challenge
+
+  postgre_local:
+    container_name: postgre_local
+    image: postgres
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=challenge
+    networks:
+      - challenge
+
+networks:
+  challenge:
+    driver: bridge

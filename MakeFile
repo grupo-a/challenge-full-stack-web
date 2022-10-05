@@ -1,0 +1,10 @@
+## Construir aplicação ##
+
+docker:
+	docker compose up --build -d
+
+seed:
+	curl --request POST \
+  	  --url http://localhost:8080/plan \
+      --header 'Content-Type: application/json' \
+      --data '{ "name": "Yuri Rodrigues", "email": "yrcunha@gmail.com", "cpf": "49480347893", "password": "49480347890", "enrolment": "01GEJQYF6ENPCHV62QZ17XMFFF", "permissions": ["READ", "CREATE", "UPDATE", "DELETE" ] }'
