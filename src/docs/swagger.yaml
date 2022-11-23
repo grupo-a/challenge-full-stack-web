@@ -1,0 +1,46 @@
+components:
+  schemas:
+    swaggerGetResponse:
+      type: object
+      properties:
+        openapi: 
+          type: string
+          example: 3.0.0
+        info: 
+          type: object
+          properties: 
+            title: 
+              type: string
+              example: Educacao API
+            version: 
+              type: string
+              example: 1.0.0
+        paths: 
+          type: object
+        components: 
+          type: object
+        tags: 
+          type: array
+          items:
+            type: object
+          maxItems: 0
+
+paths:
+  /v1/swagger.json:
+    get:
+      description: Get swagger json data
+      tags:
+        - Swagger
+      responses:
+        200:
+          description: Swagger data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/swaggerGetResponse"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/internalServerError"

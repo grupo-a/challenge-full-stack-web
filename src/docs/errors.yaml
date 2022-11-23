@@ -1,0 +1,154 @@
+components:
+  schemas:
+    badRequestStudentPost:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: custom
+          path: 
+            type: array
+            items: 
+              type: string
+              example: cpf
+          message: 
+            type: string
+            example: "Invalid CPF: '03624283318'"
+
+    badRequestStudentDelete:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: invalid_string
+          path: 
+            type: array
+            items: 
+              type: string
+              example: id
+          message: 
+            type: string
+            example: Invalid uuid
+
+    badRequestStudentPatch:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: unrecognized_keys
+          path: 
+            type: array
+            items: 
+              type: string
+              example: cpf
+          message: 
+            type: string
+            example: "Unrecognized key(s) in object: 'cpf'"
+
+    badRequestStudentList:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: invalid_string
+          path: 
+            type: array
+            items: 
+              type: string
+              example: limit
+          message: 
+            type: string
+            example: Invalid
+
+    badRequestAuthenticationPost:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: custom
+          path: 
+            type: array
+            items: 
+              type: string
+              example: password
+          message: 
+            type: string
+            example: required
+
+    unauthorized:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: JsonWebTokenError
+          path: 
+            type: array
+            items: 
+              type: string
+              example: token
+          message: 
+            type: string
+            example: invalid signature
+
+    forbidden:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: Forbidden
+          path: 
+            type: array
+            items: 
+              type: string
+              example: password
+          message: 
+            type: string
+            example: Wrong password
+
+    studentNotFound:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: NotFound
+          path: 
+            type: array
+            items: 
+              type: string
+              example: id
+          message: 
+            type: string
+            example: Student not found
+
+    internalServerError:
+      type: array
+      items:
+        type: object
+        properties: 
+          code: 
+            type: string
+            example: NotImplementedError
+          path: 
+            type: array
+            items: 
+              type: string
+            maxItems: 0
+          message: 
+            type: string
+            example: Not implemented

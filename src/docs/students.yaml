@@ -1,0 +1,292 @@
+components:
+  schemas:
+    studentPostRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+    studentPostResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        id:
+          type: string
+          example: b09af8b9-f8ab-4c31-85ac-ff83869c778a
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'
+    studentUpdateResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yanlucas@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        id:
+          type: string
+          example: b09af8b9-f8ab-4c31-85ac-ff83869c778a
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'  
+    studentsListResponse:
+      type: object
+      properties:
+        skip:
+          type: number
+          example: 0
+        limit:
+          type: number
+          example: 1
+        count:
+          type: number
+          example: 1
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/studentPostResponse"
+    studentDeleteResponse:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Yan Lucas
+        email:
+          type: string
+          example: yan@email.com
+        ra:
+          type: string
+          example: '123456'
+        cpf:
+          type: string
+          example: '12345678901'
+        createdAt:
+          type: string
+          example: '2021-03-01T00:00:00.000Z'
+        updatedAt:
+          type: string
+          example: '2022-09-23T13:01:02.772Z'
+
+paths:
+  /v1/students:
+    post:
+      description: Create a new student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Student data to create, all fields are required
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/studentPostRequest'
+      responses:
+        200:
+          description: Student created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentPostResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestStudentPost'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
+
+    get:
+      description: Get all students
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            example: 1
+          description: max number of students to return
+        - in: query
+          name: skip
+          schema:
+            type: integer
+            example: 0
+          description: Limit of students to skip
+      responses:
+        200:
+          description: List of students
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentsListResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestStudentList'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
+
+
+  /v1/students/{id}:
+    patch:
+      description: Update a student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Student ID
+      requestBody:
+        description: Student data to update, only email and name can be updated.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Yan Lucas
+                email:
+                  type: string
+                  example: yanlucas@email.com
+      responses:
+        200:
+          description: Student updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentUpdateResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestStudentPatch'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        404:
+          description: Student Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentNotFound'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'
+    
+    delete:
+      description: Delete a student
+      tags:
+        - Students
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: Student ID
+      responses:
+        200:
+          description: Student deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentDeleteResponse'
+        400:
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/badRequestStudentDelete'
+        401:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorized'
+        404:
+          description: Student Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/studentNotFound'
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/internalServerError'

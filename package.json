@@ -1,0 +1,52 @@
+{
+  "name": "challenge-full-stack-web",
+  "version": "1.0.0",
+  "description": "Challenge to +A Educação",
+  "main": "index.js",
+  "type": "module",
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "npm run test"
+    ]
+  },
+  "scripts": {
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "start": "node -r dotenv/config src/index.js ",
+    "start:dev": "nodemon -r dotenv/config src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xyanlucasx/challenge-full-stack-web.git"
+  },
+  "author": "Yan Lucas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xyanlucasx/challenge-full-stack-web/issues"
+  },
+  "homepage": "https://github.com/xyanlucasx/challenge-full-stack-web#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.1.2",
+    "@commitlint/config-conventional": "^17.1.0",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
+    "jest": "^29.0.3",
+    "lint-staged": "^13.0.3",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.8.0",
+    "swagger-jsdoc": "^6.2.5",
+    "typeorm": "^0.3.10",
+    "winston": "^3.8.2",
+    "zod": "^3.19.1"
+  }
+}
