@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: grupoa-back-end-api
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/home/node/app
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres"
+    container_name: grupoa-back-end-db
+    environment:
+      - "POSTGRES_USER=testUser"
+      - "POSTGRES_PASSWORD=testPassword"
+      - "POSTGRES_DB=grupoa-test"
+    volumes:
+      - .docker/db:/var/lib/postgresql/data
+    restart: always
+    tty: true
+    ports:
+      - "5432:5432"
+    expose:
+      - "5432"
