@@ -1,5 +1,5 @@
-import { type ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
-import { type IStudent } from '../model/Student'
+import { ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
+import { IStudent } from '../model/Student.interface'
 
 export interface IStudentsRepository {
     create: (data: ICreateStudentDTO) => Promise<void>

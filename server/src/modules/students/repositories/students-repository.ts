@@ -1,6 +1,7 @@
 import { ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
 import { prisma } from '../../../prisma'
-import { IStudent } from '../model/Student'
+import { IStudent } from '../model/Student.interface'
+
 import { IStudentsRepository } from './students-repository.interface'
 
 class StudentsRepository implements IStudentsRepository {

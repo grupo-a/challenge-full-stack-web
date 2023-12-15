@@ -1,6 +1,6 @@
-import { type Request, type Response } from 'express'
+import { Request, type Response } from 'express'
 
-import { type ListStudentsUseCase } from './list-students-use-case'
+import { ListStudentsUseCase } from './list-students-use-case'
 
 class ListStudentsController {
     constructor(private readonly listStudentUseCase: ListStudentsUseCase) {}

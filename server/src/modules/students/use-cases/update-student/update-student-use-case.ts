@@ -1,9 +1,9 @@
-import { type IUpdateStudentDTO } from '../../../../adapters/student/update-student-dto.interface'
-import { type IStudent } from '../../model/Student'
-import { type IStudentsRepository } from '../../repositories/students-repository.interface'
-import { type UseCase } from '../use-case.interface'
+import { IUpdateStudentDTO } from '../../../../adapters/student/update-student-dto.interface'
+import { IStudent } from '../../model/Student.interface'
+import { IStudentsRepository } from '../../repositories/students-repository.interface'
+import { IUseCase } from '../use-case.interface'
 
-class UpdateStudentUseCase implements UseCase<IUpdateStudentDTO, void> {
+class UpdateStudentUseCase implements IUseCase<IUpdateStudentDTO, void> {
     constructor(private readonly studentsRepository: IStudentsRepository) {}
 
     async execute({ id, name, email }: IUpdateStudentDTO): Promise<void> {

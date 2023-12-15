@@ -5,45 +5,20 @@
         "jest": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:n/recommended",
-        "plugin:import/typescript",
-        "plugin:import/recommended",
-        "plugin:promise/recommended",
-        "standard-with-typescript",
-        "plugin:security/recommended",
-        "plugin:@typescript-eslint/eslint-recommended",
+        "airbnb-base",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:prettier/recommended",
+        "plugin:import/typescript",
+        "plugin:import/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "plugins": [
-        "@typescript-eslint",
-        "eslint-plugin-import-helpers",
-        "prettier",
-        "import",
-        "promise",
-        "jest",
-        "n"
-    ],
+    "plugins": ["@typescript-eslint", "import"],
     "rules": {
-        "quotes": ["error", "single"],
-        "semi": ["error", "never"],
-        "indent": "off",
-        "camelcase": "off",
-        "import/no-unresolved": "error",
         "@typescript-eslint/indent": ["error", 4],
-        "max-len": ["error", {
-            "code": 120,
-            "ignoreStrings": true,
-            "ignoreUrls": true,
-            "ignoreRegExpLiterals": true,
-            "ignoreTemplateLiterals": true
-        }],
         "comma-dangle": [
             "error",
             {
@@ -52,64 +27,6 @@
                 "functions": "ignore",
                 "imports": "always-multiline",
                 "objects": "always-multiline"
-            }
-        ],
-        "@typescript-eslint/naming-convention": [
-            "error",
-            {
-                "selector": "interface",
-                "format": [
-                    "PascalCase"
-                ],
-                "custom": {
-                    "regex": "^I[A-Z]",
-                    "match": true
-                }
-            }
-        ],
-        "class-methods-use-this": "off",
-        "import/prefer-default-export": "off",
-        "no-shadow": "off",
-        "no-console": "off",
-        "no-useless-constructor": "off",
-        "no-empty-function": "off",
-        "promise/always-return": "off",
-        "n/no-missing-import": "off",
-        "n/no-unsupported-features/es-syntax": "off",
-        "n/no-unpublished-import": "off",
-        "lines-between-class-members": "off",
-        "import/extensions": [
-            "error",
-            "ignorePackages",
-            {
-                "ts": "never"
-            }
-        ],
-        "import-helpers/order-imports": [
-            "warn",
-            {
-                "newlinesBetween": "always",
-                "groups": [
-                    "module",
-                    "/^@shared/",
-                    [
-                        "parent",
-                        "sibling",
-                        "index"
-                    ]
-                ],
-                "alphabetize": {
-                    "order": "asc",
-                    "ignoreCase": true
-                }
-            }
-        ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": [
-                    "**/*.spec.js"
-                ]
             }
         ],
         "import/order": [
@@ -143,37 +60,49 @@
                 }
             }
         ],
+        "camelcase": "off",
+        "import/no-unresolved": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "interface",
+                "format": ["PascalCase"],
+                "custom": {
+                    "regex": "^I[A-Z]",
+                    "match": true
+                }
+            }
+        ],
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "no-shadow": "off",
+        "no-console": "off",
+        "no-useless-constructor": "off",
+        "no-empty-function": "off",
+        "lines-between-class-members": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "ts": "never"
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": ["**/*.spec.js"]
+            }
+        ],
         "prettier/prettier": "error"
     },
     "settings": {
+        "import/parsers": {
+            "@typescript-eslint/parser": [".ts", ".tsx"]
+        },
         "import/resolver": {
-            "typescript": {}
+            "typescript": {
+                "alwaysTryTypes": true
+            }
         }
-    },
-    "ignorePatterns": [
-        "node_modules",
-        "**/node_modules",
-        "dist",
-        "**/dist",
-        ".vscode",
-        "**/.vscode",
-        ".code-snippets",
-        "**/code-snippets",
-        "iac",
-        "**/iac",
-        "temp",
-        "**/temp",
-        ".turbo",
-        "**/.turbo",
-        ".next",
-        "**/.next",
-        "coverage",
-        "build",
-        "**/coverage",
-        "**/.volumes",
-        "**/*.d.ts",
-        "**/*.config.*",
-        "**/.eslintrc.js",
-        "**/setup.ts"
-    ]
+    }
 }

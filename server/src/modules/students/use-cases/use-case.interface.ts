@@ -1,5 +1,5 @@
-interface UseCase<UseCasePort, UseCaseResult> {
+interface IUseCase<UseCasePort, UseCaseResult> {
     execute: (params: UseCasePort) => Promise<UseCaseResult>
 }
 
-export type { UseCase }
+export type { IUseCase }

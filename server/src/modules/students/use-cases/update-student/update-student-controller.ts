@@ -1,6 +1,6 @@
-import { type Request, type Response } from 'express'
+import { Request, type Response } from 'express'
 
-import { type UpdateStudentUseCase } from './update-student-use-case'
+import { UpdateStudentUseCase } from './update-student-use-case'
 
 class UpdateStudentController {
     constructor(private readonly updateStudentUseCase: UpdateStudentUseCase) {}

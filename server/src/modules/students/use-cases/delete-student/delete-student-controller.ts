@@ -1,6 +1,6 @@
-import { type Request, type Response } from 'express'
+import { Request, type Response } from 'express'
 
-import { type DeleteStudentUseCase } from './delete-student-use-case'
+import { DeleteStudentUseCase } from './delete-student-use-case'
 
 class DeleteStudentController {
     constructor(private readonly deleteStudentUseCase: DeleteStudentUseCase) {}
@@ -9,9 +9,9 @@ class DeleteStudentController {
         try {
             const { id } = req.params
 
-            const student = await this.deleteStudentUseCase.execute(id)
+            await this.deleteStudentUseCase.execute(id)
 
-            return res.status(204).json(student)
+            return res.status(204).send()
         } catch (error) {
             console.error(error)
             return res.status(400).send(error)

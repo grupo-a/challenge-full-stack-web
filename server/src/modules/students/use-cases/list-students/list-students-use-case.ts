@@ -1,12 +1,12 @@
-import { type IStudent } from '../../model/Student'
-import { type IStudentsRepository } from '../../repositories/students-repository.interface'
-import { type UseCase } from '../use-case.interface'
+import { IStudent } from '../../model/Student.interface'
+import { IStudentsRepository } from '../../repositories/students-repository.interface'
+import { IUseCase } from '../use-case.interface'
 
-class ListStudentsUseCase implements UseCase<void, IStudent[]> {
+class ListStudentsUseCase implements IUseCase<void, IStudent[]> {
     constructor(private readonly studentsRepository: IStudentsRepository) {}
 
     async execute(): Promise<IStudent[]> {
-        return await this.studentsRepository.list()
+        return this.studentsRepository.list()
     }
 }
 

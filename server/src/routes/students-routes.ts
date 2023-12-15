@@ -9,23 +9,23 @@ import { updateStudentController } from '../modules/students/use-cases/update-st
 const studentsRoutes = Router()
 
 studentsRoutes.post('/', async (req, res) => {
-    return await createStudentController.handle(req, res)
+    return createStudentController.handle(req, res)
 })
 
 studentsRoutes.get('/:id', async (req, res) => {
-    return await getStudentController.handle(req, res)
+    return getStudentController.handle(req, res)
 })
 
 studentsRoutes.get('/', async (req, res) => {
-    return await listStudentsController.handle(req, res)
+    return listStudentsController.handle(req, res)
 })
 
 studentsRoutes.put('/:id', async (req, res) => {
-    return await updateStudentController.handle(req, res)
+    return updateStudentController.handle(req, res)
 })
 
 studentsRoutes.delete('/:id', async (req, res) => {
-    return await deleteStudentController.handle(req, res)
+    return deleteStudentController.handle(req, res)
 })
 
 export { studentsRoutes }
