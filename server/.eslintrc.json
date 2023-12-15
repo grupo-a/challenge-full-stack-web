@@ -31,8 +31,29 @@
         "n"
     ],
     "rules": {
+        "quotes": ["error", "single"],
+        "semi": ["error", "never"],
+        "indent": "off",
         "camelcase": "off",
         "import/no-unresolved": "error",
+        "@typescript-eslint/indent": ["error", 4],
+        "max-len": ["error", {
+            "code": 120,
+            "ignoreStrings": true,
+            "ignoreUrls": true,
+            "ignoreRegExpLiterals": true,
+            "ignoreTemplateLiterals": true
+        }],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "always-multiline",
+                "exports": "always-multiline",
+                "functions": "ignore",
+                "imports": "always-multiline",
+                "objects": "always-multiline"
+            }
+        ],
         "@typescript-eslint/naming-convention": [
             "error",
             {
@@ -52,6 +73,10 @@
         "no-console": "off",
         "no-useless-constructor": "off",
         "no-empty-function": "off",
+        "promise/always-return": "off",
+        "n/no-missing-import": "off",
+        "n/no-unsupported-features/es-syntax": "off",
+        "n/no-unpublished-import": "off",
         "lines-between-class-members": "off",
         "import/extensions": [
             "error",
@@ -85,6 +110,37 @@
                 "devDependencies": [
                     "**/*.spec.js"
                 ]
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+                "pathGroups": [
+                    {
+                        "pattern": "react",
+                        "group": "external",
+                        "position": "before"
+                    },
+                    {
+                        "group": "internal",
+                        "pattern": "@*/**"
+                    },
+                    {
+                        "group": "parent",
+                        "pattern": "~*/**"
+                    },
+                    {
+                        "group": "parent",
+                        "pattern": "&*/**"
+                    }
+                ],
+                "pathGroupsExcludedImportTypes": ["react"],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "caseInsensitive": true,
+                    "order": "asc"
+                }
             }
         ],
         "prettier/prettier": "error"
