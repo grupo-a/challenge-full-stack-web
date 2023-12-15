@@ -1,11 +1,5 @@
-interface IStudent {
-    id: string
-    name: string
-    email: string
-    ra: string
-    cpf: string
-    createdAt: Date
-    updatedAt: Date
-}
+import { Student } from '@prisma/client'
+
+interface IStudent extends Student {}
 
 export type { IStudent }

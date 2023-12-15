@@ -32,7 +32,7 @@ class StudentsRepository implements IStudentsRepository {
 
     async getById(id: string): Promise<IStudent | null> {
         try {
-            const student = await prisma.student.findFirst({
+            const student = await prisma.student.findUnique({
                 where: {
                     id,
                 },
@@ -45,11 +45,11 @@ class StudentsRepository implements IStudentsRepository {
         }
     }
 
-    async getByName(name: string): Promise<IStudent | null> {
+    async getByRA(ra: string): Promise<IStudent | null> {
         try {
-            const student = await prisma.student.findFirst({
+            const student = await prisma.student.findUnique({
                 where: {
-                    name,
+                    ra,
                 },
             })
 

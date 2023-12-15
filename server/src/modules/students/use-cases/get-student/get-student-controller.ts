@@ -1,4 +1,4 @@
-import { Request, type Response } from 'express'
+import { Request, Response } from 'express'
 
 import { GetStudentUseCase } from './get-student-use-case'
 

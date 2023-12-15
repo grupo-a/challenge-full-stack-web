@@ -1,4 +1,4 @@
-import { Request, type Response } from 'express'
+import { Request, Response } from 'express'
 
 import { DeleteStudentUseCase } from './delete-student-use-case'
 

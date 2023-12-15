@@ -1,11 +1,16 @@
-// import { Request, Response, Router } from 'express'
+import { Request, Response, Router } from 'express'
 
-// import { createSpecificationController } from '../modules/students/use-cases/CreateSpecification'
+import { createUserController } from '../modules/users/use-cases/create-user'
+import { userLoginController } from '../modules/users/use-cases/user-login'
 
-// const usersRoutes = Router()
+const usersRoutes = Router()
 
-// usersRoutes.post('/', (req: Request, res: Response) => {
-//     return createSpecificationController.handle(req, res)
-// })
+usersRoutes.post('/', (req: Request, res: Response) => {
+    return createUserController.handle(req, res)
+})
 
-// export { usersRoutes }
+usersRoutes.post('/login', (req: Request, res: Response) => {
+    return userLoginController.handle(req, res)
+})
+
+export { usersRoutes }

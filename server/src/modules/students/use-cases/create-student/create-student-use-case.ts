@@ -6,7 +6,7 @@ class CreateStudentUseCase implements IUseCase<ICreateStudentDTO, void> {
     constructor(private readonly studentsRepository: IStudentsRepository) {}
 
     async execute({ name, email, ra, cpf }: ICreateStudentDTO): Promise<void> {
-        const studentAlreadyExists = await this.studentsRepository.getByName(name)
+        const studentAlreadyExists = await this.studentsRepository.getByRA(ra)
 
         if (studentAlreadyExists) {
             throw new Error('Student already exists')
