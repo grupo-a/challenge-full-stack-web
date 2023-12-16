@@ -1,9 +1,8 @@
-import { ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
-import { prisma } from '../../../database/prisma'
-import { AppErrorHandler } from '../../../errors/app-error-handler'
-import { IStudent } from '../model/Student.interface'
-
-import { IStudentsRepository } from './students-repository.interface'
+import { ICreateStudentDTO } from '../../../../adapters/student/create-student-dto.interface'
+import { prisma } from '../../../../database/prisma'
+import { AppErrorHandler } from '../../../../errors/app-error-handler'
+import { IStudent } from '../../model/Student.interface'
+import { IStudentsRepository } from '../students-repository.interface'
 
 class StudentsRepository implements IStudentsRepository {
     private static INSTANCE: IStudentsRepository

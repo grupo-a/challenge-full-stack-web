@@ -1,4 +1,4 @@
-import { UsersRepository } from '../../repositories/users-repository'
+import { UsersRepository } from '../../repositories/implementations/users-repository'
 
 import { CreateUserController } from './create-user-controller'
 import { CreateUserUseCase } from './create-user-use-case'

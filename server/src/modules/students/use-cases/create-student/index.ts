@@ -1,4 +1,4 @@
-import { StudentsRepository } from '../../repositories/students-repository'
+import { StudentsRepository } from '../../repositories/implementations/students-repository'
 
 import { CreateStudentController } from './create-student-controller'
 import { CreateStudentUseCase } from './create-student-use-case'
