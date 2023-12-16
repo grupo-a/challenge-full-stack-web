@@ -1,6 +1,6 @@
 import { ICreateUserDTO } from '../../../adapters/user/create-user-dto.interface'
+import { prisma } from '../../../database/prisma'
 import { AppErrorHandler } from '../../../errors/app-error-handler'
-import { prisma } from '../../../prisma'
 import { IUser } from '../model/User.interface'
 
 import { IUsersRepository } from './users-repository.interface'

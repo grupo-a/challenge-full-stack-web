@@ -18,6 +18,10 @@
     },
     "plugins": ["@typescript-eslint", "import"],
     "rules": {
+        "import/no-extraneous-dependencies": [
+            "error",
+            { "devDependencies": true, "optionalDependencies": false, "peerDependencies": false }
+        ],
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/indent": ["error", 4],
         "comma-dangle": [
@@ -86,12 +90,6 @@
             "ignorePackages",
             {
                 "ts": "never"
-            }
-        ],
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-                "devDependencies": ["**/*.spec.js"]
             }
         ],
         "prettier/prettier": "error"

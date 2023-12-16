@@ -1,6 +1,6 @@
 import { ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
+import { prisma } from '../../../database/prisma'
 import { AppErrorHandler } from '../../../errors/app-error-handler'
-import { prisma } from '../../../prisma'
 import { IStudent } from '../model/Student.interface'
 
 import { IStudentsRepository } from './students-repository.interface'
