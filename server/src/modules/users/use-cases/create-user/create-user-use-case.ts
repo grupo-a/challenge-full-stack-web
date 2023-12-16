@@ -1,6 +1,7 @@
 import { hash } from 'bcryptjs'
 
 import { ICreateUserDTO } from '../../../../adapters/user/create-user-dto.interface'
+import { BadRequestError } from '../../../../errors/bad-request-error'
 import { IUsersRepository } from '../../repositories/users-repository.interface'
 import { IUseCase } from '../use-case.interface'
 
@@ -11,7 +12,7 @@ class CreateUserUseCase implements IUseCase<ICreateUserDTO, void> {
         const userAlreadyExists = await this.usersRepository.getByEmail(email)
 
         if (userAlreadyExists) {
-            throw new Error('User already exists')
+            throw new BadRequestError('User already exists')
         }
 
         const passwordHash = await hash(password, 12)

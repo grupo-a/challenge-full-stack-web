@@ -2,6 +2,8 @@ import { compare } from 'bcryptjs'
 import { sign } from 'jsonwebtoken'
 
 import { IUserLoginDTO, ITokenPayload } from '../../../../adapters/user/user-login-dto.interface'
+import { BadRequestError } from '../../../../errors/bad-request-error'
+import { NotFoundError } from '../../../../errors/not-found-error'
 import { IUsersRepository } from '../../repositories/users-repository.interface'
 import { IUseCase } from '../use-case.interface'
 
@@ -12,14 +14,14 @@ class UserLoginUseCase implements IUseCase<IUserLoginDTO, string> {
         const user = await this.usersRepository.getByEmail(email)
 
         if (!user) {
-            throw new Error('User not found')
+            throw new NotFoundError('User not found')
         }
 
         const passwordIsValid = await compare(password, user.password)
-        if (!passwordIsValid) throw new Error('Password is invalid')
+        if (!passwordIsValid) throw new BadRequestError('Password is invalid')
 
         const secret = process.env.JWT_SECRET
-        if (!secret) throw new Error('JWT secret is invalid')
+        if (!secret) throw new BadRequestError('JWT secret is invalid')
 
         const tokenPayload: ITokenPayload = {
             id: user.id,

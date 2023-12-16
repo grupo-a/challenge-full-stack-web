@@ -1,4 +1,5 @@
 import { ICreateUserDTO } from '../../../adapters/user/create-user-dto.interface'
+import { AppErrorHandler } from '../../../errors/app-error-handler'
 import { prisma } from '../../../prisma'
 import { IUser } from '../model/User.interface'
 
@@ -25,8 +26,7 @@ class UsersRepository implements IUsersRepository {
                 },
             })
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -40,8 +40,7 @@ class UsersRepository implements IUsersRepository {
 
             return user
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 }

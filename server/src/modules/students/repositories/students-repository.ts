@@ -1,4 +1,5 @@
 import { ICreateStudentDTO } from '../../../adapters/student/create-student-dto.interface'
+import { AppErrorHandler } from '../../../errors/app-error-handler'
 import { prisma } from '../../../prisma'
 import { IStudent } from '../model/Student.interface'
 
@@ -25,8 +26,7 @@ class StudentsRepository implements IStudentsRepository {
                 },
             })
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -40,8 +40,7 @@ class StudentsRepository implements IStudentsRepository {
 
             return student
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -56,7 +55,7 @@ class StudentsRepository implements IStudentsRepository {
             return student
         } catch (error) {
             console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -67,7 +66,7 @@ class StudentsRepository implements IStudentsRepository {
             return students
         } catch (error) {
             console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -82,8 +81,7 @@ class StudentsRepository implements IStudentsRepository {
                 },
             })
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 
@@ -95,8 +93,7 @@ class StudentsRepository implements IStudentsRepository {
                 },
             })
         } catch (error) {
-            console.error(error)
-            throw new Error(JSON.stringify(error, null, 2))
+            throw new AppErrorHandler(JSON.stringify(error), 500)
         }
     }
 }

@@ -1,3 +1,4 @@
+import { NotFoundError } from '../../../../errors/not-found-error'
 import { IStudent } from '../../model/Student.interface'
 import { IStudentsRepository } from '../../repositories/students-repository.interface'
 import { IUseCase } from '../use-case.interface'
@@ -9,7 +10,7 @@ class GetStudentUseCase implements IUseCase<string, IStudent> {
         const student = await this.studentsRepository.getById(id)
 
         if (!student) {
-            throw new Error('Student not found')
+            throw new NotFoundError('Student not found')
         }
 
         return student

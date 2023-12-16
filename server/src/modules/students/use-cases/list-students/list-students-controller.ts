@@ -6,14 +6,9 @@ class ListStudentsController {
     constructor(private readonly listStudentUseCase: ListStudentsUseCase) {}
 
     async handle(req: Request, res: Response): Promise<Response> {
-        try {
-            const students = await this.listStudentUseCase.execute()
+        const students = await this.listStudentUseCase.execute()
 
-            return res.status(200).json(students)
-        } catch (error) {
-            console.error(error)
-            return res.status(400).send(error)
-        }
+        return res.status(200).json(students)
     }
 }
 

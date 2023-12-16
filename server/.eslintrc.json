@@ -18,6 +18,7 @@
     },
     "plugins": ["@typescript-eslint", "import"],
     "rules": {
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/indent": ["error", 4],
         "comma-dangle": [
             "error",
