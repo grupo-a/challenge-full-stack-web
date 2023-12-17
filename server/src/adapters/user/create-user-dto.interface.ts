@@ -7,4 +7,4 @@ interface ICreateUserDTO {
     role?: Role
 }
 
-export type { ICreateUserDTO }
+export type { ICreateUserDTO, Role }
