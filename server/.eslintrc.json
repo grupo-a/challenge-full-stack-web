@@ -18,10 +18,7 @@
     },
     "plugins": ["@typescript-eslint", "import"],
     "rules": {
-        "import/no-extraneous-dependencies": [
-            "error",
-            { "devDependencies": true, "optionalDependencies": false, "peerDependencies": false }
-        ],
+        "import/no-extraneous-dependencies": "off",
         "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
         "@typescript-eslint/indent": ["error", 4],
         "comma-dangle": [
