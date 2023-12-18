@@ -1,8 +1,5 @@
 <template>
-    <header>
-        <RouterLink to="/create-students">Cadastrar</RouterLink>
-        <RouterLink class="active" to="/consult-students">Consultar</RouterLink>
-    </header>
+    <HeaderBar active="consult" />
 
     <div id="page-consult-students">
         <div class="content">
@@ -46,46 +43,31 @@
 
 <script setup lang="ts">
 import { api } from '@/services/api'
+import type { IStudent } from '@/types/Student'
+import { onMounted, reactive } from 'vue'
 import { RouterLink } from 'vue-router'
+import HeaderBar from '@/components/HeaderBar.vue'
 
-const students = [
-    {
-        id: '1',
-        name: 'Joao',
-        email: 'joao@test.com',
-        ra: '111111111',
-        cpf: '111.111.111-11',
-    },
-    {
-        id: '2',
-        name: 'Maria',
-        email: 'maria@test.com',
-        ra: '222222222',
-        cpf: '222.222.222-22',
-    },
-    {
-        id: '3',
-        name: 'José',
-        email: 'jose@test.com',
-        ra: '333333333',
-        cpf: '333.333.333-33',
-    },
-]
+const students = reactive<IStudent[]>([])
+
+onMounted(async () => {
+    const response = await api.get(`students`)
+
+    students.push(...response.data)
+})
 
 async function handleRemoveStudent(id: string, name: string) {
     try {
         if (confirm(`Realmente deseja remover o aluno ${name}?`) == true) {
             await api.delete(`students/${id}`)
             alert('Aluno removido com sucesso')
-        } else {
-            alert('Aluno não removido')
+
+            history.go(0)
         }
     } catch (error) {
         console.error(error)
         alert('Houve um erro ao remover o aluno')
     }
-
-    history.go(0)
 }
 </script>
 
@@ -94,31 +76,6 @@ async function handleRemoveStudent(id: string, name: string) {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-}
-
-header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #007bff;
-    height: 65px;
-    padding-inline-start: 10%;
-}
-
-header a {
-    color: rgb(255, 255, 255, 0.5);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-}
-
-header .active {
-    color: rgb(255, 255, 255, 1);
-}
-
-header a:hover {
-    color: rgb(255, 255, 255, 1);
 }
 
 #page-consult-students .content {

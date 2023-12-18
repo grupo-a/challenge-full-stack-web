@@ -1,8 +1,5 @@
 <template>
-    <header>
-        <RouterLink class="active" to="/">Cadastrar</RouterLink>
-        <RouterLink to="/consult-students">Consultar</RouterLink>
-    </header>
+    <HeaderBar active="create" />
 
     <div id="page-create-student">
         <div class="content">
@@ -47,6 +44,7 @@ import { reactive } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
 import type { ICreateStudentForm } from '@/types/Student'
 import { api } from '@/services/api'
+import HeaderBar from '@/components/HeaderBar.vue'
 
 const router = useRouter()
 
@@ -84,31 +82,6 @@ async function handleSubmit(): Promise<void> {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-}
-
-header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #007bff;
-    height: 65px;
-    padding-inline-start: 10%;
-}
-
-header a {
-    color: rgb(255, 255, 255, 0.5);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-}
-
-header .active {
-    color: rgb(255, 255, 255, 1);
-}
-
-header a:hover {
-    color: rgb(255, 255, 255, 1);
 }
 
 #page-create-student form {

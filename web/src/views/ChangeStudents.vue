@@ -1,8 +1,5 @@
 <template>
-    <header>
-        <RouterLink to="/">Cadastrar</RouterLink>
-        <RouterLink to="/consult-students">Consultar</RouterLink>
-    </header>
+    <HeaderBar active="" />
 
     <div id="page-change-students">
         <div class="content">
@@ -47,6 +44,7 @@ import { api } from '@/services/api'
 import type { IStudent, IUpdateStudentForm } from '@/types/Student'
 import { onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import HeaderBar from '@/components/HeaderBar.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -67,14 +65,15 @@ const student = reactive<IStudent>({
 })
 
 onMounted(async () => {
-    // const response = await api.get(`students/${route.params.id}`)
-    student.id = '1'
-    student.name = 'Joao'
-    student.email = 'joao@test.com'
-    student.ra = '111111111'
-    student.cpf = '111.111.111-11'
-    student.createdAt = new Date()
-    student.updatedAt = new Date()
+    const response = await api.get(`students/${route.params.id}`)
+
+    student.id = response.data.id
+    student.name = response.data.name
+    student.email = response.data.email
+    student.ra = response.data.ra
+    student.cpf = response.data.cpf
+    student.createdAt = response.data.createdAt
+    student.updatedAt = response.data.updatedAt
 
     formData.name = student.name
     formData.email = student.email
@@ -87,9 +86,10 @@ async function handleSubmit() {
     }
 
     try {
-        // await api.put(`students/${route.params.id}`, data)
-        console.log('data', data)
+        await api.put(`students/${route.params.id}`, data)
+
         alert('Aluno atualizado com sucesso!')
+
         router.push('/consult-students')
     } catch (error) {
         console.error(error)
@@ -103,31 +103,6 @@ async function handleSubmit() {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
-}
-
-header {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #007bff;
-    height: 65px;
-    padding-inline-start: 10%;
-}
-
-header a {
-    color: rgb(255, 255, 255, 0.5);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-}
-
-header .active {
-    color: rgb(255, 255, 255, 1);
-}
-
-header a:hover {
-    color: rgb(255, 255, 255, 1);
 }
 
 #page-change-students form {
