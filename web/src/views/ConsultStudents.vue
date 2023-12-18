@@ -24,14 +24,16 @@
                         <td>{{ student.email }}</td>
                         <td>
                             <RouterLink :to="'/change-students/' + student.id">
-                                <button class="buttonEdit" title="Editar">Editar</button>
+                                <button class="buttonEdit" title="Editar">
+                                    <span class="mdi mdi-square-edit-outline"></span>
+                                </button>
                             </RouterLink>
                             <button
                                 class="buttonRemove"
                                 title="Excluir"
                                 @click="handleRemoveStudent(student.id, student.name)"
                             >
-                                Deletar
+                                <span class="mdi mdi-delete"></span>
                             </button>
                         </td>
                     </tr>
@@ -107,7 +109,7 @@ async function handleRemoveStudent(id: string, name: string) {
 }
 
 #page-consult-students .content table tbody tr td button.buttonEdit {
-    width: 60px;
+    width: 50px;
     height: 37px;
     background: #007bff;
     border-radius: 8px;
@@ -125,7 +127,7 @@ async function handleRemoveStudent(id: string, name: string) {
 }
 
 #page-consult-students table tbody tr td button.buttonRemove {
-    width: 60px;
+    width: 50px;
     height: 37px;
     background: #dc3545;
     border-radius: 8px;
@@ -140,5 +142,9 @@ async function handleRemoveStudent(id: string, name: string) {
 
 #page-consult-students table tbody tr td button:hover.buttonRemove {
     background: #bd2130;
+}
+
+#page-consult-students table tbody tr td button span::before {
+    font-size: 20px;
 }
 </style>
