@@ -1,0 +1,160 @@
+<template>
+    <div id="page-user-login">
+        <div class="content">
+            <form @submit.prevent="handleSubmit">
+                <h1>Login</h1>
+
+                <fieldset>
+                    <legend>
+                        <h2>Digite seu email e senha</h2>
+                    </legend>
+
+                    <div class="field">
+                        <label for="email">Email</label>
+                        <input type="text" name="email" id="email" required v-model="formData.email" />
+                    </div>
+
+                    <div class="field">
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" id="password" required v-model="formData.password" />
+                    </div>
+                </fieldset>
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import { api } from '@/services/api'
+import type { IUserLogin } from '@/types/User'
+import type { AxiosError } from 'axios'
+
+const router = useRouter()
+
+const formData = reactive<IUserLogin>({
+    email: '',
+    password: '',
+})
+
+async function handleSubmit(): Promise<void> {
+    try {
+        const { data } = await api.post('users/login', formData)
+        console.log('response', data)
+        alert('Login realizado com sucesso')
+
+        router.push('/consult-students')
+    } catch (error) {
+        console.error(error)
+
+        const axiosError = error as AxiosError
+        alert(`Erro ao fazer login:\n\n${JSON.stringify(axiosError.response?.data)}`)
+    }
+}
+</script>
+
+<style scoped>
+#page-user-login {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+#page-user-login form {
+    margin: 80px auto;
+    padding: 64px;
+    max-width: 730px;
+    background: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+#page-user-login form h1 {
+    font-size: 36px;
+}
+
+#page-user-login form fieldset {
+    margin-top: 64px;
+    min-inline-size: auto;
+    border: 0;
+}
+
+#page-user-login form legend {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+#page-user-login form legend h2 {
+    font-size: 24px;
+}
+
+#page-user-login form .field-group {
+    flex: 1;
+    display: flex;
+}
+
+#page-user-login form .field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+#page-user-login form .field input[type='text'],
+#page-user-login form .field input[type='password'] {
+    flex: 1;
+    background: #fff;
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    padding: 16px 24px;
+    font-size: 16px;
+}
+
+#page-user-login form .field input::placeholder {
+    color: #a0a0b2;
+}
+
+#page-user-login form .field label {
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+#page-user-login form .field :disabled {
+    cursor: not-allowed;
+}
+
+#page-user-login form .field-group .field + .field {
+    margin-left: 24px;
+}
+
+#page-user-login form .field-group input + input {
+    margin-left: 24px;
+}
+
+#page-user-login form button {
+    width: 260px;
+    height: 56px;
+    background: #007bff;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    border: 0;
+    align-self: flex-end;
+    margin-top: 40px;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+#page-user-login form button:hover {
+    background: #0069d9;
+}
+</style>

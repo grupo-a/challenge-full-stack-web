@@ -10,4 +10,16 @@ interface IUser {
     updatedAt: Date
 }
 
-export type { IUser }
+interface IUserLogin {
+    email: string
+    password: string
+}
+
+interface ICreateUser {
+    email: string
+    username: string
+    password: string
+    role: Role
+}
+
+export type { IUser, IUserLogin, ICreateUser }

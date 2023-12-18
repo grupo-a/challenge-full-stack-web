@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import type { ICreateStudentForm } from '@/types/Student'
 import { api } from '@/services/api'
 import HeaderBar from '@/components/HeaderBar.vue'
@@ -130,27 +130,13 @@ async function handleSubmit(): Promise<void> {
 }
 
 #page-create-student form .field input[type='text'],
-#page-create-student form .field input[type='number'],
-#page-create-student form .field textarea {
+#page-create-student form .field input[type='number'] {
     flex: 1;
     background: #fff;
     border-radius: 0.25rem;
     border: 1px solid #ced4da;
     padding: 16px 24px;
     font-size: 16px;
-}
-
-#page-create-student form .field select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    flex: 1;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #ced4da;
-    padding: 16px 24px;
-    font-size: 16px;
-    color: #000;
 }
 
 #page-create-student form .field input::placeholder {

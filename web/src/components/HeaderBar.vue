@@ -1,6 +1,6 @@
 <template>
     <header>
-        <RouterLink :class="{ active: active === 'consult' }" to="/">Consultar</RouterLink>
+        <RouterLink :class="{ active: active === 'consult' }" to="/consult-students">Consultar</RouterLink>
         <RouterLink :class="{ active: active === 'create' }" to="/create-students">Cadastrar</RouterLink>
     </header>
 </template>
