@@ -15,4 +15,9 @@ interface ICreateStudentForm {
     cpf: string
 }
 
-export type { IStudent, ICreateStudentForm }
+interface IUpdateStudentForm {
+    name?: string
+    email?: string
+}
+
+export type { IStudent, ICreateStudentForm, IUpdateStudentForm }
