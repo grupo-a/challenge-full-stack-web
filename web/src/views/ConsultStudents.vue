@@ -4,7 +4,7 @@
         <RouterLink class="active" to="/consult-students">Consultar</RouterLink>
     </header>
 
-    <div id="page-consult-payments">
+    <div id="page-consult-students">
         <div class="content">
             <h1>Consulta de alunos cadastrados</h1>
 
@@ -26,13 +26,13 @@
                         <td>{{ student.cpf }}</td>
                         <td>{{ student.email }}</td>
                         <td>
-                            <RouterLink :to="'/change-payments/' + student.id">
+                            <RouterLink :to="'/change-students/' + student.id">
                                 <button class="buttonEdit" title="Editar">Editar</button>
                             </RouterLink>
                             <button
                                 class="buttonRemove"
                                 title="Excluir"
-                                @click="handleRemovePayment(student.id, student.name)"
+                                @click="handleRemoveStudent(student.id, student.name)"
                             >
                                 Deletar
                             </button>
@@ -45,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import { api } from '@/services/api'
 import { RouterLink } from 'vue-router'
 
 const students = [
@@ -71,26 +72,25 @@ const students = [
     },
 ]
 
-function handleRemovePayment(_id: string, name: string) {
-    // await api.delete(`payments/${id}`).then(
-    //     (res) => {
-    if (confirm(`Realmente deseja deletar o estudante ${name}?`) == true) {
-        alert('Aluno deletado')
-    } else {
-        alert('Aluno não deletado')
+async function handleRemoveStudent(id: string, name: string) {
+    try {
+        if (confirm(`Realmente deseja remover o aluno ${name}?`) == true) {
+            await api.delete(`students/${id}`)
+            alert('Aluno removido com sucesso')
+        } else {
+            alert('Aluno não removido')
+        }
+    } catch (error) {
+        console.error(error)
+        alert('Houve um erro ao remover o aluno')
     }
-    // },
-    // (res) => {
-    //     console.log(res)
-    //     alert('Houve um erro ao remover o pagamento.')
-    // }
-    // )
-    // history.go(0)
+
+    history.go(0)
 }
 </script>
 
 <style scoped>
-#page-consult-payments {
+#page-consult-students {
     width: 100%;
     max-width: 1100px;
     margin: 0 auto;
@@ -121,7 +121,7 @@ header a:hover {
     color: rgb(255, 255, 255, 1);
 }
 
-#page-consult-payments .content {
+#page-consult-students .content {
     margin: 80px auto;
     padding: 64px;
     max-width: 730px;
@@ -132,24 +132,24 @@ header a:hover {
     flex-direction: column;
 }
 
-#page-consult-payments h1 {
+#page-consult-students h1 {
     font-size: 36px;
 }
 
-#page-consult-payments .content table {
+#page-consult-students .content table {
     margin-top: 64px;
     min-inline-size: auto;
     border-collapse: collapse;
 }
 
-#page-consult-payments th,
-#page-consult-payments td {
+#page-consult-students th,
+#page-consult-students td {
     border-bottom: 1px solid #bbb;
     text-align: left;
     padding: 8px 8px;
 }
 
-#page-consult-payments .content table tbody tr td button.buttonEdit {
+#page-consult-students .content table tbody tr td button.buttonEdit {
     width: 60px;
     height: 37px;
     background: #007bff;
@@ -163,11 +163,11 @@ header a:hover {
     margin: 0 5px;
 }
 
-#page-consult-payments table tbody tr td button:hover.buttonEdit {
+#page-consult-students table tbody tr td button:hover.buttonEdit {
     background: #0069d9;
 }
 
-#page-consult-payments table tbody tr td button.buttonRemove {
+#page-consult-students table tbody tr td button.buttonRemove {
     width: 60px;
     height: 37px;
     background: #dc3545;
@@ -181,7 +181,7 @@ header a:hover {
     margin: 0 5px;
 }
 
-#page-consult-payments table tbody tr td button:hover.buttonRemove {
+#page-consult-students table tbody tr td button:hover.buttonRemove {
     background: #bd2130;
 }
 </style>
