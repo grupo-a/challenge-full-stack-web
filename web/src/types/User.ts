@@ -19,7 +19,7 @@ interface ICreateUser {
     email: string
     username: string
     password: string
-    role: Role
+    role?: Role
 }
 
 export type { IUser, IUserLogin, ICreateUser }

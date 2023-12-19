@@ -1,44 +1,46 @@
 <template>
-    <HeaderBar active="consult" />
+    <div>
+        <HeaderBar active="consult" />
 
-    <div id="page-consult-students">
-        <div class="content">
-            <h1>Consulta de alunos cadastrados</h1>
+        <div id="page-consult-students">
+            <div class="content">
+                <h1>Consulta de alunos cadastrados</h1>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Registro Acadêmico</th>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>Email</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Registro Acadêmico</th>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Email</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                    <tr v-for="student in students" :key="student.id">
-                        <td>{{ student.ra }}</td>
-                        <td>{{ student.name }}</td>
-                        <td>{{ student.cpf }}</td>
-                        <td>{{ student.email }}</td>
-                        <td>
-                            <RouterLink :to="'/change-students/' + student.id">
-                                <button class="buttonEdit" title="Editar">
-                                    <span class="mdi mdi-square-edit-outline"></span>
+                    <tbody>
+                        <tr v-for="student in students" :key="student.id">
+                            <td>{{ student.ra }}</td>
+                            <td>{{ student.name }}</td>
+                            <td>{{ student.cpf }}</td>
+                            <td>{{ student.email }}</td>
+                            <td>
+                                <RouterLink :to="'/change-students/' + student.id">
+                                    <button class="buttonEdit" title="Editar">
+                                        <span class="mdi mdi-square-edit-outline"></span>
+                                    </button>
+                                </RouterLink>
+                                <button
+                                    class="buttonRemove"
+                                    title="Excluir"
+                                    @click="() => handleRemoveStudent(student.id, student.name)"
+                                >
+                                    <span class="mdi mdi-delete"></span>
                                 </button>
-                            </RouterLink>
-                            <button
-                                class="buttonRemove"
-                                title="Excluir"
-                                @click="handleRemoveStudent(student.id, student.name)"
-                            >
-                                <span class="mdi mdi-delete"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>

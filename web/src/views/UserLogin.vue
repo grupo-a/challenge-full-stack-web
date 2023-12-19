@@ -20,7 +20,10 @@
                     </div>
                 </fieldset>
 
-                <button type="submit">Login</button>
+                <div class="buttons-container">
+                    <RouterLink to="/register"><button type="button">Cadastrar usuário</button></RouterLink>
+                    <button type="submit">Login</button>
+                </div>
             </form>
         </div>
     </div>
@@ -45,7 +48,6 @@ const formData = reactive<IUserLogin>({
 async function handleSubmit(): Promise<void> {
     try {
         const { data } = await api.post('users/login', formData)
-
         auth.setToken(data.token)
 
         router.push('/consult-students')
@@ -141,8 +143,14 @@ async function handleSubmit(): Promise<void> {
     margin-left: 24px;
 }
 
+#page-user-login form div.buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+}
+
 #page-user-login form button {
-    width: 260px;
+    width: 200px;
     height: 56px;
     background: #007bff;
     border-radius: 8px;
@@ -156,7 +164,15 @@ async function handleSubmit(): Promise<void> {
     cursor: pointer;
 }
 
+#page-user-login form a button {
+    background: #00a65a;
+}
+
 #page-user-login form button:hover {
     background: #0069d9;
+}
+
+#page-user-login form a button:hover {
+    background: rgb(0, 131, 72);
 }
 </style>

@@ -55,7 +55,7 @@ const formData = reactive<ICreateStudentForm>({
     cpf: '',
 })
 
-async function handleSubmit(): Promise<void> {
+async function handleSubmit() {
     const { name, email, ra, cpf } = formData
 
     const data = {
