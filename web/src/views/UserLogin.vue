@@ -32,8 +32,10 @@ import { useRouter } from 'vue-router'
 import { api } from '@/services/api'
 import type { IUserLogin } from '@/types/User'
 import type { AxiosError } from 'axios'
+import { useAuth } from '@/stores/auth'
 
 const router = useRouter()
+const auth = useAuth()
 
 const formData = reactive<IUserLogin>({
     email: '',
@@ -43,8 +45,8 @@ const formData = reactive<IUserLogin>({
 async function handleSubmit(): Promise<void> {
     try {
         const { data } = await api.post('users/login', formData)
-        console.log('response', data)
-        alert('Login realizado com sucesso')
+
+        auth.setToken(data.token)
 
         router.push('/consult-students')
     } catch (error) {

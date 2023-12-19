@@ -9,25 +9,46 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'User login',
-            component: () => UserLoginVue,
+            name: 'user-login',
+            component: UserLoginVue,
         },
         {
             path: '/consult-students',
-            name: 'Consult students',
+            name: 'consult-students',
             component: () => ConsultStudents,
+            meta: {
+                auth: true,
+            },
         },
         {
             path: '/create-students',
-            name: 'Create students',
+            name: 'create-students',
             component: () => CreateStudents,
+            meta: {
+                auth: true,
+            },
         },
         {
             path: '/change-students/:id',
-            name: 'Change students',
+            name: 'change-students',
             component: () => ChangeStudents,
+            meta: {
+                auth: true,
+            },
         },
     ],
+})
+
+router.beforeEach((to, from, next) => {
+    const publicPages = ['/', '/register']
+    const authRequired = !publicPages.includes(to.path)
+    const loggedIn = localStorage.getItem('token')
+
+    if (authRequired && !loggedIn) {
+        next('/')
+    } else {
+        next()
+    }
 })
 
 export default router

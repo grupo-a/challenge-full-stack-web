@@ -2,6 +2,7 @@
     <header>
         <RouterLink :class="{ active: active === 'consult' }" to="/consult-students">Consultar</RouterLink>
         <RouterLink :class="{ active: active === 'create' }" to="/create-students">Cadastrar</RouterLink>
+        <RouterLink v-on="logout()" to="/">Logout</RouterLink>
     </header>
 </template>
 
@@ -9,6 +10,10 @@
 defineProps<{
     active: string
 }>()
+
+function logout() {
+    localStorage.clear()
+}
 </script>
 
 <style>
