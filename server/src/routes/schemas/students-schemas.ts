@@ -1,4 +1,4 @@
-import { ObjectSchema, object, string } from 'yup'
+import { ObjectSchema, number, object, string } from 'yup'
 
 import { ICreateStudentDTO } from '../../adapters/student/create-student-dto.interface'
 import { IUpdateStudentDTO } from '../../adapters/student/update-student-dto.interface'
@@ -10,7 +10,7 @@ const createStudentBodySchema: ObjectSchema<ICreateStudentDTO> = object()
     .shape({
         name: string().required(),
         email: string().email().required(),
-        ra: string().required(),
+        ra: number().required(),
         cpf: string().matches(cpfRegex, 'The CPF must be valid in the following format: XXX.XXX.XXX-XX').required(),
     })
     .noUnknown()

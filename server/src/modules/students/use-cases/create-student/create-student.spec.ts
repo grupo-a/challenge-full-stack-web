@@ -23,12 +23,10 @@ describe('Create student', () => {
             email: faker.internet.email({
                 allowSpecialCharacters: false,
             }),
-            ra: faker.number
-                .int({
-                    min: 1000000,
-                    max: 9999999,
-                })
-                .toString(),
+            ra: faker.number.int({
+                min: 1000000,
+                max: 9999999,
+            }),
             cpf: faker.number
                 .int({
                     min: 10000000000,
