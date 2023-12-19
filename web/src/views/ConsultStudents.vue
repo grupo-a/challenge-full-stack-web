@@ -24,18 +24,20 @@
                             <td>{{ student.cpf }}</td>
                             <td>{{ student.email }}</td>
                             <td>
-                                <RouterLink :to="'/change-students/' + student.id">
-                                    <button class="buttonEdit" title="Editar">
-                                        <span class="mdi mdi-square-edit-outline"></span>
+                                <div class="buttonsContainer">
+                                    <RouterLink :to="'/change-students/' + student.id">
+                                        <button class="buttonEdit" title="Editar">
+                                            <span class="mdi mdi-square-edit-outline"></span>
+                                        </button>
+                                    </RouterLink>
+                                    <button
+                                        class="buttonRemove"
+                                        title="Excluir"
+                                        @click="() => handleRemoveStudent(student.id, student.name)"
+                                    >
+                                        <span class="mdi mdi-delete"></span>
                                     </button>
-                                </RouterLink>
-                                <button
-                                    class="buttonRemove"
-                                    title="Excluir"
-                                    @click="() => handleRemoveStudent(student.id, student.name)"
-                                >
-                                    <span class="mdi mdi-delete"></span>
-                                </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -124,6 +126,11 @@ async function handleRemoveStudent(id: string, name: string) {
     padding: 8px 8px;
 }
 
+#page-consult-students .content table tbody tr td div.buttonsContainer {
+    display: flex;
+    gap: 4px;
+}
+
 #page-consult-students .content table tbody tr td button.buttonEdit {
     width: 50px;
     height: 37px;
@@ -153,7 +160,6 @@ async function handleRemoveStudent(id: string, name: string) {
     align-self: flex-end;
     transition: background-color 0.2s;
     cursor: pointer;
-    margin: 0 5px;
 }
 
 #page-consult-students table tbody tr td button:hover.buttonRemove {

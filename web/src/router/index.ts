@@ -52,6 +52,8 @@ router.beforeEach((to, from, next) => {
 
     if (authRequired && !loggedIn) {
         next('/')
+    } else if (!authRequired && loggedIn) {
+        next('/consult-students')
     } else {
         next()
     }

@@ -28,7 +28,15 @@
                         </div>
                         <div class="field">
                             <label for="cpf">CPF</label>
-                            <input type="text" name="cpf" id="cpf" required v-model="formData.cpf" />
+                            <input
+                                @input="formatCPF"
+                                v-model="formattedCPF"
+                                type="text"
+                                name="cpf"
+                                id="cpf"
+                                maxlength="14"
+                                required
+                            />
                         </div>
                     </div>
                 </fieldset>
@@ -40,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { computed, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ICreateStudentForm } from '@/types/Student'
 import { httpApi } from '@/services/api'
@@ -79,6 +87,28 @@ async function handleSubmit() {
         else alert(`Erro inesperado ao criar o aluno`)
     }
 }
+
+function formatCPF(event: Event) {
+    let inputValue = (event.target as HTMLInputElement).value.replace(/\D/g, '')
+
+    if (inputValue.length > 11) {
+        inputValue = inputValue.slice(0, 11)
+    }
+
+    if (inputValue.length > 9) {
+        inputValue = inputValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4')
+    } else if (inputValue.length > 6) {
+        inputValue = inputValue.replace(/(\d{3})(\d{3})(\d{3})/, '$1.$2.$3')
+    } else if (inputValue.length > 3) {
+        inputValue = inputValue.replace(/(\d{3})(\d{3})/, '$1.$2')
+    }
+
+    formData.cpf = inputValue
+}
+
+const formattedCPF = computed(() => {
+    return formData.cpf
+})
 </script>
 
 <style scoped>
