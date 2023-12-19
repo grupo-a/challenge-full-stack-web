@@ -18,13 +18,13 @@
 
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" required v-model="formData.email" />
+                        <input type="email" name="email" id="email" required v-model="formData.email" />
                     </div>
 
                     <div class="field-group">
                         <div class="field">
                             <label for="ra">Registro do Aluno</label>
-                            <input type="text" name="ra" id="ra" required v-model="formData.ra" />
+                            <input type="number" name="ra" id="ra" required v-model="formData.ra" />
                         </div>
                         <div class="field">
                             <label for="cpf">CPF</label>
@@ -43,9 +43,11 @@
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import type { ICreateStudentForm } from '@/types/Student'
-import { api } from '@/services/api'
+import { httpApi } from '@/services/api'
 import HeaderBar from '@/components/HeaderBar.vue'
+import { AxiosError } from 'axios'
 
+const api = httpApi()
 const router = useRouter()
 
 const formData = reactive<ICreateStudentForm>({
@@ -61,7 +63,7 @@ async function handleSubmit() {
     const data = {
         name,
         email,
-        ra,
+        ra: String(ra),
         cpf,
     }
 
@@ -72,7 +74,9 @@ async function handleSubmit() {
         router.push('/consult-students')
     } catch (error) {
         console.error(error)
-        alert('Ocorreu um erro, tente novamente!')
+
+        if (error instanceof AxiosError) alert(`Erro ao criar o aluno:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao criar o aluno`)
     }
 }
 </script>
@@ -130,7 +134,9 @@ async function handleSubmit() {
 }
 
 #page-create-student form .field input[type='text'],
-#page-create-student form .field input[type='number'] {
+#page-create-student form .field input[type='number'],
+#page-create-student form .field input[type='email'],
+#page-create-student form .field input[type='password'] {
     flex: 1;
     background: #fff;
     border-radius: 0.25rem;

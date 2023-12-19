@@ -35,7 +35,7 @@
                 </fieldset>
                 <div class="buttons-container">
                     <RouterLink to="/"><button type="button">Cancelar</button></RouterLink>
-                    <button type="submit">Cadastrar aluno</button>
+                    <button type="submit">Cadastrar usuário</button>
                 </div>
             </form>
         </div>
@@ -45,9 +45,11 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter, RouterLink } from 'vue-router'
-import { api } from '@/services/api'
+import { httpApi } from '@/services/api'
 import type { ICreateUser } from '@/types/User'
+import { AxiosError } from 'axios'
 
+const api = httpApi()
 const router = useRouter()
 
 const formData = reactive<ICreateUser>({
@@ -56,7 +58,7 @@ const formData = reactive<ICreateUser>({
     password: '',
 })
 
-async function handleSubmit(): Promise<void> {
+async function handleSubmit() {
     const { username, email, password, role } = formData
 
     const data = {
@@ -68,13 +70,14 @@ async function handleSubmit(): Promise<void> {
 
     try {
         await api.post('users', data)
-        console.log('data', data)
         alert('Usuário cadastrado com sucesso!')
 
         router.push('/')
     } catch (error) {
         console.error(error)
-        alert('Ocorreu um erro, tente novamente!')
+
+        if (error instanceof AxiosError) alert(`Erro ao criar o usuário:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao criar o usuário`)
     }
 }
 </script>

@@ -10,7 +10,7 @@ class CreateStudentUseCase implements IUseCase<ICreateStudentDTO, void> {
         const studentAlreadyExists = await this.studentsRepository.getByRA(ra)
 
         if (studentAlreadyExists) {
-            throw new BadRequestError('Student already exists')
+            throw new BadRequestError('Other student already exists with the same RA')
         }
 
         await this.studentsRepository.create({ name, email, ra, cpf })

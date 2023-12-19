@@ -1,17 +1,18 @@
 import axios from 'axios'
 
-function authHeader() {
+function httpApi() {
     const token = localStorage.getItem('token')
-    if (token) {
-        return { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-    } else {
-        return {}
-    }
+
+    const api = axios.create({
+        baseURL: 'http://localhost:3333',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+    })
+
+    return api
 }
 
-const api = axios.create({
-    baseURL: 'http://localhost:3333',
-    headers: authHeader(),
-})
-
-export { api }
+export { httpApi }

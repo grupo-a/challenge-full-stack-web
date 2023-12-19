@@ -32,7 +32,7 @@ model Student {
     id    String @id @default(uuid())
     name  String
     email String
-    ra    Int    @unique
+    ra    String @unique
     cpf   String
 
     createdAt DateTime @default(now())

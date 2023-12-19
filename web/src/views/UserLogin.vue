@@ -11,7 +11,7 @@
 
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" required v-model="formData.email" />
+                        <input type="email" name="email" id="email" required v-model="formData.email" />
                     </div>
 
                     <div class="field">
@@ -32,30 +32,33 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import { api } from '@/services/api'
+import { httpApi } from '@/services/api'
 import type { IUserLogin } from '@/types/User'
-import type { AxiosError } from 'axios'
-import { useAuth } from '@/stores/auth'
+import { AxiosError } from 'axios'
+// import { useAuth } from '@/stores/auth'
 
+const api = httpApi()
 const router = useRouter()
-const auth = useAuth()
 
 const formData = reactive<IUserLogin>({
     email: '',
     password: '',
 })
 
-async function handleSubmit(): Promise<void> {
+// const auth = useAuth()
+
+async function handleSubmit() {
     try {
         const { data } = await api.post('users/login', formData)
-        auth.setToken(data.token)
+        localStorage.setItem('token', data.token)
+        // auth.setToken(data.token)
 
         router.push('/consult-students')
     } catch (error) {
         console.error(error)
 
-        const axiosError = error as AxiosError
-        alert(`Erro ao fazer login:\n\n${JSON.stringify(axiosError.response?.data)}`)
+        if (error instanceof AxiosError) alert(`Erro ao fazer login:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao fazer login`)
     }
 }
 </script>
@@ -113,6 +116,7 @@ async function handleSubmit(): Promise<void> {
 }
 
 #page-user-login form .field input[type='text'],
+#page-user-login form .field input[type='email'],
 #page-user-login form .field input[type='password'] {
     flex: 1;
     background: #fff;

@@ -26,10 +26,12 @@ describe('Delete student', () => {
             email: faker.internet.email({
                 allowSpecialCharacters: false,
             }),
-            ra: faker.number.int({
-                min: 1000000,
-                max: 9999999,
-            }),
+            ra: faker.number
+                .int({
+                    min: 1000000,
+                    max: 9999999,
+                })
+                .toString(),
             cpf: faker.number
                 .int({
                     min: 10000000000,

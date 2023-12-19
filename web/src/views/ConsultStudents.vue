@@ -46,18 +46,30 @@
 </template>
 
 <script setup lang="ts">
-import { api } from '@/services/api'
+import { httpApi } from '@/services/api'
 import type { IStudent } from '@/types/Student'
 import { onMounted, reactive } from 'vue'
 import { RouterLink } from 'vue-router'
 import HeaderBar from '@/components/HeaderBar.vue'
+import { AxiosError } from 'axios'
 
+const api = httpApi()
 const students = reactive<IStudent[]>([])
 
 onMounted(async () => {
-    const response = await api.get(`students`)
+    try {
+        const response = await api.get(`students`)
 
-    students.push(...response.data)
+        console.log('response', response)
+
+        students.push(...response.data)
+    } catch (error) {
+        console.error(error)
+
+        if (error instanceof AxiosError)
+            alert(`Erro ao tentar visualizar a lista de alunos:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao tentar visualizar a lista de alunos`)
+    }
 })
 
 async function handleRemoveStudent(id: string, name: string) {
@@ -70,7 +82,9 @@ async function handleRemoveStudent(id: string, name: string) {
         }
     } catch (error) {
         console.error(error)
-        alert('Houve um erro ao remover o aluno')
+
+        if (error instanceof AxiosError) alert(`Erro ao remover o aluno:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao remover o aluno`)
     }
 }
 </script>

@@ -43,7 +43,7 @@ class StudentsRepository implements IStudentsRepository {
         }
     }
 
-    async getByRA(ra: number): Promise<IStudent | null> {
+    async getByRA(ra: string): Promise<IStudent | null> {
         try {
             const student = await prisma.student.findUnique({
                 where: {

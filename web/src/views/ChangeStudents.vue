@@ -18,13 +18,13 @@
 
                     <div class="field">
                         <label for="email">Email</label>
-                        <input type="text" name="email" id="email" required v-model="formData.email" />
+                        <input type="email" name="email" id="email" required v-model="formData.email" />
                     </div>
 
                     <div class="field-group">
                         <div class="field">
                             <label for="ra">Registro do Aluno</label>
-                            <input type="text" name="ra" id="ra" required disabled v-model="student.ra" />
+                            <input type="number" name="ra" id="ra" required disabled v-model="student.ra" />
                         </div>
                         <div class="field">
                             <label for="cpf">CPF</label>
@@ -40,12 +40,14 @@
 </template>
 
 <script setup lang="ts">
-import { api } from '@/services/api'
+import { httpApi } from '@/services/api'
 import type { IStudent, IUpdateStudentForm } from '@/types/Student'
 import { onMounted, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import HeaderBar from '@/components/HeaderBar.vue'
+import { AxiosError } from 'axios'
 
+const api = httpApi()
 const route = useRoute()
 const router = useRouter()
 
@@ -65,18 +67,26 @@ const student = reactive<IStudent>({
 })
 
 onMounted(async () => {
-    const response = await api.get(`students/${route.params.id}`)
+    try {
+        const response = await api.get(`students/${route.params.id}`)
 
-    student.id = response.data.id
-    student.name = response.data.name
-    student.email = response.data.email
-    student.ra = response.data.ra
-    student.cpf = response.data.cpf
-    student.createdAt = response.data.createdAt
-    student.updatedAt = response.data.updatedAt
+        student.id = response.data.id
+        student.name = response.data.name
+        student.email = response.data.email
+        student.ra = response.data.ra
+        student.cpf = response.data.cpf
+        student.createdAt = response.data.createdAt
+        student.updatedAt = response.data.updatedAt
 
-    formData.name = student.name
-    formData.email = student.email
+        formData.name = student.name
+        formData.email = student.email
+    } catch (error) {
+        console.error(error)
+
+        if (error instanceof AxiosError)
+            alert(`Erro ao buscar os dados do aluno:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao buscar os dados do aluno`)
+    }
 })
 
 async function handleSubmit() {
@@ -93,7 +103,9 @@ async function handleSubmit() {
         router.push('/consult-students')
     } catch (error) {
         console.error(error)
-        alert('Ocorreu um erro, tente novamente!')
+
+        if (error instanceof AxiosError) alert(`Erro ao atualizar o aluno:\n\n${JSON.stringify(error.response?.data)}`)
+        else alert(`Erro inesperado ao atualizar o aluno`)
     }
 }
 </script>
@@ -152,6 +164,8 @@ async function handleSubmit() {
 
 #page-change-students form .field input[type='text'],
 #page-change-students form .field input[type='number'],
+#page-change-students form .field input[type='email'],
+#page-change-students form .field input[type='password'],
 #page-change-students form .field textarea {
     flex: 1;
     background: #fff;

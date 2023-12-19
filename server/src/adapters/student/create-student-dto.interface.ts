@@ -1,7 +1,7 @@
 interface ICreateStudentDTO {
     name: string
     email: string
-    ra: number
+    ra: string
     cpf: string
 }
 

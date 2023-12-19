@@ -26,7 +26,7 @@ class StudentsRepositoryInMemory implements IStudentsRepository {
         return student
     }
 
-    async getByRA(ra: number): Promise<IStudent | null> {
+    async getByRA(ra: string): Promise<IStudent | null> {
         const student = this.students.find((item) => item.ra === ra) || null
         return student
     }
