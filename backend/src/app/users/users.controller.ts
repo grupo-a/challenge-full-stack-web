@@ -1,11 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  DefaultValuePipe,
+  ParseIntPipe,
+  Query
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UserCollectionPresenter, UserPresenter } from './user.presenter';
+import { PaginationPresenterProps } from '../presenters/pagination.presenter';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -13,13 +28,27 @@ export class UsersController {
   }
 
   @Get()
-  async findAll() {
-    return this.usersService.findAll();
+  async findAll(
+    @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
+    @Query('size', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+  ) {
+    const users = await this.usersService.findAll(page, pageSize);
+
+    const pagination: PaginationPresenterProps = {
+      current_page: page,
+      per_page: pageSize,
+      last_page: Math.ceil(users.totalItems / pageSize),
+      total: users.totalItems,
+    };
+
+    return new UserCollectionPresenter({data: users.data, paginationProps: pagination});
   }
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+    const user = await this.usersService.findOne(id);
+
+    return new UserPresenter(user);
   }
 
   @Patch(':id')

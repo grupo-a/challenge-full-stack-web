@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsEmail } from "class-validator";
+import { IsCpfValid } from "src/app/validators/cpf.validator";
 
 export class CreateUserDto {
     @IsNotEmpty()
@@ -15,5 +16,6 @@ export class CreateUserDto {
     ra: string;
 
     @IsNotEmpty()
+    @IsCpfValid({ message: 'Invalid CPF' })
     cpf: string;
 }
