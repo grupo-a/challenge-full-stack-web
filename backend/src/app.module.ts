@@ -4,7 +4,8 @@ import { UsersModule } from './app/users/users.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [ ConfigModule.forRoot(),
+  imports: [ 
+    ConfigModule.forRoot(),
     DatabaseModule,
     UsersModule,
   ],

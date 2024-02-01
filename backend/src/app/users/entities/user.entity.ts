@@ -7,7 +7,6 @@ import {
     CreatedAt,
     UpdatedAt,
     DeletedAt,
-    PrimaryKey,
     DataType,
     IsEmail,
     IsUUID
@@ -23,7 +22,7 @@ export class User extends Model<User>{
     @IsUUID(4)
     @Column({
         type: DataType.UUID,
-        defaultValue: DataType.UUIDV4, 
+        defaultValue: DataType.UUIDV4,
         allowNull: false,
         primaryKey: true,
     })
@@ -71,6 +70,6 @@ export class User extends Model<User>{
     @BeforeCreate
     static async valideCPF(instance: User) {
         instance.cpf = instance.cpf.replace(/[^\d]/g, '')
-        console.log('cpf insta: ', instance.cpf)
     }
+
 }

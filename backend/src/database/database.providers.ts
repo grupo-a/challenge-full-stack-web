@@ -1,18 +1,32 @@
 import { Sequelize } from 'sequelize-typescript';
 import { User } from '../app/users/entities/user.entity';
-import { sequelizeConnection } from 'src/constants/constants';
+import { sequelizeConnection } from '../constants/constants';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { config } from './config';
+import config from './config';
 
 const models = [User];
-
-const connection = process.env.NODE_ENV === 'test' ? config.test : config.dev;
 
 export const databaseProviders = [
   {
     provide: sequelizeConnection,
     useFactory: async () => {
-      const sequelize = new Sequelize(connection as SequelizeModule);
+      const connection = process.env.DB_VENDOR;
+      let configSequelize: SequelizeModule;
+
+      if (!connection) {
+        throw new Error('DB_VENDOR not defined');
+      }
+
+      if (connection === 'test')
+        configSequelize = config.test;
+
+      if (connection === 'development')
+        configSequelize = config.dev;
+
+      if (connection === 'production')
+        configSequelize = config.prod;
+
+      const sequelize = new Sequelize(configSequelize as SequelizeModule);
       sequelize.addModels(models);
       await sequelize.sync();
       return sequelize;

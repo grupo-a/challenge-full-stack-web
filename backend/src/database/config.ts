@@ -1,4 +1,4 @@
-export const config = {
+export default {
     dev: {
         dialect: process.env.DB_DIALECT || 'mysql',
         host: process.env.DB_HOST || 'localhost',

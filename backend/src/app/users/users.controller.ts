@@ -23,8 +23,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto) {
+    const user = await this.usersService.create(createUserDto)
+    return new UserPresenter(user);
   }
 
   @Get()
@@ -41,7 +42,7 @@ export class UsersController {
       total: users.totalItems,
     };
 
-    return new UserCollectionPresenter({data: users.data, paginationProps: pagination});
+    return new UserCollectionPresenter({ data: users.data, paginationProps: pagination });
   }
 
   @Get(':id')
@@ -53,7 +54,8 @@ export class UsersController {
 
   @Patch(':id')
   async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+    const user = await this.usersService.update(id, updateUserDto);
+    return new UserPresenter(user);
   }
 
   @Delete(':id')
