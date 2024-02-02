@@ -1,12 +1,17 @@
+<script lang="ts" setup>
+  import TopBar from './default/TopBar.vue'
+  import NavBar from './default/NavBar.vue';
+  import Main from './default/Main.vue'
+  import Footer from './default/Footer.vue'
+</script>
+
 <template>
   <v-app>
-    <DefaultBar />
-
-    <DefaultView />
+    <TopBar />
+    <NavBar />
+    <Main />
+    <Footer />
   </v-app>
 </template>
 
-<script lang="ts" setup>
-  import DefaultBar from './default/AppBar.vue'
-  import DefaultView from './default/View.vue'
-</script>
+
