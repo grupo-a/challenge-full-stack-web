@@ -17,13 +17,10 @@ export const databaseProviders = [
         throw new Error('DB_VENDOR not defined');
       }
 
-      if (connection === 'test')
-        configSequelize = config.test;
-
-      if (connection === 'development')
+      if (connection === 'dev')
         configSequelize = config.dev;
 
-      if (connection === 'production')
+      if (connection === 'prod')
         configSequelize = config.prod;
 
       const sequelize = new Sequelize(configSequelize as SequelizeModule);

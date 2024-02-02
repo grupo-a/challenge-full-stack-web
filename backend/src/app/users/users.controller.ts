@@ -10,13 +10,15 @@ import {
   HttpStatus,
   DefaultValuePipe,
   ParseIntPipe,
-  Query
+  Query,
+  UseGuards
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserCollectionPresenter, UserPresenter } from './user.presenter';
 import { PaginationPresenterProps } from '../presenters/pagination.presenter';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 export class UsersController {
@@ -58,6 +60,7 @@ export class UsersController {
     return new UserPresenter(user);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async remove(@Param('id') id: string) {

@@ -9,5 +9,6 @@ import { usersProviders } from './user.repository';
     UsersService,
     ...usersProviders,
   ],
+  exports: [UsersService],
 })
 export class UsersModule {}

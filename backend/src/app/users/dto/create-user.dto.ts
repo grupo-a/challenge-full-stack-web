@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsEmail } from "class-validator";
+import { IsNotEmpty, IsEmail, MaxLength } from "class-validator";
 import { IsCpfValid } from "../../validators/cpf.validator";
 
 export class CreateUserDto {
@@ -12,6 +12,7 @@ export class CreateUserDto {
     @IsNotEmpty()
     password: string;
 
+    @MaxLength(50)
     @IsNotEmpty()
     ra: string;
 

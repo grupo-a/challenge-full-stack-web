@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { repositoryUser } from '../../constants/constants';
+import { FindOptions } from 'sequelize';
 
 @Injectable()
 export class UsersService {
@@ -28,6 +29,15 @@ export class UsersService {
       data: users.rows,
       totalItems: users.count,
     };
+  }
+
+  async searchUser(searchParam?: FindOptions) {
+    const user = await this.usersRepository.findOne(searchParam);
+
+    if (!user)
+      throw new NotFoundException('User not found');
+
+    return user;
   }
 
   async findOne(id: string) {
