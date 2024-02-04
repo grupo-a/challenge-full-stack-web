@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { repositoryUser } from '../../constants/constants';
 import { FindOptions } from 'sequelize';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class UsersService {
@@ -17,10 +18,13 @@ export class UsersService {
     return user;
   }
 
-  async findAll(page: number = 1, pageSize: number = 10): Promise<{ data: User[]; totalItems: number }> {
+  async findAll(page: number = 1, pageSize: number = 10, name?: string): Promise<{ data: User[]; totalItems: number }> {
     const offset = (page - 1) * pageSize;
 
+    const where = name ? { name: { [Op.like]: `%${name}%` } } : null;
+
     const users = await this.usersRepository.findAndCountAll({
+      where: where,
       limit: pageSize,
       offset,
     });

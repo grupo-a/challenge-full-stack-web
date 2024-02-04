@@ -34,8 +34,9 @@ export class UsersController {
   async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
     @Query('size', new DefaultValuePipe(10), ParseIntPipe) pageSize: number,
+    @Query('name') name: string,
   ) {
-    const users = await this.usersService.findAll(page, pageSize);
+    const users = await this.usersService.findAll(page, pageSize, name);
 
     const pagination: PaginationPresenterProps = {
       current_page: page,
