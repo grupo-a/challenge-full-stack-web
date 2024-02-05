@@ -49,7 +49,7 @@ Se tivesse mais tempo, algumas melhorias que poderiam ser feitas no projeto são
 
 ## Requisitos obrigatórios não entregues
 
-Todos os requisitos obrigatórios foram entregue com alguns itens a mais como autenticação e autorização de forma simples e documentação da arquitetura feita em diagrama C4 (https://drive.google.com/file/d/1d_8FXrjkE0XxgVTU3vm62WlkWPORg-zn/view?usp=sharing). Realizei teste unitarios no backend porem não realizei no frontend por questões de tempo.
+Todos os requisitos obrigatórios foram entregue com alguns itens a mais como autenticação e autorização de forma simples e documentação da arquitetura feita em diagrama C4 (https://drive.google.com/file/d/1d_8FXrjkE0XxgVTU3vm62WlkWPORg-zn/view?usp=sharing , https://drive.google.com/file/d/1d_8FXrjkE0XxgVTU3vm62WlkWPORg-zn/view?usp=sharing, https://drive.google.com/file/d/1d_8FXrjkE0XxgVTU3vm62WlkWPORg-zn/view?usp=sharing). Realizei teste unitarios no backend porem não realizei no frontend por questões de tempo.
 
 
 ## Instalação 
