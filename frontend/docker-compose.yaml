@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+    command: sh -c "npm run dev"
+    ports:
+      - "3000:3000"

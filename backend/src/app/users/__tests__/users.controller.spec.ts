@@ -69,10 +69,10 @@ describe('UsersController Unit Tests', () => {
 
   it('should call findAll method', async () => {
 
-    const response = await controller.findAll(1, 10);
+    const response = await controller.findAll(1, 10, '');
 
     expect(usersService.findAll).toHaveBeenCalledTimes(1);
-    expect(usersService.findAll).toHaveBeenCalledWith(1, 10);
+    expect(usersService.findAll).toHaveBeenCalledWith(1, 10, '');
     expect(response).toBeInstanceOf(CollectionPresenter);
     expect(response).toHaveProperty('data');
     expect(response).toHaveProperty('meta');
