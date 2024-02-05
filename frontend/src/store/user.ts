@@ -1,11 +1,11 @@
 // Utilities
 import { defineStore } from 'pinia'
 
-type TokenUser = {
+interface TokenUser  {
     id: string,
     name: string,
     email: string,
-    authorization: [],
+    authorization: string[],
 }
 
 export const useUserStore = defineStore('user', {
@@ -13,7 +13,7 @@ export const useUserStore = defineStore('user', {
       id: '',
       name: '',
       email: '',
-      authorization: [],
+      authorization: <string[]>[],
   }),
 
   actions: {

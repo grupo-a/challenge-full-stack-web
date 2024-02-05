@@ -50,10 +50,19 @@ const login = async () => {
       email: parse.email,
       authorization: parse.authorization,
     });
+    setTimeout(() => {
+      loginModal.value = {
+        ra: '',
+        password: '',
+      };
+      props.toggleLogin();
+    }, 2000);
 
-    props.toggleLogin();
   } catch (error) {
     console.error(error);
+    notification.value.loginSuccess = true;
+    notification.value.loginSuccessMessage = 'Erro ao realizar login';
+    notification.value.loginColor = 'error';
   }
 };
 
@@ -66,13 +75,13 @@ const logout = () => {
     authorization: [],
   });
 
-  props.toggleLogin();
 };
 
 </script>
 
 <template>
   <v-dialog v-model="props.value" max-width="500px">
+
     <div v-if="user.name">
       <v-card>
         <v-card-title class="headline">Login</v-card-title>
@@ -101,13 +110,12 @@ const logout = () => {
       </v-card>
     </div>
   </v-dialog>
-  <div v-if="notification.loginSuccess" >
-      <notification
-        :messege="notification.loginSuccessMessage"
-        :openNotification="notification.loginSuccess"
-        :color="notification.loginColor"
-      />
-    </div>
+  <div v-if="notification.loginSuccess">
+    <notification
+      :messege="notification.loginSuccessMessage"
+      :openNotification="notification.loginSuccess"
+      :color="notification.loginColor" />
+  </div>
 </template>
 
 
