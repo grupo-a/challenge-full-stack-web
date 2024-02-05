@@ -45,31 +45,30 @@ const passwordRules = [
 const submitForm = async (e: Event) => {
   e.preventDefault();
   loading.value = true;
-  console.log(loading.value);
   const response = await axios.post('/users', user.value)
 
 if (response.status === 201) {
     setInterval(() => {
       loading.value = false;
       notification.value.createSuccess = true;
-      notification.value.message = 'Usuário cadastrado com sucesso';
+      notification.value.message = 'Aluno cadastrado com sucesso';
       notification.value.color = 'success';
       user.value = {
         ra: ' ',
         cpf: ' ',
         email: '',
         name: ' ',
-        password: '',
+        password: ' ',
       };
     }, 2000);
 
     setInterval(() => {
-     // window.location.reload();
-    }, 2000);
+      window.location.reload();
+    }, 3000);
   }else{
     loading.value = false;
     notification.value.createSuccess = true;
-    notification.value.message = 'Erro ao cadastrar usuário';
+    notification.value.message = 'Erro ao cadastrar aluno';
     notification.value.color = 'error';
   }
 };
@@ -90,7 +89,7 @@ const closeAlert = () => {
         <v-card>
           <v-card-title>
             <v-toolbar flat color="#FFF">
-              <v-toolbar-title class="">Cadastro de Alunos</v-toolbar-title>
+              <v-toolbar-title class="">Cadastro de Aluno</v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
           </v-card-title>

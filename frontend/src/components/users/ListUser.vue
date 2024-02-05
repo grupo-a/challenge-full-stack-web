@@ -97,7 +97,7 @@ export default {
       <v-card>
         <v-card-title class="headline">Confirmar exclusão</v-card-title>
         <v-card-text>
-          Tem certeza de que deseja excluir este usuário?
+          Tem certeza de que deseja excluir este aluno?
         </v-card-text>
         <v-card-actions>
           <v-btn color="primary" @click="confirmDelete">Sim, quero excluir!</v-btn>
@@ -107,7 +107,7 @@ export default {
     </v-dialog>
 
     <v-snackbar v-model="deleteSuccess" color="success" top>
-      Usuário excluído com sucesso!
+      Aluno excluído com sucesso!
       <v-btn @click="deleteSuccess = false">Fechar</v-btn>
     </v-snackbar>
 
