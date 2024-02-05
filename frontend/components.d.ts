@@ -7,13 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Confirmation: typeof import('./src/components/Confirmation.vue')['default']
     ListUser: typeof import('./src/components/users/ListUser.vue')['default']
+    Loading: typeof import('./src/components/Loading.vue')['default']
     Logo: typeof import('./src/components/Logo.vue')['default']
     Menu: typeof import('./src/components/Menu.vue')['default']
-    NavBar: typeof import('./src/components/NavBar.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Test: typeof import('./src/components/users/test.vue')['default']
   }
 }

@@ -3,6 +3,6 @@ export type User = {
   name: string;
   email: string;
   ra: string;
-  cpf: number;
+  cpf: string;
   createdAt: string;
 }

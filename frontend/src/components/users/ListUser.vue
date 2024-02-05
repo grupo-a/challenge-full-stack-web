@@ -1,6 +1,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { User } from '../../types/user.type';
+import useCpfMask from '../../helpers/maskCpf';
 
 type paramsSearch = {
   page?: number;
@@ -44,10 +45,16 @@ export default {
         });
       this.loading = false;
     },
+
+    editItem(item: User) {
+      this.$router.push(`/users/${item.id}`);
+    },
+
     deleteItem(item: User) {
       this.deleteConfirmation = true;
       this.deleteConfirmationId = item.id;
     },
+
     confirmDelete() {
       axios.delete(`/users/${this.deleteConfirmationId}`,
         { headers: { 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyYSI6Ijc0NTQyNDQtNzhSVFIiLCJuYW1lIjoiSm9hbyBTYW50b3MiLCJlbWFpbCI6Imphb0BnbWFpbC5jb20iLCJzdWIiOiJlMTk4NGViMi1kOGQ5LTRmOGUtYTVmMS1kMDAwZWM1ZjIzZmEiLCJhdXRob3JpemF0aW9uIjpbInVzZXIuZGVsZXRlIl0sImlhdCI6MTcwNjg3ODI0NiwiZXhwIjoxNzA3NDgzMDQ2fQ.5njiVF-Ykt0OrnC63fo3cZ4Hdpesq_Cs5-MIg60hZSw` } }
@@ -55,15 +62,16 @@ export default {
         this.deleteConfirmation = false;
         this.deleteSuccess = true;
         this.fetchUsers({ page: this.current_page, itemsPerPage: this.itemsPerPage });
-      })
-        .catch(error => {
-          console.error(error);
-        });
+      }).catch(error => {
+        console.error(error);
+      });
     },
+
     cancelDelete() {
       this.deleteConfirmation = false;
       this.deleteConfirmationId = '';
     },
+
     searchUsers() {
       this.loading = true;
       axios.get(`/users?name=${this.search}`)
@@ -75,6 +83,10 @@ export default {
         });
       this.loading = false;
     },
+
+    formatCpf(cpf: string) {
+      return useCpfMask(cpf);
+    },
   },
 };
 </script>
@@ -83,21 +95,22 @@ export default {
   <div>
     <v-dialog v-model="deleteConfirmation" max-width="500px">
       <v-card>
-        <v-card-title class="headline">Confirm Delete</v-card-title>
+        <v-card-title class="headline">Confirmar exclusão</v-card-title>
         <v-card-text>
-          Are you sure you want to delete this user?
+          Tem certeza de que deseja excluir este usuário?
         </v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="confirmDelete">Yes</v-btn>
-          <v-btn color="error" @click="cancelDelete">No</v-btn>
+          <v-btn color="primary" @click="confirmDelete">Sim, quero excluir!</v-btn>
+          <v-btn color="red-darken-1" @click="cancelDelete">Cancelar</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-snackbar v-model="deleteSuccess" color="success" top>
-      User deleted successfully!
-      <v-btn @click="deleteSuccess = false">Close</v-btn>
+      Usuário excluído com sucesso!
+      <v-btn @click="deleteSuccess = false">Fechar</v-btn>
     </v-snackbar>
+
 
     <v-data-table-server
       v-model:items-per-page="itemsPerPage"
@@ -105,26 +118,30 @@ export default {
       :items-length="totalItems"
       :items="users"
       :loading="loading"
+      loading-text="Carregando..."
       item-value="name"
       no-data-text="Não há dados disponíveis"
       @update:options="fetchUsers">
       <template v-slot:top>
-        <v-toolbar flat color="#FFF">
-          <v-text-field v-model="search" append-icon="mdi-magnify" label="Pesquisa por nome..." single-line hide-details
-            @input="searchUsers">
+        <div class="d-flex">
+          <v-text-field
+            v-model="search"
+            label="Pesquisar por nome ..."
+            prepend-inner-icon="mdi-magnify"
+            single-line
+            variant="outlined"
+             class="mb-2"
+             hide-details>
           </v-text-field>
-        </v-toolbar>
+          <v-btn color="primary" class="pt-2 pb-2" @click="searchUsers">Pesquisar</v-btn>
+        </div>
+      </template>
+      <template v-slot:item.cpf="{ item }">
+        {{ formatCpf(item.cpf) }}
       </template>
       <template v-slot:item.actions="{ item }">
-        <router-link :to="`/users/${item.id}`">
-          <v-btn small class="mr-2">
-            <v-icon small class="mr-2 danger">mdi-pencil</v-icon>
-            Editar</v-btn>
-        </router-link>
-        <v-btn danger small @click="deleteItem(item)">
-          <v-icon small class="mr-2">mdi-delete</v-icon>
-          Excluir
-        </v-btn>
+          <v-icon @click="editItem(item)" small class="mr-2">mdi-pencil</v-icon>
+          <v-icon color="red-darken-1" small @click="deleteItem(item)" danger class="mr-2">mdi-delete</v-icon>
       </template>
     </v-data-table-server>
   </div>
