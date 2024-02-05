@@ -105,7 +105,7 @@ if (response.status === 200) {
                   Salvar
                 </v-btn>
                 <router-link class="" to="/">
-                  <v-btn type="button" class="ml-2 mr-2">
+                  <v-btn type="button" color="red-darken-1" class="ml-2 mr-2">
                     Cancelar
                   </v-btn>
                 </router-link>

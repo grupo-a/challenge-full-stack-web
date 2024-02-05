@@ -12,7 +12,7 @@ import ListUser from '@/components/users/ListUser.vue';
               <v-toolbar-title class="">Consulta de Alunos</v-toolbar-title>
               <v-spacer></v-spacer>
               <router-link to="/users/create">
-                <v-btn color="primary">Cadastrar Aluno</v-btn>
+                <v-btn color="primary" >Cadastrar Aluno</v-btn>
               </router-link>
             </v-toolbar>
           </v-card-title>

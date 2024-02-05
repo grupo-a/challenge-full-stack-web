@@ -1,6 +1,7 @@
 <script lang="ts">
 import axios from 'axios';
 import { User } from '../../types/user.type';
+import { useUserStore } from '../../store/user'
 import useCpfMask from '../../helpers/maskCpf';
 
 type paramsSearch = {
@@ -11,6 +12,7 @@ type paramsSearch = {
 export default {
   data() {
     return {
+      user: useUserStore(),
       users: <User[]>[],
       headers: [
         { title: 'Registro Acadêmico', text: 'Registro Acadêmico', value: 'ra' },
@@ -53,6 +55,9 @@ export default {
     deleteItem(item: User) {
       this.deleteConfirmation = true;
       this.deleteConfirmationId = item.id;
+      const isAuthorization = this.user.authorization;
+      console.log(isAuthorization);
+
     },
 
     confirmDelete() {
@@ -123,17 +128,21 @@ export default {
       no-data-text="Não há dados disponíveis"
       @update:options="fetchUsers">
       <template v-slot:top>
-        <div class="d-flex">
-          <v-text-field
-            v-model="search"
-            label="Pesquisar por nome ..."
-            prepend-inner-icon="mdi-magnify"
-            single-line
-            variant="outlined"
-             class="mb-2"
-             hide-details>
-          </v-text-field>
-          <v-btn color="primary" class="pt-2 pb-2" @click="searchUsers">Pesquisar</v-btn>
+        <div class="d-flex flex-row-reverse align-center">
+          <v-btn color="primary" class="pt-2 pb-2 ml-2 mr-2" @click="searchUsers">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
+          <v-responsive max-width="344">
+            <v-text-field
+              v-model="search"
+              label="Pesquisar por nome ..."
+              single-line
+              variant="underlined"
+              class="mb-2"
+              hide-details>
+            </v-text-field>
+          </v-responsive>
+
         </div>
       </template>
       <template v-slot:item.cpf="{ item }">
