@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { useUserStore } from '../../store/user'
 import parseTokenJwt from '../../helpers/parseTokenJwt'
+import Notification from '@/components/Notification.vue';
 
 const user = useUserStore()
 
@@ -22,12 +23,20 @@ const loginModal = ref({
   password: '',
 });
 
+const notification = ref({
+  loginSuccess: false,
+  loginSuccessMessage: 'Realizado com sucesso!',
+  loginColor: 'success',
+});
+
 const login = async () => {
   try {
     const response = await axios.post('/auth/login', {
       ra: loginModal.value.ra,
       password: loginModal.value.password,
     });
+
+    notification.value.loginSuccess = true;
 
     const token = response.data.token;
 
@@ -92,6 +101,13 @@ const logout = () => {
       </v-card>
     </div>
   </v-dialog>
+  <div v-if="notification.loginSuccess" >
+      <notification
+        :messege="notification.loginSuccessMessage"
+        :openNotification="notification.loginSuccess"
+        :color="notification.loginColor"
+      />
+    </div>
 </template>
 
 

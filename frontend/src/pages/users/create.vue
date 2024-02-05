@@ -2,15 +2,8 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import Loading from '@/components/Loading.vue';
-import useCpfMask from '../../helpers/maskCpf';
-
-const user = ref({
-  ra: '',
-  cpf: '',
-  email: '',
-  name: '',
-  password: '',
-});
+import Notification from '@/components/Notification.vue';
+import FormUser from '@/components/users/FormUser.vue';
 
 const notification = ref({
   createSuccess: false,
@@ -20,67 +13,42 @@ const notification = ref({
 
 const loading = ref(false);
 
-const raRules = [
-  (v: string) => !!v || 'RA é obrigatório',
-];
-
-const cpfRules = [
-  (v: string) => !!v || 'CPF é obrigatório',
-];
-
-const emailRules = [
-  (v: string) => !!v || 'E-mail é obrigatório',
-  (v: string) => /.+@.+\..+/.test(v) || 'E-mail não é válido',
-];
-
-const nameRules = [
-  (v: string) => !!v || 'Nome é obrigatório',
-];
-
-const passwordRules = [
-  (v: string) => !!v || 'Senha é obrigatória',
-  (v: string) => v.length >= 6 || 'Senha deve ter no mínimo 6 caracteres',
-];
-
-const submitForm = async (e: Event) => {
-  e.preventDefault();
+const submitForm = async (value: any) => {
   loading.value = true;
-  const response = await axios.post('/users', user.value)
 
-if (response.status === 201) {
-    setInterval(() => {
+  try {
+    const response = await axios.post('/users', value);
+
+    if (response.status === 201) {
+      setInterval(() => {
+        loading.value = false;
+        notification.value.createSuccess = true;
+        notification.value.message = 'Aluno cadastrado com sucesso';
+        notification.value.color = 'success';
+
+      }, 2000);
+
+      setInterval(() => {
+        window.location.reload();
+      }, 3000);
+    } else {
       loading.value = false;
       notification.value.createSuccess = true;
-      notification.value.message = 'Aluno cadastrado com sucesso';
-      notification.value.color = 'success';
-      user.value = {
-        ra: ' ',
-        cpf: ' ',
-        email: '',
-        name: ' ',
-        password: ' ',
-      };
-    }, 2000);
-
-    setInterval(() => {
-      window.location.reload();
-    }, 3000);
-  }else{
+      notification.value.message = 'Erro ao cadastrar aluno';
+      notification.value.color = 'error';
+    }
+  } catch (error) {
     loading.value = false;
     notification.value.createSuccess = true;
-    notification.value.message = 'Erro ao cadastrar aluno';
+    notification.value.message = 'Erro ao cadastrar aluno! Por favor verifique os campos';
     notification.value.color = 'error';
   }
-};
-
-const closeAlert = () => {
-  notification.value.createSuccess = false;
 };
 
 </script>
 
 <template>
-  <div v-if="loading" >
+  <div v-if="loading">
     <Loading />
   </div>
   <v-container>
@@ -93,50 +61,18 @@ const closeAlert = () => {
               <v-spacer></v-spacer>
             </v-toolbar>
           </v-card-title>
-          <v-form @submit="submitForm">
-            <v-container>
-              <v-row>
-                <v-col cols="12" lg="6" sm="6">
-                  <v-text-field v-model="user.name" label="Nome" :rules="nameRules" variant="outlined"
-                    required></v-text-field>
-                </v-col>
-                <v-col cols="12" lg="6" sm="6">
-                  <v-text-field v-model="user.ra" label="RA" :rules="raRules" variant="outlined" required></v-text-field>
-                </v-col>
-                <v-col cols="12" lg="6" sm="6">
-                  <v-text-field v-model="user.cpf" label="CPF" :rules="cpfRules" variant="outlined"
-                    :value="useCpfMask(user.cpf)" required></v-text-field>
-                </v-col>
-                <v-col cols="12" lg="6" sm="6">
-                  <v-text-field v-model="user.email" label="E-mail" :rules="emailRules" variant="outlined"
-                    required></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row>
-                <v-col cols="12" lg="12" sm="12">
-                  <v-text-field v-model="user.password" label="Senha" :rules="passwordRules" variant="outlined" required
-                    type="password"></v-text-field>
-                </v-col>
-              </v-row>
-              <v-row class="mt-3 mb-3 ml-1 d-flex flex-row-reverse">
-                <v-btn type="submit" class="mr-2" color="primary">
-                  Salvar
-                </v-btn>
-                <router-link class="" to="/">
-                  <v-btn type="button" color="red-darken-1" class="ml-2 mr-2">
-                    Cancelar
-                  </v-btn>
-                </router-link>
-              </v-row>
-            </v-container>
-          </v-form>
+          <FormUser :submitForm="submitForm" action="register" />
         </v-card>
       </v-col>
     </v-row>
   </v-container>
-  <v-snackbar v-model="notification.createSuccess" :color="notification.color" top>
-    {{ notification.message }}
-  </v-snackbar>
+  <div v-if="notification.createSuccess">
+    <notification
+      :messege="notification.message"
+      :openNotification="notification.createSuccess"
+      :color="notification.color"
+      />
+  </div>
 </template>
 
 
