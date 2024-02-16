@@ -24,23 +24,4 @@ describe('AuthController', () => {
             expect(result).toEqual(token);
         });
     });
-
-    describe('validateToken', () => {
-        it('should return user data if token is valid', async () => {
-            const validateTokenDto: ValidateTokenDto = { token: 'testToken' };
-            const userData = { id: 1, username: 'testUser', type: 'admin' };
-            jest.spyOn(authService, 'validateToken').mockResolvedValue(userData);
-
-            const result = await authController.validateToken(validateTokenDto);
-
-            expect(result).toEqual(userData);
-        });
-
-        it('should throw UnauthorizedException if token is invalid', async () => {
-            const validateTokenDto: ValidateTokenDto = { token: 'invalidToken' };
-            jest.spyOn(authService, 'validateToken').mockRejectedValue(new UnauthorizedException());
-
-            await expect(authController.validateToken(validateTokenDto)).rejects.toThrow(UnauthorizedException);
-        });
-    });
 });
