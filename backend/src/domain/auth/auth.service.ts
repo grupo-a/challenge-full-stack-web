@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { LoginDto } from './dto/login.dto';
 import { ValidateTokenDto } from './dto/validate-token.dto';
-import { UserService } from './user.service';
+import { UserService } from '../users/user.service';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +15,7 @@ export class AuthService {
     return {
       token: this.jwtService.sign({
         username: matchUser.username,
-        type: matchUser.type,
+        type: matchUser.user_type,
       })
     };
   }
@@ -30,7 +30,7 @@ export class AuthService {
       return {
         id: user.id,
         username: user.username,
-        type: user.type,
+        type: user.user_type,
       };
     } catch (error) {
       throw new UnauthorizedException();
