@@ -16,6 +16,6 @@ export class User {
     @Column({ length: 50 })
     user_type: string;
 
-    @DeleteDateColumn({ name: 'deleted_at' })
-    deletedAt?: Date;
+    @DeleteDateColumn()
+    deletedat?: Date;
 }
