@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://admin:8jmcn2v45rmjgwr5l6o8uzry9sgj0dtbohf1uz75vh29tmcdvs@db:5432/mydatabase
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 8jmcn2v45rmjgwr5l6o8uzry9sgj0dtbohf1uz75vh29tmcdvs
+      POSTGRES_DB: database
+    volumes:
+      - ./infra/postgreSQL/init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: ["postgres", "-c", "max_connections=300"]
