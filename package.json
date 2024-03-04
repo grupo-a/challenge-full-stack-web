@@ -1,0 +1,34 @@
+{
+  "name": "frontEnd",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/dotenv": "^1.4.2",
+    "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/toast": "^3.3.1",
+    "core-js": "^3.25.3",
+    "lodash": "^4.17.21",
+    "nuxt": "^2.15.8",
+    "sha256": "^0.2.0",
+    "vee-validate": "^3.4.5",
+    "vue": "^2.7.10",
+    "vue-json-to-csv": "^1.1.8",
+    "vue-server-renderer": "^2.7.10",
+    "vue-template-compiler": "^2.7.10",
+    "vue-the-mask": "^0.11.1",
+    "vuetify": "^2.6.10",
+    "xlsx": "^0.17.5"
+  },
+  "devDependencies": {
+    "@nuxtjs/vuetify": "^1.12.3",
+    "babel-core": "7.0.0-bridge.0"
+   
+  }
+}
