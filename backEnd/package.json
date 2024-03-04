@@ -1,0 +1,29 @@
+{
+  "name": "backend_project_grupo_a",
+  "version": "1.0.0",
+  "description": "Backend projet Grupo A",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "dev": "nodemon --inspect index.js"
+  },
+  "author": "Rafael Henrique",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "dotenv": "^8.6.0",
+    "express": "^4.17.1",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^9.0.2",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "net": "^1.0.2",
+    "nodemon": "^3.1.0",
+    "pg": "^8.7.1",
+    "sha256": "^0.2.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
