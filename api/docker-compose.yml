@@ -1,0 +1,66 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    mem_limit: 1024m
+    volumes:
+      - ./:/usr/app/
+      - ./logs:/usr/app/logs
+      - /usr/app/node_modules
+    env_file:
+      - ./.env
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    networks:
+      - network-university
+    command: "npm run start:dev"
+    # command: tail -f /dev/null
+    depends_on:
+        - svc-mysql
+        - svc-redis
+
+
+
+  svc-mysql:
+    container_name: mysql_university
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: university
+      MYSQL_USER: 'system-admin'                
+      MYSQL_PASSWORD: '123teste'          
+      MYSQL_ROOT_PASSWORD: '123teste'
+    volumes:
+      - volume-mysql:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - '3306:3306'
+    networks:
+      - network-university
+
+
+
+  svc-redis:
+    container_name: redis_university
+    image: redis
+    environment:
+      - REDIS_HOST:svc-redis
+      - REDIS_AUTH:0
+    ports:
+      - "6379:6379"
+    networks:
+      - network-university
+    restart: always
+
+
+
+volumes:
+  volume-mysql:
+
+
+networks:
+  network-university:
