@@ -1,1 +1,31 @@
-{"name":"student-management","version":"1.0.0","main":"index.js","scripts":{"dev":"nodemon src/app.js","start":"node src/app.js","test":"jest"},"keywords":[],"author":"Rafael Henrique","license":"ISC","description":"API for managing student registrations","dependencies":{"cors":"^2.8.5","dotenv":"^16.5.0","express":"^5.1.0","helmet":"^8.1.0","knex":"^3.1.0","pg":"^8.15.6"},"devDependencies":{"jest":"^29.7.0","nodemon":"^3.1.10"}}
+{
+    "name": "student-management",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "dev": "nodemon src/app.js",
+        "start": "node src/app.js",
+        "test": "jest",
+        "migrate": "knex migrate:latest --knexfile src/config/knexfile.js",
+        "seed": "knex seed:run --knexfile src/config/knexfile.js"
+
+
+    },
+    "keywords": [],
+    "author": "Rafael Henrique",
+    "license": "ISC",
+    "description": "API for managing student registrations",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "helmet": "^8.1.0",
+        "knex": "^3.1.0",
+        "pg": "^8.15.6"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "nodemon": "^3.1.10",
+        "ts-node": "^10.9.2"
+    }
+}
