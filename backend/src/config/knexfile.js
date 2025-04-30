@@ -1,10 +1,10 @@
-const path = require('path');
-const dotenv = require('dotenv');
+const path = require("path")
+const dotenv = require("dotenv")
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, "../../.env") })
 
 module.exports = {
-  client: 'pg',
+  client: "pg",
   connection: {
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
@@ -13,10 +13,10 @@ module.exports = {
     database: process.env.DB_NAME,
   },
   migrations: {
-    tableName: 'knex', 
-    directory: path.resolve(__dirname, '../database/migrations'), 
+    tableName: "knex",
+    directory: path.resolve(__dirname, "../database/migrations"),
   },
   seeds: {
-    directory: path.resolve(__dirname, '../database/seeds'),
+    directory: path.resolve(__dirname, "../database/seeds"),
   },
-};
+}
