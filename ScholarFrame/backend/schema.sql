@@ -1,0 +1,6 @@
+CREATE TABLE alunos (
+    ra INT PRIMARY KEY,
+    nome VARCHARindex(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    cpf VARCHAR(14) NOT NULL
+);
