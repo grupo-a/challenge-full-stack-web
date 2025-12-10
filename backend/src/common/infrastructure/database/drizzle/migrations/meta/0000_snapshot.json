@@ -1,11 +1,11 @@
 {
-  "id": "83d809ef-6c75-4672-a91a-bb336877c940",
+  "id": "1e2f15af-43ae-4f82-aac7-70a7bfb983c8",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.users": {
-      "name": "users",
+    "public.students": {
+      "name": "students",
       "schema": "",
       "columns": {
         "id": {
@@ -17,6 +17,12 @@
         },
         "name": {
           "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -34,7 +40,7 @@
           "notNull": true,
           "identity": {
             "type": "always",
-            "name": "users_ra_seq",
+            "name": "students_ra_seq",
             "schema": "public",
             "increment": "1",
             "startWith": "1",
@@ -80,18 +86,72 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "users_cpf_unique": {
-          "name": "users_cpf_unique",
+        "students_email_unique": {
+          "name": "students_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        },
+        "students_cpf_unique": {
+          "name": "students_cpf_unique",
           "nullsNotDistinct": false,
           "columns": [
             "cpf"
           ]
         },
-        "users_ra_unique": {
-          "name": "users_ra_unique",
+        "students_ra_unique": {
+          "name": "students_ra_unique",
           "nullsNotDistinct": false,
           "columns": [
             "ra"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.users": {
+      "name": "users",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role": {
+          "name": "role",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'admin'"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "users_email_unique": {
+          "name": "users_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
           ]
         }
       },

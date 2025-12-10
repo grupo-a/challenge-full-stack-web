@@ -1,14 +1,17 @@
 import { Router } from "express";
 import { AuthController } from "../controllers/auth.controller";
-import { PrismaUserRepository } from "@/modules/users/infrastructure/database/prisma/prisma-user.repository";
 import { LoginUseCase } from "@/modules/auth/application/usecases/login.usecase";
+import { RegisterUseCase } from "@/modules/auth/application/usecases/register.usecase";
+import { DrizzleUserRepository } from "@/modules/user/infrastructure/database/drizzle/drizzle-user.repository";
 
 const authRoutes = Router();
 
-const userRepository = new PrismaUserRepository();
+const userRepository = new DrizzleUserRepository();
 const loginUseCase = new LoginUseCase(userRepository);
-const authController = new AuthController(loginUseCase);
+const registerUseCase = new RegisterUseCase(userRepository);
+const authController = new AuthController(loginUseCase, registerUseCase);
 
 authRoutes.post("/login", (req, res) => authController.login(req, res));
+authRoutes.post("/register", (req, res) => authController.register(req, res));
 
 export { authRoutes };

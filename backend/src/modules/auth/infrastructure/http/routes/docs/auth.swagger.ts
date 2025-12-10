@@ -19,11 +19,12 @@
  *           type: object
  *           properties:
  *             id:
- *               type: number
- *               example: 1
- *             username:
  *               type: string
- *               example: "admin"
+ *               format: uuid
+ *               example: "550e8400-e29b-41d4-a716-446655440000"
+ *             email:
+ *               type: string
+ *               example: "admin@example.com"
  *             role:
  *               type: string
  *               example: "ADMIN"
@@ -43,13 +44,14 @@
  *           schema:
  *             type: object
  *             required:
- *               - username
+ *               - email
  *               - password
  *             properties:
- *               username:
+ *               email:
  *                 type: string
- *                 example: "admin"
- *                 description: User's username
+ *                 format: email
+ *                 example: "admin@example.com"
+ *                 description: User's email
  *               password:
  *                 type: string
  *                 format: password
@@ -84,6 +86,66 @@
  *                   status: "error"
  *                   message: "Field validation error"
  *                   errors:
- *                     - field: "username"
- *                       message: "Username is required"
+ *                     - field: "email"
+ *                       message: "Email is required"
+ */
+
+/**
+ * @swagger
+ * /auth/register:
+ *   post:
+ *     summary: Register a new user
+ *     description: Creates a new user account and returns a JWT token.
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: "user@example.com"
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 example: "securePassword123"
+ *                 description: User's password (minimum 8 characters)
+ *     responses:
+ *       201:
+ *         description: User registered successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/LoginResponse'
+ *       422:
+ *         description: Validation error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ValidationError'
+ *             examples:
+ *               emailInUse:
+ *                 summary: Email already in use
+ *                 value:
+ *                   status: "error"
+ *                   message: "Field validation error"
+ *                   errors:
+ *                     - field: "email"
+ *                       message: "Email already in use"
+ *               invalidPassword:
+ *                 summary: Invalid password
+ *                 value:
+ *                   status: "error"
+ *                   message: "Field validation error"
+ *                   errors:
+ *                     - field: "password"
+ *                       message: "Password must be at least 8 characters long"
  */
