@@ -106,18 +106,25 @@
  *             required:
  *               - email
  *               - password
+ *               - confirmPassword
  *             properties:
  *               email:
  *                 type: string
  *                 format: email
- *                 example: "user@example.com"
+ *                 example: "admin@example.com"
  *                 description: User's email address
  *               password:
  *                 type: string
  *                 format: password
  *                 minLength: 8
- *                 example: "securePassword123"
+ *                 example: "admin123"
  *                 description: User's password (minimum 8 characters)
+ *               confirmPassword:
+ *                 type: string
+ *                 format: password
+ *                 minLength: 8
+ *                 example: "admin123"
+ *                 description: Password confirmation (must match password)
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -148,4 +155,12 @@
  *                   errors:
  *                     - field: "password"
  *                       message: "Password must be at least 8 characters long"
+ *               passwordMismatch:
+ *                 summary: Passwords don't match
+ *                 value:
+ *                   status: "error"
+ *                   message: "Field validation error"
+ *                   errors:
+ *                     - field: "confirmPassword"
+ *                       message: "Passwords don't match"
  */

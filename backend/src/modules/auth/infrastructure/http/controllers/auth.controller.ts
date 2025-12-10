@@ -13,6 +13,8 @@ export class AuthController {
   async login(req: Request, res: Response): Promise<Response> {
     const validatedData = loginSchema.parse(req.body);
 
+    console.log("Validated Data:", validatedData);
+
     const result = await this.loginUseCase.execute(validatedData);
 
     return res.status(200).json(result);
