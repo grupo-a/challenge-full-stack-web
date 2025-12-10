@@ -12,21 +12,21 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: always
 
-  api:
-    container_name: student-portal-api
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: student-portal-api:latest
-    ports:
-      - '3000:3000'
-    environment:
-      NODE_ENV: production
-      PORT: 3000
-      DATABASE_URL: postgresql://user:password@postgres:5432/mydatabase
-    depends_on:
-      - postgres
-    restart: always
+  # api:
+  #   container_name: student-portal-api
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   image: student-portal-api:latest
+  #   ports:
+  #     - '3000:3000'
+  #   environment:
+  #     NODE_ENV: production
+  #     PORT: 3000
+  #     DATABASE_URL: postgresql://user:password@postgres:5432/mydatabase
+  #   depends_on:
+  #     - postgres
+  #   restart: always
 
 volumes:
   postgres_data:

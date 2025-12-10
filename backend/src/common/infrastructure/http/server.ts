@@ -1,4 +1,5 @@
 import app from "@/common/infrastructure/http/app";
+import "dotenv/config";
 
 async function startServer() {
   app.listen(process.env.PORT, () => {
