@@ -1,127 +1,56 @@
-+A Educação - Full Stack Web Developer
-===================
+# Módulo Acadêmico - Grupo +A
 
-[![N|Solid](https://maisaedu.com.br/hubfs/site-grupo-a/logo-mais-a-educacao.svg)](https://maisaedu.com.br/) 
+Sistema Full Stack desenvolvido por Gabriel Neves, para gerenciamento de alunos (Matrícula, Edição, Consulta e Exclusão) com autenticação segura. Desenvolvido como parte do desafio técnico, focando em qualidade de código, segurança e experiência do usuário.
 
-O objetivo deste desafio é avaliar as competências técnicas dos candidatos a desenvolvedor Full Stack Web na Maior Plataforma de Educação do Brasil.
+## Arquitetura da Solução
 
-Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula do Aluno na Turma de Programação Web da instituição Edtech. Regras e requisitos técnicos estão detalhadas neste documento.
+O projeto segue uma arquitetura **Client-Server** desacoplada (Monorepo), onde o Front-end e o Back-end operam independentemente, comunicando-se via API REST.
 
-# Especificações Técnicas
-- **Front-end:**
-  - Framework JS: [Vue.js](https://vuejs.org/)
-  - Framework de UI: [Vuetify](https://vuetifyjs.com/)
-- **API:** NodeJS
-- **Banco de Dados:** Postgress ou MySQL
-- **Idioma de escrita do código:** Inglês
+### Fluxo de Dados
+`[Frontend (Vue.js)] <--> [API (Node.js/Express)] <--> [Banco de Dados (PostgreSQL)]`
 
-# Requisitos
-## Contextualização
-Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de alunos em turmas online. Para realizar a matrícula, é necessário que o cadastro do aluno tenha sido realizado.
+* **Segurança:** Implementação de **JWT (JSON Web Token)**. O Frontend armazena o token e o envia em cada requisição; o Backend valida o token antes de liberar o acesso aos dados.
+* **Frontend:** Single Page Application (SPA) reativa construída com Vue 3, TypeScript e Vuetify.
+* **Backend:** API RESTful construída com Node.js e Express, utilizando driver nativo do Postgres (`pg`).
 
-O desafio consiste em criar uma aplicação para o cadastro de alunos conforme os critérios de aceitação.
+---
 
-## Mockups de interface
-A seguir, são apresentados alguns mockups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade na criação do front-end.
+## Tecnologias Utilizadas
 
-* Listagem de Alunos
-![Listagem de Alunos](/mockups/studants_list.png)
+### Frontend (`/frontend`)
+* **Vue.js 3** (Composition API + Script Setup)
+* **TypeScript** (Tipagem estática e segurança)
+* **Vuetify 3** (Biblioteca de componentes UI Material Design)
+* **Vue Router 4** (Gerenciamento de rotas e guardas de navegação)
+* **Axios** (Cliente HTTP com interceptadores)
+* **Vite** (Build tool rápida)
 
-* Criar/Editar Aluno
-![Listagem de Alunos](/mockups/studants_save.png)
+### Backend (`/backend`)
+* **Node.js**
+* **Express** (Framework de servidor)
+* **PostgreSQL** (Banco de dados relacional)
+* **bcryptjs** (Hash de senhas)
+* **jsonwebtoken** (Geração e validação de tokens)
+* **cors** & **dotenv**
 
-## Histórias do Usuário
-- **Sendo** um usuário administrativo da Instituição
-- **Quero** gerenciar cadastros de alunos
-- **Para** que eu possa realizar a matrícula do aluno
+---
 
-### Critérios de aceite: 
+## Pré-requisitos
 
-#### Cenário: Cadastrar novo aluno
-- **Dado** que estou na tela de Consulta de Alunos
-- **Quando** clico em Cadastrar Aluno
-- **Então** abre a tela de Cadastro do Aluno
-- **E** exibe os campos obrigatórios vazios
-####
-- **Dado** que inseri dados válidos nos campos
-- **Quando** clico em Salvar
-- **Então** cria o novo aluno na base
-- **E** retorna mensagem de sucesso
-####
-- **Dado** que inseri dados válidos nos campos
-- **Quando** clico em Cancelar
-- **Então** retorna para tela Consulta de Alunos
-- **E** não persiste a gravação dos dados no banco 
+Certifique-se de ter instalado:
+* [Node.js](https://nodejs.org/) (v16 ou superior)
+* [PostgreSQL](https://www.postgresql.org/)
+* [Git](https://git-scm.com/)
 
-#### Cenário: Listar alunos cadastrados 
-- **Dado** que estou no Módulo Acadêmico
-- **Quando** clico no menu Alunos
-- **Então** abre a tela de Consulta de Alunos 
-- **E** exibe opção Cadastrar Aluno ao topo
-- **E** lista dados dos alunos cadastrados
-- **E** exibe opção Editar por aluno
-- **E** exibe opção Excluir por aluno
-
-#### Cenário: Editar cadastro de aluno
-- **Dado** que estou na listagem de alunos
-- **Quando** clico em Editar aluno
-- **Então** abre a tela de Cadastro do Aluno 
-- **E** exibe os campos do cadastro preenchidos
-- **E** habilita alteração dos campos editáveis
-####
-- **Dado** que estou na tela de Cadastro do Aluno
-- **Quando** clica em Salvar
-- **Então** grava os dados editáveis na base
-####
-- **Dado** que estou na tela de Cadastro do Aluno
-- **Quando** clica em Cancelar
-- **Então** retorna para a tela de Consulta de Alunos
-- **E** não persiste a gravação dos dados
-
-#### Cenário: Excluir cadastro de aluno
-- **Dado** que estou na listagem de alunos
-- **Quando** clico em Excluir aluno
-- **Então** exibe a modal de confirmação de exclusão
-####
-- **Dado** que estou na modal de confirmação de exclusão 
-- **Quando** clico em Confirmar
-- **Então** então exclui o registro do aluno
-####
-- **Dado** que estou na modal de confirmação de exclusão
-- **Quando** clico em Cancelar
-- **Então** então fecha a modal e não persiste a exclusão
-
-## Campos obrigatórios:
-- **Nome** (editável)
-- **Email** (editável)
-- **RA** (não editável) (chave única)
-- **CPF** (não editável)
-
-# Critérios de avaliação
-- Qualidade de escrita do código
-- Organização do projeto
-- Qualidade da API
-- Lógica da solução implementada
-- Qualidade da camada de persistência
-- Utilização do Git (quantidade e descrição dos commits, Git Flow, ...)
-- Validações
-- Tratamento de erros
-- Padrões de projeto e arquitetura
-
-# Desejável
-- Testes de unidade
-- Documentação da arquitetura de solução
-
-# Diferenciais
-- Segurança da aplicação (autenticação, autorização, ...)
-
-# Instruções de entrega
-1. Crie um fork do repositório no seu GitHub
-2. Faça o push do código desenvolvido no seu Github
-3. Inclua um arquivo chamado COMMENTS.md explicando
-    - Decisão da arquitetura utilizada
-    - Lista de bibliotecas de terceiros utilizadas
-    - O que você melhoraria se tivesse mais tempo
-    - Quais requisitos obrigatórios que não foram entregues
-4. Informe ao recrutador quando concluir o desafio junto com o link do repositório
-5. Após revisão do projeto junto com a equipe de desevolvimento deixe seu repositório privado
+---
+## Se tivesse mais tempo
+1. Adicionaria mais funções ao administrador
+- Criar cursos
+- Criar matérias
+- Alocar alunos em cursos e matérias
+- Adicionar conteúdo
+- Criar perfil do professor
+2. Professores e alunos
+- Matriculas em cursos
+- Emissão de documento e certificados
+- Edifar perfil (senha, foto...)
