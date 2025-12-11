@@ -1,53 +1,41 @@
 <script setup lang="ts">
-    import { ref, computed } from 'vue';
-    import { z } from 'zod';
+    import { ref } from 'vue';
     import type { LoginCredentials } from '../types/auth.types';
+    import { loginSchema } from '../schema';
 
     interface Props {
         loading?: boolean;
+    }
+
+    interface Emits {
+        submit: [credentials: LoginCredentials];
+        register: [];
     }
 
     withDefaults(defineProps<Props>(), {
         loading: false
     });
 
-    const emit = defineEmits<{
-        submit: [credentials: LoginCredentials];
-        register: [];
-    }>();
+    const emit = defineEmits<Emits>();
 
-    const loginSchema = z.object({
-        email: z.string().min(1, 'Email é obrigatório').email('Email inválido'),
-        password: z
-            .string()
-            .min(1, 'Senha é obrigatória')
-            .min(6, 'Senha deve ter no mínimo 6 caracteres')
+    const loginForm = ref({
+        email: '',
+        password: ''
     });
 
-    const email = ref('');
-    const password = ref('');
     const showPassword = ref(false);
-    const errors = ref<Record<string, string>>({});
-
-    const isFormValid = computed(() => {
-        const result = loginSchema.safeParse({
-            email: email.value,
-            password: password.value
-        });
-        return result.success;
-    });
+    const errors = ref<{ email?: string[]; password?: string[] }>({});
 
     const validateForm = (): boolean => {
-        const result = loginSchema.safeParse({
-            email: email.value,
-            password: password.value
-        });
+        const result = loginSchema.safeParse(loginForm.value);
+
+        errors.value = {};
 
         if (!result.success) {
-            errors.value = {};
             result.error.issues.forEach((issue) => {
-                const field = issue.path[0] as string;
-                errors.value[field] = issue.message;
+                const field = issue.path[0] as 'email' | 'password';
+                errors.value[field] = errors.value[field] || [];
+                errors.value[field]?.push(issue.message);
             });
             return false;
         }
@@ -59,10 +47,7 @@
     const handleSubmit = async () => {
         if (!validateForm()) return;
 
-        emit('submit', {
-            email: email.value,
-            password: password.value
-        });
+        emit('submit', loginForm.value as LoginCredentials);
     };
 
     const handleRegisterClick = () => {
@@ -83,7 +68,7 @@
 
         <v-form @submit.prevent="handleSubmit">
             <v-text-field
-                v-model="email"
+                v-model="loginForm.email"
                 label="Email"
                 type="email"
                 prepend-inner-icon="mdi-email"
@@ -95,7 +80,7 @@
             />
 
             <v-text-field
-                v-model="password"
+                v-model="loginForm.password"
                 label="Senha"
                 :type="showPassword ? 'text' : 'password'"
                 prepend-inner-icon="mdi-lock"
@@ -114,7 +99,7 @@
                 size="large"
                 block
                 :loading="loading"
-                :disabled="!isFormValid || loading"
+                :disabled="loading"
                 data-testid="login-button"
             >
                 <v-icon left class="mr-2">mdi-login</v-icon>
@@ -137,7 +122,3 @@
         </div>
     </v-card>
 </template>
-
-<style scoped>
-    /* Estilos específicos do componente */
-</style>

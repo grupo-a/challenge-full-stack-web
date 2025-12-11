@@ -1,30 +1,16 @@
-<!--
-  RegisterView.vue
-  View de registro - página completa de cadastro de usuário
--->
 <script setup lang="ts">
-    // 1. Imports
     import { useRouter } from 'vue-router';
     import RegisterForm from '../components/RegisterForm.vue';
     import { useAuth } from '../composables/useAuth';
     import type { RegisterData } from '../types/auth.types';
 
-    // 2. Composables
     const { handleRegister, isLoading } = useAuth();
     const router = useRouter();
 
-    // 3. Methods
-
-    /**
-     * Handler do submit do formulário de registro
-     */
     const onSubmit = async (data: RegisterData) => {
         await handleRegister(data);
     };
 
-    /**
-     * Navega para a página de login
-     */
     const goToLogin = () => {
         router.push({ name: 'login' });
     };
