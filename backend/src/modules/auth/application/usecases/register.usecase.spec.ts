@@ -20,8 +20,8 @@ describe("RegisterUseCase", () => {
     email: "newuser@example.com",
     password: "hashed_password",
     role: "ADMIN",
-    created_at: new Date(),
-    updated_at: new Date(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
 
   beforeEach(() => {
