@@ -33,7 +33,7 @@ export class LoginUseCase {
         id: user.id,
         role: user.role,
       },
-      process.env.JWT_SECRET || "default_secret",
+      process.env.JWT_SECRET as string,
       {
         expiresIn: "1d",
       }

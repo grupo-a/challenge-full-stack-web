@@ -30,7 +30,7 @@ export function authMiddleware(
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || "default_secret"
+      process.env.JWT_SECRET as string
     ) as unknown as TokenPayload;
     const { id, role } = decoded;
 
