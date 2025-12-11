@@ -151,7 +151,7 @@ describe("CreateStudentUseCase", () => {
 
   it("should throw error when student data is invalid", async () => {
     const dto = {
-      name: "Jo", // Too short
+      name: "Jo",
       email: "invalid-email",
       cpf: "123",
     };
