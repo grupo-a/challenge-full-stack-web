@@ -31,6 +31,8 @@ describe("RegisterUseCase", () => {
     };
     registerUseCase = new RegisterUseCase(mockUserRepository);
 
+    process.env.JWT_SECRET = "test-secret-key";
+
     vi.clearAllMocks();
   });
 
@@ -170,7 +172,7 @@ describe("RegisterUseCase", () => {
         id: "550e8400-e29b-41d4-a716-446655440000",
         role: UserRole.ADMIN,
       },
-      expect.any(String),
+      "test-secret-key",
       {
         expiresIn: "1d",
       }

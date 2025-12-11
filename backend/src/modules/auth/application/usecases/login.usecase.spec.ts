@@ -7,7 +7,6 @@ import { IUserRepository } from "@/modules/user/application/repositories/user.re
 import { UserRole } from "@/modules/user/domain/enums/user-role.enum";
 import { User } from "@/modules/user/domain/entities/user.entity";
 
-// Mock bcrypt and jwt
 vi.mock("bcryptjs");
 vi.mock("jsonwebtoken");
 
