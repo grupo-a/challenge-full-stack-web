@@ -151,7 +151,7 @@
  * /students:
  *   get:
  *     summary: List all students
- *     description: Returns a paginated list of students with optional search filter
+ *     description: Returns a paginated list of students with optional filters by name, email, or RA
  *     tags: [Students]
  *     security:
  *       - bearerAuth: []
@@ -172,10 +172,20 @@
  *           default: 10
  *         description: Number of items per page
  *       - in: query
- *         name: search
+ *         name: name
  *         schema:
  *           type: string
- *         description: Search students by name, email, or RA
+ *         description: Filter students by name (partial match, case insensitive)
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         description: Filter students by email (partial match, case insensitive)
+ *       - in: query
+ *         name: ra
+ *         schema:
+ *           type: integer
+ *         description: Filter students by RA (exact match)
  *     responses:
  *       200:
  *         description: List of students retrieved successfully

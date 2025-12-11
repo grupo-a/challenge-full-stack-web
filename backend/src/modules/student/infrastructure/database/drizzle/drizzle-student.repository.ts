@@ -117,30 +117,38 @@ export class DrizzleStudentRepository implements IStudentRepository {
   async list(
     filters: ListStudentsFilters
   ): Promise<PaginatedResponse<Student>> {
-    const { page, limit, search } = filters;
+    const { page, limit, name, email, ra } = filters;
     const offset = (page - 1) * limit;
 
-    let whereConditions = undefined;
-    if (search && search.trim()) {
-      whereConditions = or(
-        ilike(studentsTable.name, `%${search}%`),
-        ilike(studentsTable.email, `%${search}%`),
-        sql`CAST(${studentsTable.ra} AS TEXT) ILIKE ${`%${search}%`}`
-      );
+    const whereConditions = [];
+
+    if (name && name.trim()) {
+      whereConditions.push(ilike(studentsTable.name, `%${name}%`));
     }
+
+    if (email && email.trim()) {
+      whereConditions.push(ilike(studentsTable.email, `%${email}%`));
+    }
+
+    if (ra !== undefined) {
+      whereConditions.push(eq(studentsTable.ra, ra));
+    }
+
+    const whereClause =
+      whereConditions.length > 0 ? or(...whereConditions) : undefined;
 
     const [studentsResult, countResult] = await Promise.all([
       db
         .select()
         .from(studentsTable)
-        .where(whereConditions)
+        .where(whereClause)
         .limit(limit)
         .offset(offset)
         .orderBy(studentsTable.createdAt),
       db
         .select({ count: sql<number>`count(*)` })
         .from(studentsTable)
-        .where(whereConditions),
+        .where(whereClause),
     ]);
 
     const total = Number(countResult[0]?.count || 0);

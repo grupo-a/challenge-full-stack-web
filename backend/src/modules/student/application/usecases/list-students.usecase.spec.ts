@@ -93,7 +93,7 @@ describe("ListStudentsUseCase", () => {
     const result = await listStudentsUseCase.execute({
       page: 1,
       limit: 10,
-      search: "João",
+      name: "João",
     });
 
     expect(result.data).toHaveLength(1);
@@ -101,7 +101,7 @@ describe("ListStudentsUseCase", () => {
     expect(studentRepository.list).toHaveBeenCalledWith({
       page: 1,
       limit: 10,
-      search: "João",
+      name: "João",
     });
   });
 

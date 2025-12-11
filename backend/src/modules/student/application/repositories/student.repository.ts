@@ -5,7 +5,9 @@ import {
 } from "@/common/infrastructure/http/dtos/pagination.dto";
 
 export interface ListStudentsFilters extends PaginationDTO {
-  search?: string;
+  name?: string;
+  email?: string;
+  ra?: number;
 }
 
 export interface IStudentRepository {
