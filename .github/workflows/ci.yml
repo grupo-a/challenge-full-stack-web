@@ -37,7 +37,7 @@ jobs:
         run: pnpm test
         env:
           PORT: 3000
-          NODE_ENV: development
+          NODE_ENV: develop
           API_URL: http://localhost:3000
           DATABASE_URL: postgresql://user:password@localhost:5432/mydatabase
           JWT_SECRET: my-secret
