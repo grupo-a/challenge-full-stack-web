@@ -17,6 +17,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
+        with:
+          version: 10.14.0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -24,11 +26,11 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
-      - name: Install dependencies
-        run: pnpm install
+      - name: Install backend dependencies
+        run: cd backend && pnpm install
 
-      - name: Run Tests
-        run: pnpm test
+      - name: Run backend Tests
+        run: cd backend && pnpm test
         env:
           PORT: 3000
           NODE_ENV: development
