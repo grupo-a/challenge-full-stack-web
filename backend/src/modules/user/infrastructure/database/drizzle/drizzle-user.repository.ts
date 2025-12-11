@@ -23,8 +23,8 @@ export class DrizzleUserRepository implements IUserRepository {
       email: createdUser.email,
       role: createdUser.role,
       password: createdUser.password,
-      created_at: createdUser.createdAt,
-      updated_at: createdUser.updatedAt,
+      createdAt: createdUser.createdAt,
+      updatedAt: createdUser.updatedAt,
     });
   }
 
@@ -42,8 +42,8 @@ export class DrizzleUserRepository implements IUserRepository {
       email: user.email,
       role: user.role,
       password: user.password,
-      created_at: user.createdAt,
-      updated_at: user.updatedAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     });
   }
 }

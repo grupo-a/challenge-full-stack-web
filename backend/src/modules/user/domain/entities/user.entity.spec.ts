@@ -32,8 +32,8 @@ describe("User Entity", () => {
         email: "jane_doe@example.com",
         password: "hashed_password",
         role: "ADMIN",
-        created_at: now,
-        updated_at: now,
+        createdAt: now,
+        updatedAt: now,
       };
 
       const user = User.fromPersistence(data);
@@ -66,8 +66,8 @@ describe("User Entity", () => {
         email: "test@example.com",
         password: hashedPassword,
         role: "ADMIN",
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       const result = await user.verifyPassword("password123");
@@ -82,8 +82,8 @@ describe("User Entity", () => {
         email: "test@example.com",
         password: hashedPassword,
         role: "ADMIN",
-        created_at: new Date(),
-        updated_at: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       });
 
       const result = await user.verifyPassword("wrongpassword");

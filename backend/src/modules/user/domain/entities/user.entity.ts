@@ -90,16 +90,16 @@ export class User {
     email: string;
     password: string;
     role: string;
-    created_at: Date;
-    updated_at: Date;
+    createdAt: Date;
+    updatedAt: Date;
   }): User {
     return new User(
       data.id,
       data.email,
       data.password,
       data.role as UserRole,
-      data.created_at,
-      data.updated_at
+      data.createdAt,
+      data.updatedAt
     );
   }
 }

@@ -80,8 +80,8 @@ describe("RegisterUseCase", () => {
       email: "existing@example.com",
       password: "hashed_password",
       role: "ADMIN",
-      created_at: new Date(),
-      updated_at: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     });
 
     vi.mocked(mockUserRepository.findByEmail).mockResolvedValue(existingUser);
