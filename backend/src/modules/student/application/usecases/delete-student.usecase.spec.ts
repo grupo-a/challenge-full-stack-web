@@ -14,7 +14,6 @@ describe("DeleteStudentUseCase", () => {
       findById: vi.fn(),
       findByEmail: vi.fn(),
       findByCpf: vi.fn(),
-      findByRa: vi.fn(),
       list: vi.fn(),
       update: vi.fn(),
       delete: vi.fn(),

@@ -15,7 +15,6 @@ export interface IStudentRepository {
   findById(id: string): Promise<Student | null>;
   findByEmail(email: string): Promise<Student | null>;
   findByCpf(cpf: string): Promise<Student | null>;
-  findByRa(ra: number): Promise<Student | null>;
   list(filters: ListStudentsFilters): Promise<PaginatedResponse<Student>>;
   update(student: Student): Promise<Student | null>;
   delete(id: string): Promise<boolean>;

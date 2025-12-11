@@ -94,26 +94,6 @@ export class DrizzleStudentRepository implements IStudentRepository {
     });
   }
 
-  async findByRa(ra: number): Promise<Student | null> {
-    const student = await db.query.studentsTable.findFirst({
-      where: (studentsTable, { eq }) => eq(studentsTable.ra, ra),
-    });
-
-    if (!student) {
-      return null;
-    }
-
-    return Student.fromPersistence({
-      id: student.id,
-      name: student.name,
-      email: student.email,
-      cpf: student.cpf,
-      ra: student.ra,
-      createdAt: student.createdAt,
-      updatedAt: student.updatedAt,
-    });
-  }
-
   async list(
     filters: ListStudentsFilters
   ): Promise<PaginatedResponse<Student>> {
