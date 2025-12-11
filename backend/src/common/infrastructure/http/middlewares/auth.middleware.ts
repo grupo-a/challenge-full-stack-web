@@ -1,9 +1,11 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { UnauthorizedError } from "@/common/domain/errors/unauthorized-error";
+import { UserRole } from "@/modules/user/domain/enums/user-role.enum";
 
 interface TokenPayload {
   id: number;
+  role: UserRole;
   iat: number;
   exp: number;
 }
@@ -28,12 +30,13 @@ export function authMiddleware(
   try {
     const decoded = jwt.verify(
       token,
-      process.env.JWT_SECRET || "default_secret"
+      process.env.JWT_SECRET as string
     ) as unknown as TokenPayload;
-    const { id } = decoded;
+    const { id, role } = decoded;
 
     req.user = {
       id,
+      role,
     };
 
     next();
