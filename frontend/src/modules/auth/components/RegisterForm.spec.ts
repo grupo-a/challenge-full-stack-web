@@ -422,7 +422,8 @@ describe('RegisterForm.vue', () => {
                     {
                         name: 'João Silva',
                         email: 'test@example.com',
-                        password: 'password123'
+                        password: 'password123',
+                        confirmPassword: 'password123'
                     }
                 ]);
             }

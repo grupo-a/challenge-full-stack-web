@@ -1,15 +1,9 @@
-/**
- * Testes unitários para auth.service.ts
- *
- * Este arquivo testa o serviço de autenticação
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { authService } from '../services/auth.service';
 import { api, AUTH_TOKEN_KEY } from '@/core/services/api.service';
 import type { AuthResponse, User } from '../types/auth.types';
 import { UserRole } from '../types/auth.types';
 
-// Mock do módulo api
 vi.mock('@/core/services/api.service', () => ({
     api: {
         post: vi.fn(),
@@ -18,7 +12,6 @@ vi.mock('@/core/services/api.service', () => ({
     AUTH_TOKEN_KEY: 'auth_token'
 }));
 
-// Dados mock para os testes
 const mockUser: User = {
     id: '1',
     name: 'Test User',
@@ -36,7 +29,6 @@ const mockAuthResponse: AuthResponse = {
 describe('authService', () => {
     beforeEach(() => {
         vi.clearAllMocks();
-        // Mock do localStorage já configurado no setup.ts
     });
 
     describe('login', () => {
@@ -73,7 +65,8 @@ describe('authService', () => {
             const registerData = {
                 name: 'Test User',
                 email: 'test@example.com',
-                password: 'password123'
+                password: 'password123',
+                confirmPassword: 'password123'
             };
             const result = await authService.register(registerData);
 

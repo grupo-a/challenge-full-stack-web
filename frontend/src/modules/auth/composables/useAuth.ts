@@ -1,8 +1,9 @@
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useAuthStore } from '../stores/auth.store';
 import { useNotification } from '@/core/composables/useNotification';
-import type { LoginCredentials, RegisterData } from '../types/auth.types';
+import { formatApiValidationErrors } from '@/core/utils';
+import type { RegisterSchemaType, LoginSchemaType } from '../schema';
 
 export const useAuth = () => {
     const authStore = useAuthStore();
@@ -15,10 +16,11 @@ export const useAuth = () => {
     const user = computed(() => authStore.user);
     const error = computed(() => authStore.error);
     const isAdmin = computed(() => authStore.isAdmin);
+    const validationErrors = ref<Record<string, string[]> | null>(null);
 
-    async function handleLogin(
-        credentials: LoginCredentials
-    ): Promise<boolean> {
+    async function handleLogin(credentials: LoginSchemaType): Promise<boolean> {
+        validationErrors.value = null;
+
         try {
             await authStore.login(credentials);
 
@@ -29,13 +31,20 @@ export const useAuth = () => {
             await router.push(redirectPath);
 
             return true;
-        } catch {
+        } catch (err) {
+            const formattedErrors = formatApiValidationErrors(err);
+
+            if (formattedErrors) {
+                validationErrors.value = formattedErrors;
+            }
+
             notification.error(authStore.error || 'Falha ao realizar login');
             return false;
         }
     }
 
-    async function handleRegister(data: RegisterData): Promise<boolean> {
+    async function handleRegister(data: RegisterSchemaType): Promise<boolean> {
+        validationErrors.value = null;
         try {
             await authStore.register(data);
 
@@ -44,7 +53,13 @@ export const useAuth = () => {
             await router.push('/students');
 
             return true;
-        } catch {
+        } catch (err) {
+            const formattedErrors = formatApiValidationErrors(err);
+
+            if (formattedErrors) {
+                validationErrors.value = formattedErrors;
+            }
+
             notification.error(authStore.error || 'Falha ao criar conta');
             return false;
         }
@@ -69,6 +84,7 @@ export const useAuth = () => {
         handleLogin,
         handleRegister,
         handleLogout,
-        initializeAuth
+        initializeAuth,
+        validationErrors
     };
 };

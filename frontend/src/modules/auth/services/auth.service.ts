@@ -1,13 +1,9 @@
 import { api, AUTH_TOKEN_KEY } from '@/core/services/api.service';
-import type {
-    LoginCredentials,
-    RegisterData,
-    AuthResponse,
-    User
-} from '../types/auth.types';
+import type { AuthResponse, User } from '../types/auth.types';
+import type { LoginSchemaType, RegisterSchemaType } from '../schema';
 
 export const authService = {
-    async login(credentials: LoginCredentials): Promise<AuthResponse> {
+    async login(credentials: LoginSchemaType): Promise<AuthResponse> {
         const { data } = await api.post<AuthResponse>(
             '/auth/login',
             credentials
@@ -15,7 +11,7 @@ export const authService = {
         return data;
     },
 
-    async register(registerData: RegisterData): Promise<AuthResponse> {
+    async register(registerData: RegisterSchemaType): Promise<AuthResponse> {
         const { data } = await api.post<AuthResponse>(
             '/auth/register',
             registerData

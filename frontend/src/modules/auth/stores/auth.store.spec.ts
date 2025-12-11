@@ -135,7 +135,8 @@ describe('useAuthStore', () => {
             await store.register({
                 name: 'Test User',
                 email: 'test@example.com',
-                password: 'password123'
+                password: 'password123',
+                confirmPassword: 'password123'
             });
 
             expect(authService.register).toHaveBeenCalled();
@@ -155,8 +156,9 @@ describe('useAuthStore', () => {
             await expect(
                 store.register({
                     name: 'Test',
-                    email: 'existing@example.com',
-                    password: 'password123'
+                    email: 'test@example.com',
+                    password: 'password123',
+                    confirmPassword: 'password123'
                 })
             ).rejects.toEqual({ message: errorMessage });
 

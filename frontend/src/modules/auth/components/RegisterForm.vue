@@ -3,21 +3,22 @@
   Componente de formulário de registro de usuário
 -->
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import type { RegisterData } from '../types/auth.types';
-    import { registerSchema } from '../schema';
+    import { ref, watch } from 'vue';
+    import { registerSchema, type RegisterSchemaType } from '../schema';
 
     interface Props {
         loading?: boolean;
+        validationErrors?: Record<string, string[]> | null;
     }
 
     interface Emits {
-        submit: [data: RegisterData];
+        submit: [data: RegisterSchemaType];
         login: [];
     }
 
-    withDefaults(defineProps<Props>(), {
-        loading: false
+    const props = withDefaults(defineProps<Props>(), {
+        loading: false,
+        validationErrors: null
     });
 
     const emit = defineEmits<Emits>();
@@ -38,10 +39,21 @@
         confirmPassword?: string[];
     }>({});
 
+    watch(
+        () => props.validationErrors,
+        (newErrors) => {
+            if (newErrors) {
+                errors.value = newErrors;
+            }
+        }
+    );
+
     const validateForm = (): boolean => {
         const result = registerSchema.safeParse(registerForm.value);
 
-        errors.value = {};
+        if (!props.validationErrors) {
+            errors.value = {};
+        }
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
@@ -56,18 +68,21 @@
             return false;
         }
 
-        errors.value = {};
+        if (!props.validationErrors) {
+            errors.value = {};
+        }
+
         return true;
     };
 
     const handleSubmit = async () => {
+        if (props.validationErrors) {
+            errors.value = {};
+        }
+
         if (!validateForm()) return;
 
-        emit('submit', {
-            name: registerForm.value.name,
-            email: registerForm.value.email,
-            password: registerForm.value.password
-        });
+        emit('submit', registerForm.value);
     };
 
     const handleLoginClick = () => {

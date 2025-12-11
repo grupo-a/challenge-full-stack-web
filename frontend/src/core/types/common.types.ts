@@ -8,10 +8,15 @@ export interface PaginatedResponse<T> {
     };
 }
 
+export interface ValidationError {
+    field: string;
+    message: string;
+}
+
 export interface ApiError {
     message: string;
     statusCode: number;
-    errors?: Record<string, string[]>;
+    errors?: ValidationError[] | Record<string, string[]>;
 }
 
 export interface PaginationParams {

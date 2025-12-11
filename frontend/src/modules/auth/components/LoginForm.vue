@@ -1,19 +1,20 @@
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import type { LoginCredentials } from '../types/auth.types';
-    import { loginSchema } from '../schema';
+    import { ref, watch } from 'vue';
+    import { loginSchema, type LoginSchemaType } from '../schema';
 
     interface Props {
         loading?: boolean;
+        validationErrors?: Record<string, string[]> | null;
     }
 
     interface Emits {
-        submit: [credentials: LoginCredentials];
+        submit: [credentials: LoginSchemaType];
         register: [];
     }
 
-    withDefaults(defineProps<Props>(), {
-        loading: false
+    const props = withDefaults(defineProps<Props>(), {
+        loading: false,
+        validationErrors: null
     });
 
     const emit = defineEmits<Emits>();
@@ -26,10 +27,21 @@
     const showPassword = ref(false);
     const errors = ref<{ email?: string[]; password?: string[] }>({});
 
+    watch(
+        () => props.validationErrors,
+        (newErrors) => {
+            if (newErrors) {
+                errors.value = newErrors;
+            }
+        }
+    );
+
     const validateForm = (): boolean => {
         const result = loginSchema.safeParse(loginForm.value);
 
-        errors.value = {};
+        if (!props.validationErrors) {
+            errors.value = {};
+        }
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
@@ -40,14 +52,20 @@
             return false;
         }
 
-        errors.value = {};
+        if (!props.validationErrors) {
+            errors.value = {};
+        }
         return true;
     };
 
     const handleSubmit = async () => {
+        if (props.validationErrors) {
+            errors.value = {};
+        }
+
         if (!validateForm()) return;
 
-        emit('submit', loginForm.value as LoginCredentials);
+        emit('submit', loginForm.value);
     };
 
     const handleRegisterClick = () => {

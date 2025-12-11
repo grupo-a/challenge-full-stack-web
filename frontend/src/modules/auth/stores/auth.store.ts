@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
-import type { User, LoginCredentials, RegisterData } from '../types/auth.types';
+import type { User } from '../types/auth.types';
 import { authService } from '../services/auth.service';
+import type { LoginSchemaType, RegisterSchemaType } from '../schema';
 
 export const useAuthStore = defineStore('auth', () => {
     const user = ref<User | null>(null);
@@ -14,7 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
     const userEmail = computed(() => user.value?.email ?? '');
     const isAdmin = computed(() => user.value?.role === 'admin');
 
-    async function login(credentials: LoginCredentials): Promise<void> {
+    async function login(credentials: LoginSchemaType): Promise<void> {
         isLoading.value = true;
         error.value = null;
 
@@ -34,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
-    async function register(data: RegisterData): Promise<void> {
+    async function register(data: RegisterSchemaType): Promise<void> {
         isLoading.value = true;
         error.value = null;
 
