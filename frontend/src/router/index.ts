@@ -1,7 +1,3 @@
-/**
- * Configuração do Vue Router
- * Define todas as rotas da aplicação e configurações globais
- */
 import {
     createRouter,
     createWebHistory,

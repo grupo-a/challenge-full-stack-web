@@ -1,7 +1,3 @@
-/**
- * Helpers para testes Vue
- * Fornece funções utilitárias para montar componentes em testes
- */
 import { createPinia, setActivePinia } from 'pinia';
 import { createVuetify } from 'vuetify';
 import * as components from 'vuetify/components';

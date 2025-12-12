@@ -1,8 +1,3 @@
-/**
- * Testes unitários para LoginForm.vue
- *
- * Este arquivo testa o componente de formulário de login
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount, flushPromises } from '@vue/test-utils';
 import { createVuetify } from 'vuetify';

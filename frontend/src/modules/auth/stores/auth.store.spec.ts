@@ -1,8 +1,3 @@
-/**
- * Testes unitários para auth.store.ts
- *
- * Este arquivo testa a store de autenticação do Pinia
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 import { useAuthStore } from '../stores/auth.store';
