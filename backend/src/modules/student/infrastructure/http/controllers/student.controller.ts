@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { createStudentSchema } from "../dtos/create-student.dto";
-import { updateStudentSchema } from "../dtos/update-student.dto";
+import { createcreateStudentSchema } from "../dtos/create-student.dto";
+import { updatecreateStudentSchema } from "../dtos/update-student.dto";
 import { listStudentsSchema } from "../dtos/list-students.dto";
 import { CreateStudentUseCase } from "@/modules/student/application/usecases/create-student.usecase";
 import { ListStudentsUseCase } from "@/modules/student/application/usecases/list-students.usecase";
@@ -19,7 +19,7 @@ export class StudentController {
   ) {}
 
   async create(req: Request, res: Response): Promise<Response> {
-    const validatedData = createStudentSchema.parse(req.body);
+    const validatedData = createcreateStudentSchema.parse(req.body);
 
     const result = await this.createStudentUseCase.execute(validatedData);
 
@@ -53,7 +53,7 @@ export class StudentController {
       throw new BadRequestError("Student id is required");
     }
 
-    const validatedData = updateStudentSchema.parse(req.body);
+    const validatedData = updatecreateStudentSchema.parse(req.body);
 
     const result = await this.updateStudentUseCase.execute({
       id,
