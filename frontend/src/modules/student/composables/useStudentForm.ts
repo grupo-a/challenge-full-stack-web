@@ -1,12 +1,11 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useStudentsStore } from '../stores/students.store';
 import { useNotification } from '@/core/composables/useNotification';
 import { type createStudentSchemaType } from '../schema';
 import { formatApiValidationErrors } from '@/core/utils';
+import { studentsService } from '../services/students.service';
 
 export function useStudentForm() {
-    const studentStore = useStudentsStore();
     const router = useRouter();
     const notification = useNotification();
 
@@ -18,7 +17,7 @@ export function useStudentForm() {
         isLoading.value = true;
 
         try {
-            await studentStore.createStudent(data);
+            await studentsService.create(data);
 
             notification.success('Aluno criado com sucesso!');
 
@@ -30,7 +29,9 @@ export function useStudentForm() {
                 validationErrors.value = formattedApiErrors;
             }
 
-            notification.error(studentStore.error || 'Falha ao criar aluno');
+            const errorMessage =
+                err instanceof Error ? err.message : 'Falha ao criar aluno';
+            notification.error(errorMessage);
         } finally {
             isLoading.value = false;
         }
@@ -44,7 +45,7 @@ export function useStudentForm() {
         isLoading.value = true;
 
         try {
-            await studentStore.updateStudent(id, data);
+            await studentsService.update(id, data);
 
             notification.success('Aluno atualizado com sucesso!');
 
@@ -56,9 +57,9 @@ export function useStudentForm() {
                 validationErrors.value = formattedApiErrors;
             }
 
-            notification.error(
-                studentStore.error || 'Falha ao atualizar aluno'
-            );
+            const errorMessage =
+                err instanceof Error ? err.message : 'Falha ao atualizar aluno';
+            notification.error(errorMessage);
         } finally {
             isLoading.value = false;
         }
@@ -67,14 +68,14 @@ export function useStudentForm() {
     const getStudent = async (id: string) => {
         isLoading.value = true;
         try {
-            return await studentStore.getStudentById(id);
+            return await studentsService.getById(id);
         } catch (err) {
             const errorMessage =
-                typeof err === 'object' && err !== null && 'message' in err
-                    ? (err as { message?: string }).message
-                    : undefined;
+                err instanceof Error
+                    ? err.message
+                    : 'Falha ao obter dados do aluno';
 
-            notification.error(errorMessage || 'Falha ao obter dados do aluno');
+            notification.error(errorMessage);
             router.push('/students');
         } finally {
             isLoading.value = false;

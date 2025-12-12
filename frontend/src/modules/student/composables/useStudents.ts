@@ -1,14 +1,15 @@
-import { storeToRefs } from 'pinia';
-import { useStudentsStore } from '../stores/students.store';
 import { onMounted, ref, watch } from 'vue';
-import type { StudentFilters } from '../types/student.types';
+import type { Student, StudentFilters } from '../types/student.types';
 import { useNotification } from '@/core/composables/useNotification';
+import { studentsService } from '../services/students.service';
 
 export function useStudents() {
-    const store = useStudentsStore();
     const notification = useNotification();
 
-    const { students, totalItems, isLoading, error } = storeToRefs(store);
+    const students = ref<Student[]>([]);
+    const totalItems = ref(0);
+    const isLoading = ref(false);
+    const error = ref<string | null>(null);
 
     const filters = ref<StudentFilters>({
         page: 1,
@@ -16,14 +17,25 @@ export function useStudents() {
         name: ''
     });
 
+    const itemsPerPageOptions = [
+        { value: 5, title: '5' },
+        { value: 10, title: '10' },
+        { value: 25, title: '25' },
+        { value: 50, title: '50' }
+    ];
+
     const fetchStudents = async () => {
         isLoading.value = true;
+        error.value = null;
 
         try {
-            await store.fetchStudents(filters.value);
-        } catch (error) {
+            const response = await studentsService.list(filters.value);
+            students.value = response.data;
+            totalItems.value = response.meta.total;
+        } catch (e) {
             const errorMessage =
-                error instanceof Error ? error.message : 'Erro desconhecido';
+                e instanceof Error ? e.message : 'Erro desconhecido';
+            error.value = errorMessage;
             notification.error(`Erro ao buscar alunos: ${errorMessage}`);
         } finally {
             isLoading.value = false;
@@ -34,24 +46,39 @@ export function useStudents() {
         isLoading.value = true;
 
         try {
-            await store.deleteStudent(id);
+            await studentsService.delete(id);
             notification.info('Aluno excluído com sucesso');
             await fetchStudents();
-        } catch (error) {
-            const err = error as { message: string };
-
+        } catch (e) {
+            const err = e as { message: string };
             notification.error(`Erro ao excluir aluno: ${err.message}`);
         } finally {
             isLoading.value = false;
         }
     };
 
+    const handlePageChange = (page: number) => {
+        filters.value.page = page;
+    };
+
+    const handleItemsPerPageChange = (itemsPerPage: number) => {
+        filters.value.limit = itemsPerPage;
+        filters.value.page = 1;
+    };
+
     watch(
-        filters,
+        () => filters.value.name,
+        () => {
+            filters.value.page = 1;
+            fetchStudents();
+        }
+    );
+
+    watch(
+        () => [filters.value.page, filters.value.limit],
         () => {
             fetchStudents();
-        },
-        { deep: true }
+        }
     );
 
     onMounted(() => {
@@ -64,7 +91,10 @@ export function useStudents() {
         isLoading,
         error,
         filters,
+        itemsPerPageOptions,
         fetchStudents,
-        deleteStudent
+        deleteStudent,
+        handlePageChange,
+        handleItemsPerPageChange
     };
 }

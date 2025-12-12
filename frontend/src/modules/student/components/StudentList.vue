@@ -4,11 +4,17 @@
     interface Props {
         students: Student[];
         isLoading: boolean;
+        totalItems: number;
+        page: number;
+        itemsPerPage: number;
+        itemsPerPageOptions: { value: number; title: string }[];
     }
 
     interface Emits {
         (e: 'edit', id: string): void;
         (e: 'delete', student: Student): void;
+        (e: 'update:page', page: number): void;
+        (e: 'update:itemsPerPage', itemsPerPage: number): void;
     }
 
     defineProps<Props>();
@@ -23,14 +29,20 @@
 </script>
 
 <template>
-    <v-data-table
+    <v-data-table-server
         :headers="headers"
         :items="students"
+        :items-length="totalItems"
         :loading="isLoading"
+        :page="page"
+        :items-per-page="itemsPerPage"
+        :items-per-page-options="itemsPerPageOptions"
         class="elevation-1"
         hover
         :mobile-breakpoint="600"
         :style="{ minHeight: '400px' }"
+        @update:page="emit('update:page', $event)"
+        @update:items-per-page="emit('update:itemsPerPage', $event)"
     >
         <template #[`item.actions`]="{ item }">
             <v-btn
@@ -54,5 +66,5 @@
         <template #no-data>
             <div class="pa-4 text-center">Nenhum aluno encontrado</div>
         </template>
-    </v-data-table>
+    </v-data-table-server>
 </template>

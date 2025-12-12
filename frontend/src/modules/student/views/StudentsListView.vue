@@ -7,7 +7,16 @@
     import type { Student } from '../types/student.types';
 
     const router = useRouter();
-    const { students, isLoading, filters, deleteStudent } = useStudents();
+    const {
+        students,
+        isLoading,
+        totalItems,
+        filters,
+        itemsPerPageOptions,
+        deleteStudent,
+        handlePageChange,
+        handleItemsPerPageChange
+    } = useStudents();
 
     const showDeleteDialog = ref(false);
     const studentToDelete = ref<Student | null>(null);
@@ -66,8 +75,14 @@
             <StudentList
                 :students="students"
                 :is-loading="isLoading"
+                :total-items="totalItems"
+                :page="filters.page ?? 1"
+                :items-per-page="filters.limit ?? 10"
+                :items-per-page-options="itemsPerPageOptions"
                 @edit="handleEdit"
                 @delete="handleDeleteClick"
+                @update:page="handlePageChange"
+                @update:items-per-page="handleItemsPerPageChange"
             />
         </v-card>
 

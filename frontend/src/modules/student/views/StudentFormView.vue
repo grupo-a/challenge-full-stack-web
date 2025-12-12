@@ -57,9 +57,11 @@
 
 <template>
     <v-container fluid class="pa-4 pa-md-6">
-        <h1 class="text-h5 text-md-h4 mb-4">
-            {{ isEditing ? 'Editar Aluno' : 'Cadastro de Aluno' }}
-        </h1>
+        <div class="d-flex justify-center mb-4">
+            <h1 class="text-h5 text-md-h4">
+                {{ isEditing ? 'Editar Aluno' : 'Cadastro de Aluno' }}
+            </h1>
+        </div>
 
         <v-card :loading="isLoadingData">
             <v-overlay
