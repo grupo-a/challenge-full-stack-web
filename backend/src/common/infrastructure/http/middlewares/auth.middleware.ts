@@ -4,7 +4,7 @@ import { UnauthorizedError } from "@/common/domain/errors/unauthorized-error";
 import { UserRole } from "@/modules/user/domain/enums/user-role.enum";
 
 interface TokenPayload {
-  id: number;
+  id: string;
   role: UserRole;
   iat: number;
   exp: number;

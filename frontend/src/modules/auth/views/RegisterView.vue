@@ -14,8 +14,6 @@
     const goToLogin = () => {
         router.push({ name: 'login' });
     };
-
-    console.log('RegisterView loaded');
 </script>
 
 <template>

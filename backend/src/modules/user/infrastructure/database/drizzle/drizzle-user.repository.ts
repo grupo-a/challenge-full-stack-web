@@ -46,4 +46,23 @@ export class DrizzleUserRepository implements IUserRepository {
       updatedAt: user.updatedAt,
     });
   }
+
+  async findById(id: string): Promise<User | null> {
+    const user = await db.query.usersTable.findFirst({
+      where: (usersTable, { eq }) => eq(usersTable.id, id),
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return User.fromPersistence({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      password: user.password,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    });
+  }
 }

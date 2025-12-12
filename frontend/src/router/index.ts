@@ -6,28 +6,23 @@ import {
 import { authRoutes } from '@/modules/auth/routes';
 import { authGuard } from '@/core/guards/auth.guard';
 
-import StudentsView from '@/views/StudentsView.vue';
-
-const baseRoutes: RouteRecordRaw[] = [
-    {
-        path: '/',
-        redirect: '/students'
-    },
-    {
-        path: '/students',
-        name: 'students',
-        component: StudentsView,
-        beforeEnter: authGuard,
-        meta: {
-            title: 'Alunos',
-            requiresAuth: true
-        }
-    }
-];
+import { studentRoutes } from '@/modules/student/routes';
+import MainLayout from '@/core/components/layout/MainLayout.vue';
 
 const routes: RouteRecordRaw[] = [
     ...authRoutes,
-    ...baseRoutes,
+    {
+        path: '/',
+        component: MainLayout,
+        beforeEnter: authGuard,
+        children: [
+            {
+                path: '',
+                redirect: '/students'
+            },
+            ...studentRoutes
+        ]
+    },
     {
         path: '/:pathMatch(.*)*',
         name: 'not-found',

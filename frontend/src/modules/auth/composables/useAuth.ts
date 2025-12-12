@@ -72,10 +72,6 @@ export const useAuth = () => {
         await router.push('/login');
     }
 
-    async function initializeAuth(): Promise<void> {
-        await authStore.initialize();
-    }
-
     return {
         isAuthenticated,
         isLoading,
@@ -85,7 +81,6 @@ export const useAuth = () => {
         handleLogin,
         handleRegister,
         handleLogout,
-        initializeAuth,
         validationErrors
     };
 };

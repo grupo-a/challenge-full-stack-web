@@ -1,7 +1,3 @@
-<!--
-  RegisterForm.vue
-  Componente de formulário de registro de usuário
--->
 <script setup lang="ts">
     import { ref, watch } from 'vue';
     import { registerSchema, type RegisterSchemaType } from '../schema';
@@ -24,7 +20,6 @@
     const emit = defineEmits<Emits>();
 
     const registerForm = ref({
-        name: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -32,12 +27,7 @@
 
     const showPassword = ref(false);
     const showConfirmPassword = ref(false);
-    const errors = ref<{
-        name?: string[];
-        email?: string[];
-        password?: string[];
-        confirmPassword?: string[];
-    }>({});
+    const errors = ref<Record<string, string[]>>({});
 
     watch(
         () => props.validationErrors,
@@ -48,31 +38,25 @@
         }
     );
 
-    const validateForm = (): boolean => {
-        const result = registerSchema.safeParse(registerForm.value);
+    const validateForm = (): RegisterSchemaType | null => {
+        errors.value = {};
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
+        const result = registerSchema.safeParse(registerForm.value);
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
                 const field = issue.path[0] as
-                    | 'name'
                     | 'email'
                     | 'password'
                     | 'confirmPassword';
                 errors.value[field] = errors.value[field] || [];
                 errors.value[field]?.push(issue.message);
             });
-            return false;
+
+            return null;
         }
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
-
-        return true;
+        return result.data;
     };
 
     const handleSubmit = async () => {
@@ -104,17 +88,6 @@
         </v-card-subtitle>
 
         <v-form @submit.prevent="handleSubmit">
-            <v-text-field
-                v-model="registerForm.name"
-                label="Nome completo"
-                prepend-inner-icon="mdi-account"
-                :error-messages="errors.name"
-                variant="outlined"
-                class="mb-4"
-                autocomplete="name"
-                data-testid="name-input"
-            />
-
             <v-text-field
                 v-model="registerForm.email"
                 label="Email"

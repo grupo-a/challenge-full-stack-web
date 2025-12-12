@@ -28,6 +28,7 @@ describe("RegisterUseCase", () => {
     mockUserRepository = {
       create: vi.fn(),
       findByEmail: vi.fn(),
+      findById: vi.fn(),
     };
     registerUseCase = new RegisterUseCase(mockUserRepository);
 
