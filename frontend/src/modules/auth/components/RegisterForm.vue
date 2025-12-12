@@ -1,7 +1,3 @@
-<!--
-  RegisterForm.vue
-  Componente de formulário de registro de usuário
--->
 <script setup lang="ts">
     import { ref, watch } from 'vue';
     import { registerSchema, type RegisterSchemaType } from '../schema';
@@ -24,7 +20,6 @@
     const emit = defineEmits<Emits>();
 
     const registerForm = ref({
-        name: '',
         email: '',
         password: '',
         confirmPassword: ''
@@ -33,7 +28,6 @@
     const showPassword = ref(false);
     const showConfirmPassword = ref(false);
     const errors = ref<{
-        name?: string[];
         email?: string[];
         password?: string[];
         confirmPassword?: string[];
@@ -58,7 +52,6 @@
         if (!result.success) {
             result.error.issues.forEach((issue) => {
                 const field = issue.path[0] as
-                    | 'name'
                     | 'email'
                     | 'password'
                     | 'confirmPassword';
@@ -104,17 +97,6 @@
         </v-card-subtitle>
 
         <v-form @submit.prevent="handleSubmit">
-            <v-text-field
-                v-model="registerForm.name"
-                label="Nome completo"
-                prepend-inner-icon="mdi-account"
-                :error-messages="errors.name"
-                variant="outlined"
-                class="mb-4"
-                autocomplete="name"
-                data-testid="name-input"
-            />
-
             <v-text-field
                 v-model="registerForm.email"
                 label="Email"

@@ -2,21 +2,33 @@
     import { ref, watch } from 'vue';
     import {
         type createStudentSchemaType,
-        createStudentSchema
+        type updateStudentSchemaType,
+        createStudentSchema,
+        updateStudentSchema
     } from '../schema';
 
     interface Props {
+        isEditing?: boolean;
         loading?: boolean;
         validationErrors?: Record<string, string[]> | null;
-        initialData?: createStudentSchemaType | null;
+        initialData?: {
+            name: string;
+            email: string;
+            cpf: string;
+            ra?: string;
+        } | null;
     }
 
     interface Emits {
-        submit: [data: createStudentSchemaType];
-        cancel: [];
+        (
+            e: 'submit',
+            data: createStudentSchemaType | updateStudentSchemaType
+        ): void;
+        (e: 'cancel'): void;
     }
 
     const props = withDefaults(defineProps<Props>(), {
+        isEditing: false,
         loading: false,
         validationErrors: null,
         initialData: null
@@ -24,17 +36,14 @@
 
     const emit = defineEmits<Emits>();
 
-    const studentForm = ref({
+    const form = ref({
         name: '',
         email: '',
-        cpf: ''
+        cpf: '',
+        ra: ''
     });
 
-    const errors = ref<{
-        name?: string[];
-        email?: string[];
-        cpf?: string[];
-    }>({});
+    const errors = ref<Record<string, string[]>>({});
 
     watch(
         () => props.validationErrors,
@@ -49,76 +58,96 @@
         () => props.initialData,
         (newData) => {
             if (newData) {
-                studentForm.value = { ...newData };
+                form.value = {
+                    name: newData.name,
+                    email: newData.email,
+                    cpf: newData.cpf,
+                    ra: newData.ra || ''
+                };
             }
         },
         { immediate: true }
     );
 
-    const validateForm = (): boolean => {
-        const result = createStudentSchema.safeParse(studentForm.value);
+    const validateForm = ():
+        | createStudentSchemaType
+        | updateStudentSchemaType
+        | null => {
+        errors.value = {};
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
+        const schema = props.isEditing
+            ? updateStudentSchema
+            : createStudentSchema;
+        const result = schema.safeParse(form.value);
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
-                const field = issue.path[0] as 'name' | 'email' | 'cpf';
+                const field = issue.path[0] as string;
                 if (!errors.value[field]) {
                     errors.value[field] = [];
                 }
-                errors.value[field]!.push(issue.message);
+                errors.value[field].push(issue.message);
             });
-            return false;
+            return null;
         }
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
-
-        return true;
+        return result.data;
     };
 
-    const handleSubmit = async () => {
-        if (props.validationErrors) {
-            errors.value = {};
+    const handleSubmit = () => {
+        const validData = validateForm();
+
+        if (validData) {
+            emit('submit', validData);
         }
-
-        if (!validateForm()) return;
-
-        emit('submit', studentForm.value);
     };
 </script>
 
 <template>
     <v-form @submit.prevent="handleSubmit">
         <v-row>
-            <v-col cols="12">
+            <v-col v-if="isEditing" cols="12" md="6">
                 <v-text-field
-                    v-model="studentForm.name"
-                    label="Nome"
-                    :error-messages="errors.name"
+                    v-model="form.ra"
+                    label="RA"
+                    disabled
+                    variant="outlined"
+                    bg-color="grey-lighten-4"
+                    data-testid="ra-input"
+                ></v-text-field>
+            </v-col>
+
+            <v-col cols="12" :md="isEditing ? 6 : 12">
+                <v-text-field
+                    v-model="form.cpf"
+                    label="CPF"
+                    :disabled="isEditing"
+                    :variant="isEditing ? 'outlined' : 'filled'"
+                    :bg-color="isEditing ? 'grey-lighten-4' : undefined"
+                    :error-messages="errors.cpf"
                     required
+                    data-testid="cpf-input"
                 ></v-text-field>
             </v-col>
 
             <v-col cols="12">
                 <v-text-field
-                    v-model="studentForm.email"
+                    v-model="form.name"
+                    label="Nome"
+                    :error-messages="errors.name"
+                    required
+                    data-testid="name-input"
+                ></v-text-field>
+            </v-col>
+
+            <v-col cols="12">
+                <v-text-field
+                    v-model="form.email"
                     label="Email"
                     type="email"
                     :error-messages="errors.email"
                     required
-                ></v-text-field>
-            </v-col>
-
-            <v-col cols="12">
-                <v-text-field
-                    v-model="studentForm.cpf"
-                    label="CPF"
-                    :error-messages="errors.cpf"
-                    required
+                    data-testid="email-input"
                 ></v-text-field>
             </v-col>
         </v-row>
@@ -129,12 +158,18 @@
                     color="grey-darken-1"
                     variant="outlined"
                     :disabled="props.loading"
+                    data-testid="cancel-button"
                     @click="emit('cancel')"
                 >
                     Cancelar
                 </v-btn>
 
-                <v-btn color="primary" type="submit" :loading="props.loading">
+                <v-btn
+                    color="primary"
+                    type="submit"
+                    :loading="props.loading"
+                    data-testid="save-button"
+                >
                     Salvar
                 </v-btn>
             </v-col>

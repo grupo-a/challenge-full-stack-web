@@ -36,12 +36,10 @@
         }
     );
 
-    const validateForm = (): boolean => {
-        const result = loginSchema.safeParse(loginForm.value);
+    const validateForm = (): LoginSchemaType | null => {
+        errors.value = {};
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
+        const result = loginSchema.safeParse(loginForm.value);
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
@@ -49,23 +47,19 @@
                 errors.value[field] = errors.value[field] || [];
                 errors.value[field]?.push(issue.message);
             });
-            return false;
+
+            return null;
         }
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
-        return true;
+        return result.data;
     };
 
     const handleSubmit = async () => {
-        if (props.validationErrors) {
-            errors.value = {};
+        const validData = validateForm();
+
+        if (validData) {
+            emit('submit', loginForm.value);
         }
-
-        if (!validateForm()) return;
-
-        emit('submit', loginForm.value);
     };
 
     const handleRegisterClick = () => {

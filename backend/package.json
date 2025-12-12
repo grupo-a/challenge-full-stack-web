@@ -11,7 +11,10 @@
     "test": "vitest run",
     "lint": "npx eslint ./src/**",
     "lint:fix": "npx eslint ./src/** --fix",
-    "db:seed": "tsx src/common/infrastructure/database/drizzle/db/seed.ts"
+    "db:seed": "tsx src/common/infrastructure/database/drizzle/db/seed.ts",
+    "migrate": "drizzle-kit migrate",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +31,7 @@
     "@types/swagger-ui-express": "^4.1.8",
     "@vitest/coverage-v8": "^4.0.15",
     "drizzle-kit": "^0.31.8",
+    "esbuild": "^0.25.0",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "tsx": "^4.21.0",

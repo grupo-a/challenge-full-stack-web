@@ -3,7 +3,11 @@
     import { useRoute, useRouter } from 'vue-router';
     import { useStudentForm } from '../composables/useStudentForm';
     import StudentForm from '../components/StudentForm.vue';
-    import type { createStudentSchemaType } from '../schema';
+    import type {
+        createStudentSchemaType,
+        updateStudentSchemaType
+    } from '../schema';
+    import type { Student } from '../types/student.types';
 
     const route = useRoute();
     const router = useRouter();
@@ -18,7 +22,8 @@
         validationErrors
     } = useStudentForm();
 
-    const studentData = ref<createStudentSchemaType | null>(null);
+    const studentData = ref<Student | null>(null);
+
     const isLoadingData = ref(false);
 
     onMounted(async () => {
@@ -28,11 +33,7 @@
                 const student = await getStudent(studentId.value);
 
                 if (student) {
-                    studentData.value = {
-                        name: student.name,
-                        email: student.email,
-                        cpf: student.cpf
-                    };
+                    studentData.value = student;
                 }
             } finally {
                 isLoadingData.value = false;
@@ -40,11 +41,16 @@
         }
     });
 
-    const handleSubmit = async (data: createStudentSchemaType) => {
+    const handleSubmit = async (
+        data: createStudentSchemaType | updateStudentSchemaType
+    ) => {
         if (isEditing.value) {
-            await handleUpdateStudent(studentId.value, data);
+            await handleUpdateStudent(
+                studentId.value,
+                data as updateStudentSchemaType
+            );
         } else {
-            await handleCreateStudent(data);
+            await handleCreateStudent(data as createStudentSchemaType);
         }
     };
 
@@ -76,6 +82,7 @@
 
             <v-card-text>
                 <StudentForm
+                    :is-editing="isEditing"
                     :loading="isLoading"
                     :validation-errors="validationErrors"
                     :initial-data="studentData"

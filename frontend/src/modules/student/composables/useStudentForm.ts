@@ -1,7 +1,10 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useNotification } from '@/core/composables/useNotification';
-import { type createStudentSchemaType } from '../schema';
+import {
+    type createStudentSchemaType,
+    type updateStudentSchemaType
+} from '../schema';
 import { formatApiValidationErrors } from '@/core/utils';
 import { studentsService } from '../services/students.service';
 
@@ -39,7 +42,7 @@ export function useStudentForm() {
 
     const handleUpdateStudent = async (
         id: string,
-        data: createStudentSchemaType
+        data: updateStudentSchemaType
     ) => {
         validationErrors.value = null;
         isLoading.value = true;

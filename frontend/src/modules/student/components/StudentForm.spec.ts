@@ -13,6 +13,7 @@ const vuetify = createVuetify({
 const mountStudentForm = (props = {}) => {
     return mount(StudentForm, {
         props: {
+            isEditing: false,
             loading: false,
             validationErrors: null,
             initialData: null,
@@ -36,26 +37,49 @@ describe('StudentForm.vue', () => {
         it('should render the student form with all required fields', () => {
             const wrapper = mountStudentForm();
 
-            expect(wrapper.find('input').exists()).toBe(true);
-            expect(wrapper.text()).toContain('Nome');
-            expect(wrapper.text()).toContain('Email');
-            expect(wrapper.text()).toContain('CPF');
+            expect(wrapper.find('[data-testid="name-input"]').exists()).toBe(
+                true
+            );
+            expect(wrapper.find('[data-testid="email-input"]').exists()).toBe(
+                true
+            );
+            expect(wrapper.find('[data-testid="cpf-input"]').exists()).toBe(
+                true
+            );
         });
 
         it('should show Salvar and Cancelar buttons', () => {
             const wrapper = mountStudentForm();
 
-            expect(wrapper.text()).toContain('Salvar');
-            expect(wrapper.text()).toContain('Cancelar');
+            expect(wrapper.find('[data-testid="save-button"]').exists()).toBe(
+                true
+            );
+            expect(wrapper.find('[data-testid="cancel-button"]').exists()).toBe(
+                true
+            );
         });
 
         it('should start with empty fields when no initialData', () => {
             const wrapper = mountStudentForm();
-            const inputs = wrapper.findAll('input');
 
-            inputs.forEach((input) => {
-                expect((input.element as HTMLInputElement).value).toBe('');
-            });
+            expect(
+                (
+                    wrapper.find('[data-testid="name-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('');
+            expect(
+                (
+                    wrapper.find('[data-testid="email-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('');
+            expect(
+                (
+                    wrapper.find('[data-testid="cpf-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('');
         });
 
         it('should populate fields with initialData', async () => {
@@ -68,47 +92,71 @@ describe('StudentForm.vue', () => {
             const wrapper = mountStudentForm({ initialData });
             await flushPromises();
 
-            const inputs = wrapper.findAll('input');
-            const values = inputs.map(
-                (input) => (input.element as HTMLInputElement).value
+            expect(
+                (
+                    wrapper.find('[data-testid="name-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('João Silva');
+            expect(
+                (
+                    wrapper.find('[data-testid="email-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('joao@email.com');
+            expect(
+                (
+                    wrapper.find('[data-testid="cpf-input"] input')
+                        .element as HTMLInputElement
+                ).value
+            ).toBe('12345678901');
+        });
+
+        it('should show RA field only in edit mode', async () => {
+            const wrapper = mountStudentForm({ isEditing: true });
+            expect(wrapper.find('[data-testid="ra-input"]').exists()).toBe(
+                true
             );
 
-            expect(values).toContain('João Silva');
-            expect(values).toContain('joao@email.com');
-            expect(values).toContain('12345678901');
+            const wrapperCreate = mountStudentForm({ isEditing: false });
+            expect(
+                wrapperCreate.find('[data-testid="ra-input"]').exists()
+            ).toBe(false);
         });
     });
 
     describe('Inputs', () => {
         it('should update name input value', async () => {
             const wrapper = mountStudentForm();
-            const nameInput = wrapper.findAll('input')[0];
+            const nameInput = wrapper.find('[data-testid="name-input"] input');
 
-            await nameInput?.setValue('Maria Santos');
+            await nameInput.setValue('Maria Santos');
 
-            expect((nameInput?.element as HTMLInputElement).value).toBe(
+            expect((nameInput.element as HTMLInputElement).value).toBe(
                 'Maria Santos'
             );
         });
 
         it('should update email input value', async () => {
             const wrapper = mountStudentForm();
-            const emailInput = wrapper.findAll('input')[1];
+            const emailInput = wrapper.find(
+                '[data-testid="email-input"] input'
+            );
 
-            await emailInput?.setValue('maria@email.com');
+            await emailInput.setValue('maria@email.com');
 
-            expect((emailInput?.element as HTMLInputElement).value).toBe(
+            expect((emailInput.element as HTMLInputElement).value).toBe(
                 'maria@email.com'
             );
         });
 
         it('should update cpf input value', async () => {
             const wrapper = mountStudentForm();
-            const cpfInput = wrapper.findAll('input')[2];
+            const cpfInput = wrapper.find('[data-testid="cpf-input"] input');
 
-            await cpfInput?.setValue('98765432100');
+            await cpfInput.setValue('98765432100');
 
-            expect((cpfInput?.element as HTMLInputElement).value).toBe(
+            expect((cpfInput.element as HTMLInputElement).value).toBe(
                 '98765432100'
             );
         });
@@ -117,39 +165,45 @@ describe('StudentForm.vue', () => {
     describe('Validations', () => {
         it('should show error when name is too short', async () => {
             const wrapper = mountStudentForm();
-            const nameInput = wrapper.findAll('input')[0];
-            const emailInput = wrapper.findAll('input')[1];
-            const cpfInput = wrapper.findAll('input')[2];
+            const cpfInput = wrapper.find('[data-testid="cpf-input"] input');
+            const nameInput = wrapper.find('[data-testid="name-input"] input');
+            const emailInput = wrapper.find(
+                '[data-testid="email-input"] input'
+            );
 
-            await nameInput?.setValue('AB');
-            await emailInput?.setValue('valid@email.com');
-            await cpfInput?.setValue('12345678901');
+            await cpfInput.setValue('12345678901');
+            await nameInput.setValue('AB');
+            await emailInput.setValue('valid@email.com');
 
             const form = wrapper.find('form');
             await form.trigger('submit.prevent');
             await flushPromises();
+            await wrapper.vm.$nextTick();
 
             expect(wrapper.text()).toContain(
                 'Nome deve ter pelo menos 3 caracteres'
             );
-        }, 10000);
+        });
 
         it('should show error when email is invalid', async () => {
             const wrapper = mountStudentForm();
-            const nameInput = wrapper.findAll('input')[0];
-            const emailInput = wrapper.findAll('input')[1];
-            const cpfInput = wrapper.findAll('input')[2];
+            const cpfInput = wrapper.find('[data-testid="cpf-input"] input');
+            const nameInput = wrapper.find('[data-testid="name-input"] input');
+            const emailInput = wrapper.find(
+                '[data-testid="email-input"] input'
+            );
 
-            await nameInput?.setValue('Maria Santos');
-            await emailInput?.setValue('invalid-email');
-            await cpfInput?.setValue('12345678901');
+            await cpfInput.setValue('12345678901');
+            await nameInput.setValue('Maria Santos');
+            await emailInput.setValue('invalid-email');
 
             const form = wrapper.find('form');
             await form.trigger('submit.prevent');
             await flushPromises();
+            await wrapper.vm.$nextTick();
 
             expect(wrapper.text()).toContain('Email inválido');
-        }, 10000);
+        });
 
         it('should display external validation errors from API', async () => {
             const validationErrors = {
@@ -168,13 +222,15 @@ describe('StudentForm.vue', () => {
     describe('Events', () => {
         it('should emit submit event with form data on valid submit', async () => {
             const wrapper = mountStudentForm();
-            const nameInput = wrapper.findAll('input')[0];
-            const emailInput = wrapper.findAll('input')[1];
-            const cpfInput = wrapper.findAll('input')[2];
+            const cpfInput = wrapper.find('[data-testid="cpf-input"] input');
+            const nameInput = wrapper.find('[data-testid="name-input"] input');
+            const emailInput = wrapper.find(
+                '[data-testid="email-input"] input'
+            );
 
-            await nameInput?.setValue('Pedro Oliveira');
-            await emailInput?.setValue('pedro@email.com');
-            await cpfInput?.setValue('11122233344');
+            await cpfInput.setValue('11122233344');
+            await nameInput.setValue('Pedro Oliveira');
+            await emailInput.setValue('pedro@email.com');
 
             const form = wrapper.find('form');
             await form.trigger('submit.prevent');
@@ -189,55 +245,42 @@ describe('StudentForm.vue', () => {
                     cpf: '11122233344'
                 }
             ]);
-        }, 10000);
+        });
 
         it('should not emit submit event when form is invalid', async () => {
             const wrapper = mountStudentForm();
-            const nameInput = wrapper.findAll('input')[0];
+            const nameInput = wrapper.find('[data-testid="name-input"] input');
 
-            await nameInput?.setValue('AB'); // Too short
+            await nameInput.setValue('AB'); // Too short
 
             const form = wrapper.find('form');
             await form.trigger('submit.prevent');
             await flushPromises();
 
-            const submitEvents = wrapper.emitted('submit');
-            expect(submitEvents).toBeFalsy();
-        }, 10000);
+            expect(wrapper.emitted('submit')).toBeFalsy();
+        });
 
         it('should emit cancel event when Cancelar button is clicked', async () => {
             const wrapper = mountStudentForm();
+            const cancelButton = wrapper.find('[data-testid="cancel-button"]');
 
-            const cancelButton = wrapper
-                .findAll('button')
-                .find((btn) => btn.text().includes('Cancelar'));
-            expect(cancelButton).toBeTruthy();
+            await cancelButton.trigger('click');
 
-            await cancelButton!.trigger('click');
-
-            const cancelEvents = wrapper.emitted('cancel');
-            expect(cancelEvents).toBeTruthy();
-        });
-    });
-
-    describe('Loading state', () => {
-        it('should disable Cancelar button when loading', () => {
-            const wrapper = mountStudentForm({ loading: true });
-
-            const cancelButton = wrapper
-                .findAll('button')
-                .find((btn) => btn.text().includes('Cancelar'));
-            expect(cancelButton?.attributes('disabled')).toBeDefined();
+            expect(wrapper.emitted('cancel')).toBeTruthy();
         });
 
-        it('should show loading indicator on Salvar button when loading', () => {
+        it('should disable Cancelar button when loading', async () => {
             const wrapper = mountStudentForm({ loading: true });
+            const cancelButton = wrapper.find('[data-testid="cancel-button"]');
 
-            const saveButton = wrapper
-                .findAll('button')
-                .find((btn) => btn.text().includes('Salvar'));
+            expect(cancelButton.attributes('disabled')).toBeDefined();
+        });
 
-            expect(saveButton?.classes().join(' ')).toContain('loading');
+        it('should show loading indicator on Salvar button when loading', async () => {
+            const wrapper = mountStudentForm({ loading: true });
+            const saveButton = wrapper.find('[data-testid="save-button"]');
+
+            expect(saveButton.classes()).toContain('v-btn--loading');
         });
     });
 });
