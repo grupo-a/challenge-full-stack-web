@@ -25,7 +25,7 @@
     });
 
     const showPassword = ref(false);
-    const errors = ref<{ email?: string[]; password?: string[] }>({});
+    const errors = ref<Record<string, string[]>>({});
 
     watch(
         () => props.validationErrors,
