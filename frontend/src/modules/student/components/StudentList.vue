@@ -29,6 +29,8 @@
         :loading="isLoading"
         class="elevation-1"
         hover
+        :mobile-breakpoint="600"
+        :style="{ minHeight: '400px' }"
     >
         <template #[`item.actions`]="{ item }">
             <v-btn
@@ -39,6 +41,7 @@
                 class="mr-2"
                 @click="emit('edit', item.id)"
             ></v-btn>
+
             <v-btn
                 icon="mdi-delete"
                 size="small"
@@ -47,6 +50,7 @@
                 @click="emit('delete', item)"
             ></v-btn>
         </template>
+
         <template #no-data>
             <div class="pa-4 text-center">Nenhum aluno encontrado</div>
         </template>

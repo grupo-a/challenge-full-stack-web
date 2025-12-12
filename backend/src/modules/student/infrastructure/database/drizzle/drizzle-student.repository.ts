@@ -100,6 +100,8 @@ export class DrizzleStudentRepository implements IStudentRepository {
     const { page, limit, name, email, ra } = filters;
     const offset = (page - 1) * limit;
 
+    console.log("Filters received in repository:", filters);
+
     const whereConditions = [];
 
     if (name && name.trim()) {

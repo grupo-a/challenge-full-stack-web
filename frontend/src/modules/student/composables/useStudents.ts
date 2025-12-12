@@ -13,7 +13,7 @@ export function useStudents() {
     const filters = ref<StudentFilters>({
         page: 1,
         limit: 10,
-        search: ''
+        name: ''
     });
 
     const fetchStudents = async () => {

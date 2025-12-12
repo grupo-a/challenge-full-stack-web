@@ -1,11 +1,12 @@
 <script setup lang="ts">
     import { computed, onMounted, ref } from 'vue';
-    import { useRoute } from 'vue-router';
+    import { useRoute, useRouter } from 'vue-router';
     import { useStudentForm } from '../composables/useStudentForm';
     import StudentForm from '../components/StudentForm.vue';
     import type { createStudentSchemaType } from '../schema';
 
     const route = useRoute();
+    const router = useRouter();
     const studentId = computed(() => route.params.id as string);
     const isEditing = computed(() => !!studentId.value);
 
@@ -20,18 +21,23 @@
     } = useStudentForm();
 
     const studentData = ref<createStudentSchemaType | null>(null);
+    const isLoadingData = ref(false);
 
     onMounted(async () => {
-        console.log('StudentFormView mounted');
         if (isEditing.value) {
-            const student = await getStudent(studentId.value);
+            isLoadingData.value = true;
+            try {
+                const student = await getStudent(studentId.value);
 
-            if (student) {
-                studentData.value = {
-                    name: student.name,
-                    email: student.email,
-                    cpf: student.cpf
-                };
+                if (student) {
+                    studentData.value = {
+                        name: student.name,
+                        email: student.email,
+                        cpf: student.cpf
+                    };
+                }
+            } finally {
+                isLoadingData.value = false;
             }
         }
     });
@@ -43,21 +49,38 @@
             await handleCreateStudent(data);
         }
     };
+
+    const handleCancel = () => {
+        router.push('/students');
+    };
 </script>
 
 <template>
-    <v-container>
-        <h1 class="text-h4 mb-4">
+    <v-container fluid class="pa-4 pa-md-6">
+        <h1 class="text-h5 text-md-h4 mb-4">
             {{ isEditing ? 'Editar Aluno' : 'Cadastro de Aluno' }}
         </h1>
 
-        <v-card>
+        <v-card :loading="isLoadingData">
+            <v-overlay
+                :model-value="isLoadingData"
+                contained
+                class="align-center justify-center"
+            >
+                <v-progress-circular
+                    indeterminate
+                    color="primary"
+                    size="64"
+                ></v-progress-circular>
+            </v-overlay>
+
             <v-card-text>
                 <StudentForm
                     :loading="isLoading"
                     :validation-errors="validationErrors"
                     :initial-data="studentData"
                     @submit="handleSubmit"
+                    @cancel="handleCancel"
                 />
             </v-card-text>
         </v-card>

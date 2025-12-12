@@ -11,5 +11,5 @@ export interface Student {
 export interface StudentFilters {
     page?: number;
     limit?: number;
-    search?: string;
+    name?: string;
 }

@@ -13,6 +13,7 @@
 
     interface Emits {
         submit: [data: createStudentSchemaType];
+        cancel: [];
     }
 
     const props = withDefaults(defineProps<Props>(), {
@@ -101,57 +102,51 @@
 
 <template>
     <v-form @submit.prevent="handleSubmit">
-        <v-container>
-            <v-row>
-                <v-col cols="12" md="6">
-                    <v-text-field
-                        v-model="studentForm.name"
-                        label="Nome"
-                        :error-messages="errors.name"
-                        required
-                    ></v-text-field>
-                </v-col>
+        <v-row>
+            <v-col cols="12">
+                <v-text-field
+                    v-model="studentForm.name"
+                    label="Nome"
+                    :error-messages="errors.name"
+                    required
+                ></v-text-field>
+            </v-col>
 
-                <v-col cols="12" md="6">
-                    <v-text-field
-                        v-model="studentForm.email"
-                        label="Email"
-                        type="email"
-                        :error-messages="errors.email"
-                        required
-                    ></v-text-field>
-                </v-col>
+            <v-col cols="12">
+                <v-text-field
+                    v-model="studentForm.email"
+                    label="Email"
+                    type="email"
+                    :error-messages="errors.email"
+                    required
+                ></v-text-field>
+            </v-col>
 
-                <v-col cols="12" md="6">
-                    <v-text-field
-                        v-model="studentForm.cpf"
-                        label="CPF"
-                        :error-messages="errors.cpf"
-                        required
-                    ></v-text-field>
-                </v-col>
-            </v-row>
+            <v-col cols="12">
+                <v-text-field
+                    v-model="studentForm.cpf"
+                    label="CPF"
+                    :error-messages="errors.cpf"
+                    required
+                ></v-text-field>
+            </v-col>
+        </v-row>
 
-            <v-row>
-                <v-col class="d-flex justify-end gap-2">
-                    <!-- <v-btn
-                        color="grey-darken-1"
-                        variant="outlined"
-                        class="mr-2"
-                        :disabled="props.loading"
-                        @click="$router.back()"
-                    >
-                        Cancelar
-                    </v-btn> -->
-                    <v-btn
-                        color="primary"
-                        type="submit"
-                        :loading="props.loading"
-                    >
-                        Salvar
-                    </v-btn>
-                </v-col>
-            </v-row>
-        </v-container>
+        <v-row>
+            <v-col cols="12" class="d-flex justify-end ga-4">
+                <v-btn
+                    color="grey-darken-1"
+                    variant="outlined"
+                    :disabled="props.loading"
+                    @click="emit('cancel')"
+                >
+                    Cancelar
+                </v-btn>
+
+                <v-btn color="primary" type="submit" :loading="props.loading">
+                    Salvar
+                </v-btn>
+            </v-col>
+        </v-row>
     </v-form>
 </template>
