@@ -43,7 +43,7 @@
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
-                const field = issue.path[0] as 'email' | 'password';
+                const field = issue.path[0] as string;
                 errors.value[field] = errors.value[field] || [];
                 errors.value[field]?.push(issue.message);
             });

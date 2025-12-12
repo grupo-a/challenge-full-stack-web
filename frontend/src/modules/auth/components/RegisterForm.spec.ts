@@ -34,9 +34,6 @@ describe('RegisterForm.vue', () => {
         it('should render the register form', () => {
             const wrapper = mountRegisterForm();
 
-            expect(wrapper.find('[data-testid="name-input"]').exists()).toBe(
-                true
-            );
             expect(wrapper.find('[data-testid="email-input"]').exists()).toBe(
                 true
             );
@@ -66,17 +63,6 @@ describe('RegisterForm.vue', () => {
     });
 
     describe('Inputs', () => {
-        it('should update name input value', async () => {
-            const wrapper = mountRegisterForm();
-            const nameInput = wrapper.find('[data-testid="name-input"] input');
-
-            await nameInput.setValue('João Silva');
-
-            expect((nameInput.element as HTMLInputElement).value).toBe(
-                'João Silva'
-            );
-        });
-
         it('should update email input value', async () => {
             const wrapper = mountRegisterForm();
             const emailInput = wrapper.find(
@@ -145,41 +131,9 @@ describe('RegisterForm.vue', () => {
             expect(registerButton.attributes('disabled')).toBeUndefined();
         });
 
-        it('should show name error message with short name', async () => {
-            const wrapper = mountRegisterForm();
-
-            await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('Jo');
-            await wrapper
-                .find('[data-testid="email-input"] input')
-                .setValue('test@example.com');
-            await wrapper
-                .find('[data-testid="password-input"] input')
-                .setValue('password123');
-            await wrapper
-                .find('[data-testid="confirm-password-input"] input')
-                .setValue('password123');
-            await flushPromises();
-
-            await wrapper.find('form').trigger('submit');
-            await flushPromises();
-
-            const nameInput = wrapper.find('[data-testid="name-input"]');
-            const errorMessages = nameInput.findAll('.v-messages__message');
-
-            expect(errorMessages.length).toBeGreaterThan(0);
-            expect(
-                errorMessages.some((msg) => msg.text().includes('no mínimo 3'))
-            ).toBe(true);
-        });
-
         it('should show email error message with invalid email', async () => {
             const wrapper = mountRegisterForm();
 
-            await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('invalid-email');
@@ -209,9 +163,6 @@ describe('RegisterForm.vue', () => {
             const wrapper = mountRegisterForm();
 
             await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
-            await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
             await wrapper
@@ -239,9 +190,6 @@ describe('RegisterForm.vue', () => {
         it('should show error message when passwords do not match', async () => {
             const wrapper = mountRegisterForm();
 
-            await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
@@ -275,9 +223,6 @@ describe('RegisterForm.vue', () => {
             const wrapper = mountRegisterForm();
 
             await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('Jo');
-            await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('invalid-email');
             await wrapper
@@ -291,9 +236,6 @@ describe('RegisterForm.vue', () => {
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            let nameInputErrors = wrapper
-                .find('[data-testid="name-input"]')
-                .findAll('.v-messages__message');
             let emailInputErrors = wrapper
                 .find('[data-testid="email-input"]')
                 .findAll('.v-messages__message');
@@ -305,16 +247,12 @@ describe('RegisterForm.vue', () => {
                 .findAll('.v-messages__message');
 
             const totalErrors =
-                nameInputErrors.length +
                 emailInputErrors.length +
                 passwordInputErrors.length +
                 confirmPasswordInputErrors.length;
 
             expect(totalErrors).toBeGreaterThan(0);
 
-            await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
@@ -329,9 +267,6 @@ describe('RegisterForm.vue', () => {
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            nameInputErrors = wrapper
-                .find('[data-testid="name-input"]')
-                .findAll('.v-messages__message');
             emailInputErrors = wrapper
                 .find('[data-testid="email-input"]')
                 .findAll('.v-messages__message');
@@ -343,7 +278,6 @@ describe('RegisterForm.vue', () => {
                 .findAll('.v-messages__message');
 
             const totalErrorsAfter =
-                nameInputErrors.length +
                 emailInputErrors.length +
                 passwordInputErrors.length +
                 confirmPasswordInputErrors.length;
@@ -355,9 +289,6 @@ describe('RegisterForm.vue', () => {
             const wrapper = mountRegisterForm();
 
             await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
-            await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
             await wrapper
@@ -368,9 +299,6 @@ describe('RegisterForm.vue', () => {
                 .setValue('password123');
             await flushPromises();
 
-            const nameErrors = wrapper.findAll(
-                '[data-testid="name-input"] .v-messages__message'
-            );
             const emailErrors = wrapper.findAll(
                 '[data-testid="email-input"] .v-messages__message'
             );
@@ -382,8 +310,7 @@ describe('RegisterForm.vue', () => {
             );
 
             expect(
-                nameErrors.length +
-                    emailErrors.length +
+                emailErrors.length +
                     passwordErrors.length +
                     confirmPasswordErrors.length
             ).toBe(0);
@@ -394,9 +321,6 @@ describe('RegisterForm.vue', () => {
         it('should emit submit event with register data on submit', async () => {
             const wrapper = mountRegisterForm();
 
-            await wrapper
-                .find('[data-testid="name-input"] input')
-                .setValue('João Silva');
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
@@ -412,16 +336,14 @@ describe('RegisterForm.vue', () => {
             await flushPromises();
 
             const submitEvents = wrapper.emitted('submit');
-            if (submitEvents) {
-                expect(submitEvents[0]).toEqual([
-                    {
-                        name: 'João Silva',
-                        email: 'test@example.com',
-                        password: 'password123',
-                        confirmPassword: 'password123'
-                    }
-                ]);
-            }
+            expect(submitEvents).toBeTruthy();
+            expect(submitEvents![0]).toEqual([
+                {
+                    email: 'test@example.com',
+                    password: 'password123',
+                    confirmPassword: 'password123'
+                }
+            ]);
         });
 
         it('should emit login event when clicking login link', async () => {

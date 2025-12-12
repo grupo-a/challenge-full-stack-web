@@ -27,11 +27,7 @@
 
     const showPassword = ref(false);
     const showConfirmPassword = ref(false);
-    const errors = ref<{
-        email?: string[];
-        password?: string[];
-        confirmPassword?: string[];
-    }>({});
+    const errors = ref<Record<string, string[]>>({});
 
     watch(
         () => props.validationErrors,
@@ -42,12 +38,10 @@
         }
     );
 
-    const validateForm = (): boolean => {
-        const result = registerSchema.safeParse(registerForm.value);
+    const validateForm = (): RegisterSchemaType | null => {
+        errors.value = {};
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
+        const result = registerSchema.safeParse(registerForm.value);
 
         if (!result.success) {
             result.error.issues.forEach((issue) => {
@@ -58,14 +52,11 @@
                 errors.value[field] = errors.value[field] || [];
                 errors.value[field]?.push(issue.message);
             });
-            return false;
+
+            return null;
         }
 
-        if (!props.validationErrors) {
-            errors.value = {};
-        }
-
-        return true;
+        return result.data;
     };
 
     const handleSubmit = async () => {
