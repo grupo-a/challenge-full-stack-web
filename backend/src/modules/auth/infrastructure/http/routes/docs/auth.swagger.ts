@@ -28,6 +28,19 @@
  *             role:
  *               type: string
  *               example: "ADMIN"
+ *     ProfileResponse:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           format: uuid
+ *           example: "550e8400-e29b-41d4-a716-446655440000"
+ *         email:
+ *           type: string
+ *           example: "admin@example.com"
+ *         role:
+ *           type: string
+ *           example: "ADMIN"
  */
 
 /**
@@ -163,4 +176,40 @@
  *                   errors:
  *                     - field: "confirmPassword"
  *                       message: "Passwords don't match"
+ */
+
+/**
+ * @swagger
+ * /auth/me:
+ *   get:
+ *     summary: Get current user profile
+ *     description: Retrieves the profile information of the currently authenticated user.
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Profile retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ProfileResponse'
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SimpleError'
+ *             example:
+ *               status: "error"
+ *               message: "Unauthorized"
+ *       404:
+ *         description: User not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SimpleError'
+ *             example:
+ *               status: "error"
+ *               message: "User not found"
  */

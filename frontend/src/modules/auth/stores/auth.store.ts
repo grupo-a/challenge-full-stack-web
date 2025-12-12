@@ -65,7 +65,8 @@ export const useAuthStore = defineStore('auth', () => {
             const userData = await authService.getProfile();
             user.value = userData;
         } catch (e) {
-            logout();
+            const err = e as { message: string };
+            error.value = err.message || 'Erro ao buscar perfil do usuário';
             throw e;
         } finally {
             isLoading.value = false;
