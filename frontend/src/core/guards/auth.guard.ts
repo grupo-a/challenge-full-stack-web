@@ -8,8 +8,6 @@ export const authGuard = (
 ): void => {
     const authStore = useAuthStore();
 
-    console.log('Auth Guard - isAuthenticated:', authStore.isAuthenticated);
-
     if (authStore.isAuthenticated) {
         next();
         return;

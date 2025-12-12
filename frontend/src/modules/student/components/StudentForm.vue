@@ -58,8 +58,6 @@
     const validateForm = (): boolean => {
         const result = createStudentSchema.safeParse(studentForm.value);
 
-        console.log('Validation result:', result);
-
         if (!props.validationErrors) {
             errors.value = {};
         }
@@ -79,22 +77,15 @@
             errors.value = {};
         }
 
-        console.log('Form is valid');
-
         return true;
     };
 
     const handleSubmit = async () => {
-        console.log('Submitting form with data:', studentForm.value);
         if (props.validationErrors) {
             errors.value = {};
         }
 
-        console.log('Validating form...');
-
         if (!validateForm()) return;
-
-        console.log('Emitting submit event with data:', studentForm.value);
 
         emit('submit', studentForm.value);
     };

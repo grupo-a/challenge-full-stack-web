@@ -10,8 +10,6 @@
     const studentId = computed(() => route.params.id as string);
     const isEditing = computed(() => !!studentId.value);
 
-    console.log(isEditing.value ? 'Editing student' : 'Creating new student');
-
     const {
         handleCreateStudent,
         handleUpdateStudent,
