@@ -1,0 +1,46 @@
+services:
+  postgres:
+    container_name: student-portal-postgres
+    image: postgres:17-alpine
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: mydatabase
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  api:
+    container_name: student-portal-api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: student-portal-api:latest
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://user:password@postgres:5432/mydatabase
+      API_URL: http://localhost:3000
+      JWT_SECRET: your-super-secret-jwt-key-change-in-production
+    depends_on:
+      - postgres
+    restart: always
+
+  web:
+    container_name: student-portal-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: student-portal-frontend:latest
+    ports:
+      - '80:80'
+    depends_on:
+      - api
+    restart: always
+
+volumes:
+  postgres_data:
