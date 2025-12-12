@@ -11,7 +11,7 @@ export function errorHandler(
 ): Response {
   if (error instanceof ZodError) {
     return res.status(422).json({
-      status: "error",
+      status: 422,
       message: "Field validation error",
       errors: error.issues.map((issue) => ({
         field: issue.path.join("."),
@@ -21,16 +21,16 @@ export function errorHandler(
   }
 
   if (error instanceof UnprocessableEntityError) {
-    return res.status(error.statusCode).json({
-      status: "error",
-      message: error.message,
+    return res.status(422).json({
+      status: 422,
+      message: "Unprocessable Entity",
       errors: error.errors,
     });
   }
 
   if (error instanceof AppError) {
     return res.status(error.statusCode).json({
-      status: "error",
+      status: error.statusCode,
       message: error.message,
     });
   }
@@ -38,7 +38,7 @@ export function errorHandler(
   console.error(error);
 
   return res.status(500).json({
-    status: "error",
+    status: 500,
     message: "Internal server error",
   });
 }

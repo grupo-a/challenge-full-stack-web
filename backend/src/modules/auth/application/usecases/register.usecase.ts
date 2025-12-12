@@ -54,8 +54,6 @@ export class RegisterUseCase {
       throw new BadRequestError("Failed to create user");
     }
 
-    console.log("ENV JWT SECRET:", process.env.JWT_SECRET);
-
     const token = jwt.sign(
       {
         id: createdUser.id,
