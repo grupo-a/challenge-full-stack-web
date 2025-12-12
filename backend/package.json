@@ -10,7 +10,8 @@
     "start": "node dist/server.js",
     "test": "vitest run",
     "lint": "npx eslint ./src/**",
-    "lint:fix": "npx eslint ./src/** --fix"
+    "lint:fix": "npx eslint ./src/** --fix",
+    "db:seed": "tsx src/common/infrastructure/database/drizzle/db/seed.ts"
   },
   "keywords": [],
   "author": "",
