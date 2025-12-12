@@ -6,7 +6,7 @@ import StudentFormView from './views/StudentFormView.vue';
 export const studentRoutes: RouteRecordRaw[] = [
     {
         path: '/students',
-        name: 'students-list',
+        name: 'students',
         component: StudentsListView,
         meta: {
             requiresAuth: true,

@@ -14,7 +14,6 @@
     };
 
     const menuItems = [
-        { title: 'Dashboard', icon: 'mdi-view-dashboard', route: '/' },
         { title: 'Alunos', icon: 'mdi-account-multiple', route: '/students' },
         { title: 'Perfil', icon: 'mdi-account', route: '/profile' }
     ];
