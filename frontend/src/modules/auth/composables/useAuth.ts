@@ -32,10 +32,10 @@ export const useAuth = () => {
 
             return true;
         } catch (err) {
-            const formattedErrors = formatApiValidationErrors(err);
+            const formattedApiErrors = formatApiValidationErrors(err);
 
-            if (formattedErrors) {
-                validationErrors.value = formattedErrors;
+            if (formattedApiErrors) {
+                validationErrors.value = formattedApiErrors;
             }
 
             notification.error(authStore.error || 'Falha ao realizar login');
@@ -45,6 +45,7 @@ export const useAuth = () => {
 
     async function handleRegister(data: RegisterSchemaType): Promise<boolean> {
         validationErrors.value = null;
+
         try {
             await authStore.register(data);
 
@@ -54,10 +55,10 @@ export const useAuth = () => {
 
             return true;
         } catch (err) {
-            const formattedErrors = formatApiValidationErrors(err);
+            const formattedApiErrors = formatApiValidationErrors(err);
 
-            if (formattedErrors) {
-                validationErrors.value = formattedErrors;
+            if (formattedApiErrors) {
+                validationErrors.value = formattedApiErrors;
             }
 
             notification.error(authStore.error || 'Falha ao criar conta');
