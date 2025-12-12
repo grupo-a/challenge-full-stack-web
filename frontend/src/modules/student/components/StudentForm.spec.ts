@@ -251,7 +251,7 @@ describe('StudentForm.vue', () => {
             const wrapper = mountStudentForm();
             const nameInput = wrapper.find('[data-testid="name-input"] input');
 
-            await nameInput.setValue('AB'); // Too short
+            await nameInput.setValue('AB');
 
             const form = wrapper.find('form');
             await form.trigger('submit.prevent');

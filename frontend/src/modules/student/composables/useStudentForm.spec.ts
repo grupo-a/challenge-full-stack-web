@@ -1,12 +1,3 @@
-/**
- * Testes unitários para useStudentForm.ts
- *
- * Valida os requisitos do README.md:
- * - Cadastrar novo aluno
- * - Editar cadastro de aluno
- * - Retorna mensagem de sucesso
- * - Retorna para tela de Consulta de Alunos
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { flushPromises } from '@vue/test-utils';
 import { useStudentForm } from './useStudentForm';
@@ -15,7 +6,6 @@ import type { Student } from '../types/student.types';
 
 const mockPush = vi.fn();
 
-// Mock vue-router
 vi.mock('vue-router', () => ({
     useRouter: () => ({
         push: mockPush
@@ -25,7 +15,6 @@ vi.mock('vue-router', () => ({
     })
 }));
 
-// Mock notifications
 const mockNotification = {
     success: vi.fn(),
     error: vi.fn(),
@@ -37,7 +26,6 @@ vi.mock('@/core/composables/useNotification', () => ({
     useNotification: () => mockNotification
 }));
 
-// Mock service
 vi.mock('../services/students.service', () => ({
     studentsService: {
         list: vi.fn(),
@@ -48,7 +36,6 @@ vi.mock('../services/students.service', () => ({
     }
 }));
 
-// Mock formatApiValidationErrors
 vi.mock('@/core/utils', () => ({
     formatApiValidationErrors: vi.fn((err) => {
         if (err?.response?.data?.errors) {
