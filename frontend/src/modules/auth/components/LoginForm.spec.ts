@@ -145,11 +145,9 @@ describe('LoginForm.vue', () => {
                 .setValue('123');
             await flushPromises();
 
-            // Trigger submit para validar
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            // Verifica se a mensagem de erro é exibida no DOM
             const passwordInput = wrapper.find(
                 '[data-testid="password-input"]'
             );
@@ -172,11 +170,9 @@ describe('LoginForm.vue', () => {
                 .setValue('password123');
             await flushPromises();
 
-            // Trigger submit para validar
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            // Verifica se a mensagem de erro é exibida no DOM
             const emailInput = wrapper.find('[data-testid="email-input"]');
             const errorMessages = emailInput.findAll('.v-messages__message');
 
@@ -189,7 +185,6 @@ describe('LoginForm.vue', () => {
         it('should clear error messages on valid input', async () => {
             const wrapper = mountLoginForm();
 
-            // Primeiro, adiciona dados inválidos
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('invalid-email');
@@ -198,11 +193,9 @@ describe('LoginForm.vue', () => {
                 .setValue('123');
             await flushPromises();
 
-            // Trigger submit para validar
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            // Verifica que há erros
             let emailInputErrors = wrapper
                 .find('[data-testid="email-input"]')
                 .findAll('.v-messages__message');
@@ -214,7 +207,6 @@ describe('LoginForm.vue', () => {
                 emailInputErrors.length + passwordInputErrors.length
             ).toBeGreaterThan(0);
 
-            // Agora adiciona dados válidos
             await wrapper
                 .find('[data-testid="email-input"] input')
                 .setValue('test@example.com');
@@ -223,11 +215,9 @@ describe('LoginForm.vue', () => {
                 .setValue('password123');
             await flushPromises();
 
-            // Trigger submit novamente
             await wrapper.find('form').trigger('submit');
             await flushPromises();
 
-            // Verifica que os erros foram limpos
             emailInputErrors = wrapper
                 .find('[data-testid="email-input"]')
                 .findAll('.v-messages__message');
@@ -251,7 +241,6 @@ describe('LoginForm.vue', () => {
                 .setValue('password123');
             await flushPromises();
 
-            // Não deve ter erros antes do submit
             const emailInput = wrapper.find('[data-testid="email-input"]');
             const passwordInput = wrapper.find(
                 '[data-testid="password-input"]'

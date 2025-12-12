@@ -10,7 +10,6 @@ import { authService } from '../services/auth.service';
 import type { AuthResponse, User } from '../types/auth.types';
 import { UserRole } from '../types/auth.types';
 
-// Mock do authService
 vi.mock('../services/auth.service', () => ({
     authService: {
         login: vi.fn(),
@@ -23,7 +22,6 @@ vi.mock('../services/auth.service', () => ({
     }
 }));
 
-// Dados mock para os testes
 const mockUser: User = {
     id: '1',
     name: 'Test User',
@@ -40,7 +38,6 @@ const mockAuthResponse: AuthResponse = {
 
 describe('useAuthStore', () => {
     beforeEach(() => {
-        // Cria uma nova instância do Pinia antes de cada teste
         setActivePinia(createPinia());
         vi.clearAllMocks();
     });
@@ -193,7 +190,6 @@ describe('useAuthStore', () => {
             vi.mocked(authService.getToken).mockReturnValue('valid-token');
             vi.mocked(authService.getProfile).mockResolvedValue(mockUser);
 
-            // Precisa criar uma nova store após configurar os mocks
             setActivePinia(createPinia());
             const store = useAuthStore();
             await store.initialize();

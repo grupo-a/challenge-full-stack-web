@@ -1,15 +1,9 @@
-/**
- * Testes unitários para os guards de autenticação
- *
- * Este arquivo testa os route guards (authGuard e guestGuard)
- */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { setActivePinia, createPinia } from 'pinia';
 import { authGuard, guestGuard } from '@/core/guards/auth.guard';
 import { useAuthStore } from '@/modules/auth/stores/auth.store';
 import type { RouteLocationNormalized, NavigationGuardNext } from 'vue-router';
 
-// Mock das rotas
 const createMockRoute = (overrides = {}): RouteLocationNormalized => ({
     path: '/test',
     name: 'test',
@@ -34,7 +28,7 @@ describe('Auth Guards', () => {
     describe('authGuard', () => {
         it('should allow access if user is authenticated', () => {
             const store = useAuthStore();
-            // Simula usuário autenticado definindo o token diretamente
+
             store.$patch({ token: 'valid-token' });
 
             const toRoute = createMockRoute({
@@ -53,7 +47,7 @@ describe('Auth Guards', () => {
 
         it('should redirect to login if user is not authenticated', () => {
             const store = useAuthStore();
-            // Garante que não há token
+
             store.$patch({ token: null });
 
             const toRoute = createMockRoute({

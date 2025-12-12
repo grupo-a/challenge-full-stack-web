@@ -97,17 +97,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     return {
-        // State
         user,
         token,
         isLoading,
         error,
-        // Getters
+
         isAuthenticated,
         userName,
         userEmail,
         isAdmin,
-        // Actions
+
         login,
         register,
         fetchProfile,
