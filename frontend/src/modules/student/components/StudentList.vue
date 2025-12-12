@@ -40,7 +40,7 @@
         class="elevation-1"
         hover
         :mobile-breakpoint="600"
-        :style="{ minHeight: '400px' }"
+        :style="{ minHeight: '60vh' }"
         @update:page="emit('update:page', $event)"
         @update:items-per-page="emit('update:itemsPerPage', $event)"
     >
