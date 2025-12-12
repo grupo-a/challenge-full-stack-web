@@ -150,8 +150,7 @@ describe('studentsService', () => {
             await expect(
                 studentsService.update('1', {
                     name: 'Test',
-                    email: 'test@email.com',
-                    cpf: '12345678901'
+                    email: 'test@email.com'
                 })
             ).rejects.toThrow('Update failed');
         });

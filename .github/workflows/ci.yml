@@ -13,6 +13,12 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    env:
+      PORT: 3000
+      NODE_ENV: develop
+      API_URL: http://localhost:3000
+      DATABASE_URL: postgresql://user:password@localhost:5432/mydatabase
+      JWT_SECRET: my-secret
 
     steps:
       - name: Checkout
@@ -33,14 +39,11 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Run build
+        run: pnpm build
+
       - name: Run tests
         run: pnpm test
-        env:
-          PORT: 3000
-          NODE_ENV: develop
-          API_URL: http://localhost:3000
-          DATABASE_URL: postgresql://user:password@localhost:5432/mydatabase
-          JWT_SECRET: my-secret
 
   frontend-tests:
     name: Frontend Tests
@@ -70,3 +73,8 @@ jobs:
 
       - name: Build
         run: pnpm build
+
+      - name: Run tests
+        run: pnpm test
+        env:
+          VITE_API_URL: http://localhost:3000

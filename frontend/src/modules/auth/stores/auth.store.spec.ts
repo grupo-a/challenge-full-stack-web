@@ -125,7 +125,6 @@ describe('useAuthStore', () => {
 
             const store = useAuthStore();
             await store.register({
-                name: 'Test User',
                 email: 'test@example.com',
                 password: 'password123',
                 confirmPassword: 'password123'
@@ -147,7 +146,6 @@ describe('useAuthStore', () => {
 
             await expect(
                 store.register({
-                    name: 'Test',
                     email: 'test@example.com',
                     password: 'password123',
                     confirmPassword: 'password123'

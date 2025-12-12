@@ -187,8 +187,7 @@ describe('useStudentForm', () => {
 
             await handleUpdateStudent('1', {
                 name: 'Test',
-                email: 'test@email.com',
-                cpf: '12345678901'
+                email: 'test@email.com'
             });
             await flushPromises();
 
