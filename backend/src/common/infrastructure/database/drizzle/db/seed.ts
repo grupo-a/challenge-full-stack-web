@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { db } from "./client";
-import { studentsTable } from "./schema";
+import { studentsTable, usersTable } from "./schema";
+import * as bcrypt from "bcryptjs";
 
 const studentsData = [
   {
@@ -109,6 +110,22 @@ async function seed() {
   console.log("🌱 Starting seed...");
 
   try {
+    // Create admin user
+    console.log("👤 Creating admin user...");
+    await db.delete(usersTable);
+
+    const hashedPassword = await bcrypt.hash("admin123", 10);
+    const adminUser = await db
+      .insert(usersTable)
+      .values({
+        email: "admin@admin.com",
+        password: hashedPassword,
+        role: "ADMIN",
+      })
+      .returning();
+
+    console.log(`✅ Admin user created: ${adminUser[0]?.email}`);
+
     console.log("🗑️  Clearing existing students...");
     await db.delete(studentsTable);
 
@@ -128,6 +145,9 @@ async function seed() {
     });
 
     console.log("\n🎉 Seed completed successfully!");
+    console.log("📧 Admin credentials:");
+    console.log("   Email: admin@admin.com");
+    console.log("   Password: admin123");
   } catch (error) {
     console.error("❌ Error during seed:", error);
     process.exit(1);
